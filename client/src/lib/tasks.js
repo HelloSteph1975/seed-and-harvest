@@ -30,11 +30,13 @@ export function suggestStart(plant, place, howStarted, todayISO) {
   // Where there is no frost, seeds started indoors go in ahead of the planting months by the plant's lead time.
   const lead = mid(plant, 'start_indoors');
   if (place.frost_free && howStarted === 'seed_indoors' && lead != null) {
-    const months = windows.find(w => w.kind === 'frost_free');
-    if (months) {
-      const back = Math.round(lead * 7);
-      const shifted = { kind: 'start_indoors', from: addDays(months.from, -back), to: addDays(months.to, -back) };
-      return { window: shifted.to >= todayISO ? shifted : { ...shifted, from: addDays(shifted.from, 365), to: addDays(shifted.to, 365) } };
+    // Planting windows that haven't ended by today plus the lead time, moved back by it, are the
+    // indoor starts that haven't ended by today.
+    const back = Math.round(lead * 7);
+    const later = plantingWindows(plant, place, addDays(todayISO, back)).windows.filter(w => w.kind === 'frost_free');
+    if (later.length) {
+      const first = later.reduce((a, b) => (b.from < a.from ? b : a));
+      return { window: { kind: 'start_indoors', from: addDays(first.from, -back), to: addDays(first.to, -back) } };
     }
   }
   const window = windows.find(w => WINDOW_KINDS[howStarted].includes(w.kind));

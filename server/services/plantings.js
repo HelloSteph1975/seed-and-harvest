@@ -100,7 +100,8 @@ export const tasksOf = (db, id) => db.prepare(`SELECT t.*, g.title AS guide_titl
   FROM tasks t LEFT JOIN guides g ON g.id = t.guide_id AND g.deleted_at IS NULL
   WHERE t.planting_id = ? AND t.deleted_at IS NULL ORDER BY t.due_on, t.id`).all(id)
   .map(({ guide_title, guide_key, guide_starter, ...t }) => ({ ...t, guide: guide_title != null ? { id: t.guide_id, title: guide_title, starter_key: guide_key, is_starter: guide_starter } : null }));
-export const logOf = (db, id) => db.prepare('SELECT * FROM planting_log WHERE planting_id = ? AND deleted_at IS NULL ORDER BY on_date DESC, id DESC').all(id);
+export const logOf = (db, id) => db.prepare(`SELECT l.*, t.kind AS task_kind FROM planting_log l LEFT JOIN tasks t ON t.id = l.task_id
+  WHERE l.planting_id = ? AND l.deleted_at IS NULL ORDER BY l.on_date DESC, l.id DESC`).all(id);
 
 export function getPlanting(db, id) {
   const row = one(db, `${SELECT} WHERE pl.id = ? AND pl.deleted_at IS NULL`, id);
@@ -109,7 +110,7 @@ export function getPlanting(db, id) {
 }
 
 function saveTasks(db, planting, plant, skipKinds = new Set()) {
-  for (const t of linkGuides(db, plant.id, planTasks(plant, planting.how_started, planting.start_on))) {
+  for (const t of linkGuides(db, plant, planTasks(plant, planting.how_started, planting.start_on))) {
     if (skipKinds.has(t.kind)) continue;
     repos(db).tasks.create({ planting_id: planting.id, kind: t.kind, due_on: t.due_on, end_on: t.end_on, guide_id: t.guide_id, auto: 1 });
   }
@@ -119,7 +120,10 @@ function saveTasks(db, planting, plant, skipKinds = new Set()) {
 // removed and a fresh set replaces them. Edited, finished and owner-added tasks stay as they are,
 // and a kept task the rules made stands in for the new one of its kind.
 function redoTasks(db, planting, plant) {
-  db.prepare(`DELETE FROM tasks WHERE planting_id = ? AND auto = 1 AND edited = 0 AND done_on IS NULL AND deleted_at IS NULL
+  const untouched = 'SELECT id FROM tasks WHERE planting_id = ? AND auto = 1 AND edited = 0 AND done_on IS NULL AND deleted_at IS NULL';
+  // A log entry in the Trash keeps its date and note but lets go of a task about to be replaced.
+  db.prepare(`UPDATE planting_log SET task_id = NULL WHERE deleted_at IS NOT NULL AND task_id IN (${untouched})`).run(planting.id);
+  db.prepare(`DELETE FROM tasks WHERE id IN (${untouched})
     AND id NOT IN (SELECT task_id FROM planting_log WHERE task_id IS NOT NULL)`).run(planting.id);
   const kept = db.prepare('SELECT DISTINCT kind FROM tasks WHERE planting_id = ? AND auto = 1 AND deleted_at IS NULL').all(planting.id).map(r => r.kind);
   saveTasks(db, planting, plant, new Set(kept));
@@ -128,7 +132,7 @@ function redoTasks(db, planting, plant) {
 // What a planting would make, without saving anything.
 export function previewPlanting(db, body) {
   const { data, plant } = parse(db, body, null);
-  return { tasks: describeTasks(db, linkGuides(db, plant.id, planTasks(plant, data.how_started, data.start_on))) };
+  return { tasks: describeTasks(db, linkGuides(db, plant, planTasks(plant, data.how_started, data.start_on))) };
 }
 
 export function createPlanting(db, body) {

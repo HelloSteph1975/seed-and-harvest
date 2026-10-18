@@ -21,4 +21,10 @@ describe('suggesting a start date', () => {
     expect(startFrom({ from: '2027-01-23', to: '2027-02-06' }, '2027-01-30')).toBe('2027-01-30');
     expect(startFrom({ from: '2027-01-23', to: '2027-02-06' }, '2027-01-10')).toBe('2027-01-23');
   });
+
+  it('a frost-free place picks the next indoor start that has not ended, across all planting seasons', () => {
+    const tomatillo = { kind: 'vegetable', start_indoors_min: 6, start_indoors_max: 8, transplant_min: 1, transplant_max: 3, frost_free_months: [2, 3, 4, 7, 8] };
+    const s = suggestStart(tomatillo, VALLEY, 'seed_indoors', '2027-04-01');
+    expect(s.window).toMatchObject({ kind: 'start_indoors', from: '2027-05-13', to: '2027-07-13' });
+  });
 });

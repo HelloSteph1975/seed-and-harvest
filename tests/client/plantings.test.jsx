@@ -48,6 +48,7 @@ function stub() {
     if (url === '/api/settings') return json({ language: pack ? 'es' : 'en', time_zone: 'UTC', units: 'us' });
     if (url.startsWith('/api/locales/')) return json(url.endsWith('/content') ? pack.content : pack.ui);
     if (url === '/api/places') return json(PLACES);
+    if (url === '/api/spaces?place_id=2') return new Promise(() => {});
     if (url.startsWith('/api/spaces?')) return json(SPACES);
     if (url === '/api/plants') return json(PLANTS);
     if (url === '/api/plants/1') return json(TOMATO);
@@ -105,6 +106,16 @@ describe('plan a planting', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Save' }));
     await vi.waitFor(() => expect(calls.find(c => c.url === '/api/plantings' && c.m === 'POST')).toBeDefined());
     expect(calls.find(c => c.url === '/api/plantings' && c.m === 'POST').body).toMatchObject({ plant_id: 1, space_id: 5, how_started: 'seed_indoors', start_on: '2027-02-01' });
+  });
+
+  it('changing the place clears the space at once, so nothing saves under the old place while spaces load', async () => {
+    stub();
+    PLACES.push({ id: 2, name: 'Valley', status: 'future', hemisphere: 'north', frost_free: 1, wet_months: [], time_zone: 'UTC', sort_order: 10 });
+    mount('/plantings/new?plant=1');
+    await userEvent.type(await screen.findByLabelText('Start date'), '2027-02-01');
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: 'Save' })).toBeEnabled());
+    await userEvent.selectOptions(screen.getByLabelText('Place'), '2');
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
   });
 
   it('how started offers Mature plant only for perennials', async () => {

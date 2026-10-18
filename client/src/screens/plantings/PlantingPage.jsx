@@ -154,7 +154,7 @@ function PlantingPage({ id }) {
               <ul className="list log">
                 {p.log.map(x => (
                   <li key={x.id}>
-                    <span className="grow"><strong>{t(`log.kind.${x.kind}`)}</strong> <span className="muted">{dayText(x.on_date, language, today)}</span>
+                    <span className="grow"><strong>{x.kind === 'note' && !x.note && x.task_kind ? t(`tasks.kind.${x.task_kind}`) : t(`log.kind.${x.kind}`)}</strong> <span className="muted">{dayText(x.on_date, language, today)}</span>
                       {x.note && <><br /><span>{x.note}</span></>}</span>
                     <Button size="sm" variant="ghost" icon={Pencil} aria-label={t('log.editOne', { day: dayText(x.on_date, language, today) })} onClick={() => setEntry(x)} />
                     <Button size="sm" variant="ghost" icon={Trash2} aria-label={t('log.deleteOne', { day: dayText(x.on_date, language, today) })} onClick={() => removeEntry(x)} />

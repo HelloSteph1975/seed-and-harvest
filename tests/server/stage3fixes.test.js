@@ -75,4 +75,34 @@ describe('review fixes', () => {
     expect(planTasks({ kind: 'vegetable', starter_key: 'plant.potato', spacing_cm: 30 }, 'seed_outdoors', '2027-03-20').map(x => x.kind)).not.toContain('thin');
     expect(planTasks({ kind: 'vegetable', starter_key: 'plant.carrot', spacing_cm: 5 }, 'seed_outdoors', '2027-03-20').map(x => x.kind)).toContain('thin');
   });
+
+  it('a task ticked then unticked still moves with the start date', async () => {
+    const s = await setup();
+    let tr = s.p.tasks.find(x => x.kind === 'transplant');
+    tr = (await t.http().patch(`/api/tasks/${tr.id}`).send({ version: tr.version, done_on: '2027-04-11' })).body;
+    await t.http().patch(`/api/tasks/${tr.id}`).send({ version: tr.version, done_on: null }).expect(200);
+    const full = (await t.http().get(`/api/plantings/${s.p.id}`)).body;
+    const moved = (await t.http().patch(`/api/plantings/${s.p.id}`).send({ version: full.version, start_on: '2027-02-17' })).body;
+    const trs = moved.tasks.filter(x => x.kind === 'transplant');
+    expect(trs.map(x => x.due_on)).toEqual(['2027-04-18']);
+    await t.http().post('/api/trash/empty').send({}).expect(200);
+  });
+
+  it('a microgreen sowing links its microgreen guide', async () => {
+    const place = await post('/api/places', { name: 'Springfield', last_frost: '04-01' });
+    const rack = await post('/api/spaces', { place_id: place.id, name: 'Rack', kind: 'microgreen_rack' });
+    const pea = await post('/api/plants', { name: 'Pea shoots', kind: 'microgreen', days_min: 10, days_max: 14 });
+    const g = await post('/api/guides', { title: 'Growing pea shoots', stage: 'microgreens', plant_id: pea.id, steps: ['Soak'] });
+    const p = await post('/api/plantings', { space_id: rack.id, plant_id: pea.id, how_started: 'seed_indoors', start_on: '2027-02-10' });
+    expect(p.tasks.find(x => x.kind === 'sow').guide.id).toBe(g.id);
+    expect(p.tasks.find(x => x.kind === 'harvest').guide.id).toBe(g.id);
+  });
+
+  it('a finished task with no name tells the log what it was', async () => {
+    const s = await setup();
+    const pot = s.p.tasks.find(x => x.kind === 'pot_up');
+    await t.http().patch(`/api/tasks/${pot.id}`).send({ version: pot.version, done_on: '2027-03-03' }).expect(200);
+    const log = (await t.http().get(`/api/plantings/${s.p.id}`)).body.log;
+    expect(log[0]).toMatchObject({ kind: 'note', task_kind: 'pot_up' });
+  });
 });

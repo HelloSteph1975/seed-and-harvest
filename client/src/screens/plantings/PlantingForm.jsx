@@ -103,6 +103,7 @@ function PlantingForm({ record, places, plants, settings, defaults }) {
   const plant = useResource(v.plant_id ? `/api/plants/${v.plant_id}` : null).data;
   const today = useToday(place?.time_zone || settings.time_zone);
   const starts = allowedStarts(plant);
+  const spaceShown = Boolean(spaces.data?.some(s => String(s.id) === v.space_id));
 
   // Keep the space, variety and way of starting valid when the place or plant changes.
   useEffect(() => {
@@ -116,7 +117,7 @@ function PlantingForm({ record, places, plants, settings, defaults }) {
 
   const suggestion = suggestStart(plant, place, v.how_started, today);
   const fit = plant && place ? zoneFit(plant, place) : 'unknown';
-  const previewBody = v.space_id && v.plant_id && v.how_started && /^\d{4}-\d{2}-\d{2}$/.test(v.start_on)
+  const previewBody = spaceShown && v.plant_id && v.how_started && /^\d{4}-\d{2}-\d{2}$/.test(v.start_on)
     ? { space_id: Number(v.space_id), plant_id: Number(v.plant_id), how_started: v.how_started, start_on: v.start_on } : null;
   const preview = usePreview(previewBody);
 
@@ -125,7 +126,7 @@ function PlantingForm({ record, places, plants, settings, defaults }) {
   const keep = async () => done(await f.keepMine());
   const takeTheirs = () => { setTarget(s => ({ ...s, version: f.conflict.version })); f.takeTheirs(pick); };
   const cancel = () => navigate(target ? `/plantings/${target.id}` : '/plantings');
-  const canSave = Boolean(v.space_id && v.plant_id && v.how_started && v.start_on) && (!record || f.dirty);
+  const canSave = spaceShown && Boolean(v.plant_id && v.how_started && v.start_on) && (!record || f.dirty);
   const plantName = p => starterText(tc, p, 'name', p.name);
   const day = iso => dayText(iso, language, today);
 
@@ -134,7 +135,7 @@ function PlantingForm({ record, places, plants, settings, defaults }) {
       <form className="entry-form" onSubmit={save}>
         <fieldset disabled={f.saving}>
           <Field label={t('spaces.place')}>
-            <Select value={v.place_id} onChange={e => f.set('place_id', e.target.value)} options={places.map(p => ({ value: String(p.id), label: p.name }))} />
+            <Select value={v.place_id} onChange={e => { f.set('place_id', e.target.value); f.set('space_id', ''); }} options={places.map(p => ({ value: String(p.id), label: p.name }))} />
           </Field>
           <Field label={t('plantings.space')} error={f.errors.space_id}
             hint={spaces.data && spaces.data.length === 0 ? t('plantings.noSpaces') : undefined}>

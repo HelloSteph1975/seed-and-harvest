@@ -48,9 +48,15 @@ export function planTasks(plant, howStarted, startOn) {
 
 // The guide each task opens: the plant's own guide for that stage, else a basics guide for it.
 // Hardening off has its own basics guide. A mature plant also takes its pot guide.
-export function guideFor(db, plantId, kind) {
+export function guideFor(db, plant, kind) {
+  const plantId = plant.id;
   const stage = TASK_STAGE[kind];
   if (!stage) return null;
+  if (plant.kind === 'microgreen' && (kind === 'sow' || kind === 'harvest')) {
+    const own = db.prepare("SELECT id FROM guides WHERE plant_id = ? AND stage = 'microgreens' AND deleted_at IS NULL ORDER BY sort_order, id LIMIT 1").get(plantId);
+    const basics = own ?? db.prepare("SELECT id FROM guides WHERE plant_id IS NULL AND stage = 'microgreens' AND deleted_at IS NULL ORDER BY id LIMIT 1").get();
+    if (basics) return basics.id;
+  }
   if (kind === 'harden_off') {
     return db.prepare("SELECT id FROM guides WHERE starter_key = 'guide.basics.harden-off' AND deleted_at IS NULL").get()?.id ?? null;
   }
@@ -66,8 +72,8 @@ export function guideFor(db, plantId, kind) {
   return null;
 }
 
-export function linkGuides(db, plantId, tasks) {
-  return tasks.map(t => ({ ...t, guide_id: guideFor(db, plantId, t.kind) }));
+export function linkGuides(db, plant, tasks) {
+  return tasks.map(t => ({ ...t, guide_id: guideFor(db, plant, t.kind) }));
 }
 
 // The tasks as the form previews them: with each guide's title and supplies.
