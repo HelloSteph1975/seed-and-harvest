@@ -6,6 +6,7 @@ import { LoadState } from '../../components/LoadState.jsx';
 import { Field, TextInput, TextArea, Select, Checkbox } from '../../components/Field.jsx';
 import { ToggleGroup } from '../../components/ToggleGroup.jsx';
 import { ChipsInput } from '../../components/ChipsInput.jsx';
+import { ListEditor, withKeys } from '../../components/ListEditor.jsx';
 import { ConflictDialog } from '../../components/ConflictDialog.jsx';
 import { useSettings } from '../../components/SettingsProvider.jsx';
 import { useResource } from '../../lib/useResource.js';
@@ -36,6 +37,11 @@ const pickWith = units => p => ({
   frost_free_months: p?.frost_free_months ?? [],
   companions: p?.companions ?? [],
   avoid: p?.avoid ?? [],
+  // Each row keeps the weight it opened with, so an untouched row goes back exactly as stored.
+  preserves: withKeys((p?.preserves ?? []).map(x => {
+    const shown = toDisplay('weight', x.raw_kg, units);
+    return { form: x.form, unit: x.unit, weight: shown, startText: shown, startKg: x.raw_kg };
+  })),
 });
 
 export function PlantFormRoute() {
@@ -81,6 +87,17 @@ function bodyOf(v, start, units) {
       bad[k] = { code: 'not_size' };
     }
   }
+  body.preserves = [];
+  v.preserves.forEach((x, i) => {
+    if (!x.form.trim() && !x.unit.trim() && !x.weight.trim()) return;
+    try {
+      const kg = keepOrConvert('weight', x.weight, x.startText ?? null, x.startKg ?? null, units);
+      body.preserves.push({ form: x.form.trim(), unit: x.unit.trim(), raw_kg: kg });
+    } catch (err) {
+      if (!(err instanceof UnitError)) throw err;
+      bad[`preserves.${i}`] = { code: 'not_size' };
+    }
+  });
   if (Object.keys(bad).length) throw new ApiError('Please fix the highlighted fields.', 400, Object.fromEntries(Object.keys(bad).map(k => [k, ''])), null, { detailCodes: bad });
   return body;
 }
@@ -168,6 +185,24 @@ function PlantForm({ record, units, onCreated }) {
             {size('yield_kg', t('plants.yield'))}
             {choice('yield_per', t('plants.yieldPerLabel'), ['plant', 'meter'].map(s => ({ value: s, label: t(`plants.per.${s}`) })), '')}
           </div>
+
+          <fieldset className="field field-group">
+            <legend>{t('plants.preserves')}</legend>
+            <p className="field-hint">{t('plants.preservesHint')}</p>
+            <ListEditor items={v.preserves} onChange={list => f.set('preserves', list)} max={10}
+              blank={() => ({ form: '', unit: '', weight: '' })} addLabel={t('plants.addPreserve')}
+              itemLabel={(item, i) => item.form || t('plants.preserve', { n: i + 1 })}
+              renderItem={(item, i, update) => (
+                <>
+                  <Field label={t('plants.preserve', { n: i + 1 })} className="supply-name"><TextInput value={item.form} onChange={e => update({ form: e.target.value })} maxLength={80} /></Field>
+                  <Field label={t('plants.preserveUnit', { n: i + 1 })} className="supply-amount"><TextInput value={item.unit} onChange={e => update({ unit: e.target.value })} maxLength={40} /></Field>
+                  <Field label={t('plants.preserveWeight', { n: i + 1, unit: unitLabel('weight', units) })} error={f.errors[`preserves.${i}`]} className="supply-amount">
+                    <TextInput inputMode="decimal" value={item.weight} onChange={e => update({ weight: e.target.value })} maxLength={10} />
+                  </Field>
+                </>
+              )} />
+            {f.errors.preserves && <small className="field-error" role="alert">{f.errors.preserves}</small>}
+          </fieldset>
 
           <h2>{t('plants.section.companions')}</h2>
           <ChipsInput id="companions" label={t('plants.companions')} value={v.companions} max={30} keepCase onChange={next => f.set('companions', next)} />

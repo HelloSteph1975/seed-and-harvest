@@ -69,6 +69,12 @@ describe('starter content files', () => {
     const potato = readFolder(CONTENT_DIR, 'guides').find(g => g.starter_key === 'guide.potato.harvest');
     expect(potato.steps.some(s => /green/i.test(s) && /don.t eat|do not eat/i.test(s))).toBe(true);
   });
+  it('the garlic guide agrees with its timing, and the raised bed soil amount adds up', () => {
+    const guides = readFolder(CONTENT_DIR, 'guides');
+    expect(guides.find(g => g.starter_key === 'guide.garlic.sow_outdoors').summary).toMatch(/around your first fall frost/i);
+    const bed = guides.find(g => g.starter_key === 'guide.basics.raised-beds').supplies.find(x => /topsoil/i.test(x.name));
+    expect(bed.amount).toMatch(/0\.9 m³/);
+  });
   it('the test fixtures are well formed', () => expect(problems(BASE_CONTENT)).toEqual([]));
   it('the real starter content is well formed', () => expect(problems(CONTENT_DIR)).toEqual([]));
 });

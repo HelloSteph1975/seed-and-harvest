@@ -10,7 +10,7 @@ import { useT } from '../i18n/I18nProvider.jsx';
 
 export function Trash() {
   const { t, tc, language } = useT();
-  const title = item => tc(item.starter_key, 'name', item.title);
+  const title = item => tc(item.starter_key, item.type === 'guide' ? 'title' : 'name', item.title);
   const confirm = useConfirm();
   const toast = useToast();
   const list = useResource('/api/trash');

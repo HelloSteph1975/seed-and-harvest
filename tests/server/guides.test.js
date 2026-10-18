@@ -94,4 +94,21 @@ describe('guides', () => {
     const gid = (await t.http().get(`/api/plants/${tomato.id}`)).body.guides[0].id;
     expect((await t.http().get(`/api/guides/${gid}`)).body.plant).toMatchObject({ name: 'Test tomato', starter_key: 'plant.test-tomato', is_starter: 1 });
   });
+
+  it('a conflict hands back the whole guide, steps and supplies included', async () => {
+    const g = await add(BASICS);
+    await t.http().patch(`/api/guides/${g.id}`).send({ version: 1, title: 'A' });
+    const res = await t.http().patch(`/api/guides/${g.id}`).send({ version: 1, title: 'B' });
+    expect(res.status).toBe(409);
+    expect(res.body.current).toMatchObject({ title: 'A', steps: BASICS.steps });
+    expect(res.body.current.supplies).toHaveLength(2);
+  });
+
+  it('a basics guide other guides build on cannot be turned into a plant guide', async () => {
+    const basics = await add(BASICS);
+    await add({ title: 'Starting tomatoes', stage: 'start_indoors', plant_id: plant.id, basics_id: basics.id, steps: ['Sow.'] });
+    const res = await t.http().patch(`/api/guides/${basics.id}`).send({ version: 1, plant_id: plant.id });
+    expect(res.status).toBe(400);
+    expect(res.body.detailCodes.plant_id.code).toBe('has_links');
+  });
 });

@@ -410,5 +410,12 @@
   "guides.deleteBody": "You can restore it from the Trash.",
   "guides.deleted": "{name} is in the Trash.",
   "error.not_basics": "Pick one of the basics guides",
-  "error.plant_gone": "That plant is gone."
+  "error.plant_gone": "That plant is gone.",
+  "error.has_links": "Other guides build on this one, so it has to stay a basics guide.",
+  "plants.preserves": "Preserving amounts",
+  "plants.preservesHint": "How much fresh produce goes into one jar or bag of each preserve. Used later for pantry planning.",
+  "plants.addPreserve": "Add a preserving amount",
+  "plants.preserve": "Preserve {n}",
+  "plants.preserveUnit": "Unit {n}",
+  "plants.preserveWeight": "Fresh weight {n} ({unit})"
 }

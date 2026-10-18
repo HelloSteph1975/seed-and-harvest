@@ -87,4 +87,24 @@ describe('plant form', () => {
     await vi.waitFor(() => expect(calls.find(c => c.m === 'POST')).toBeDefined());
     expect(calls.find(c => c.m === 'POST').body).toMatchObject({ name: 'Chard', kind: 'vegetable', frost_free_months: [3, 10] });
   });
+
+describe('preserving amounts', () => {
+  it('adds one, in pounds, and an untouched one saves back exactly', async () => {
+    stub();
+    plant.preserves = [{ form: 'Quart of sauce', unit: 'quart', raw_kg: 2.3 }];
+    mount('/library/plants/1/edit');
+    expect(await screen.findByDisplayValue('Quart of sauce')).toBeInTheDocument();
+    expect(screen.getByLabelText('Fresh weight 1 (lb)')).toHaveValue('5.1');
+    await userEvent.click(screen.getByRole('button', { name: 'Add a preserving amount' }));
+    await userEvent.type(screen.getByLabelText('Preserve 2'), 'Pint of salsa');
+    await userEvent.type(screen.getByLabelText('Unit 2'), 'pint');
+    await userEvent.type(screen.getByLabelText('Fresh weight 2 (lb)'), '2');
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await vi.waitFor(() => expect(calls.find(c => c.m === 'PATCH')).toBeDefined());
+    const sent = calls.find(c => c.m === 'PATCH').body.preserves;
+    expect(sent[0]).toEqual({ form: 'Quart of sauce', unit: 'quart', raw_kg: 2.3 });
+    expect(sent[1].form).toBe('Pint of salsa');
+    expect(sent[1].raw_kg).toBeCloseTo(0.90718474, 6);
+  });
+});
 });

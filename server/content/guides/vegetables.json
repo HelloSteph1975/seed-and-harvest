@@ -554,9 +554,9 @@
   },
   {
     "starter_key": "guide.garlic.sow_outdoors",
-    "content_version": 1,
+    "content_version": 2,
     "title": "Planting garlic in fall",
-    "summary": "Four to eight weeks before your first fall frost.",
+    "summary": "Around your first fall frost, from about two weeks before to two weeks after.",
     "stage": "sow_outdoors",
     "plant": "plant.garlic",
     "basics": "guide.basics.sow-outdoors",

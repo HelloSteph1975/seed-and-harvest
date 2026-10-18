@@ -143,4 +143,12 @@ describe('starter plants', () => {
     seedStarter(t.ctx.db, { content: t.ctx.config.contentDir });
     expect((await t.http().get('/api/plants')).body.map(x => x.starter_key)).not.toContain('plant.test-tomato');
   });
+
+  it('a conflict hands back the whole plant, preserving amounts included', async () => {
+    const p = await add(TOMATO);
+    await t.http().patch(`/api/plants/${p.id}`).send({ version: 1, name: 'A' });
+    const res = await t.http().patch(`/api/plants/${p.id}`).send({ version: 1, name: 'B' });
+    expect(res.status).toBe(409);
+    expect(res.body.current.preserves).toHaveLength(2);
+  });
 });

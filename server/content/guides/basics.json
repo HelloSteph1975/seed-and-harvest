@@ -15,12 +15,25 @@
       "When seedlings have two sets of true leaves, keep the strongest one in each cell and snip the rest at soil level. Move them to bigger pots if they outgrow their cells before planting day."
     ],
     "supplies": [
-      { "name": "Seed trays or small pots with drainage holes" },
-      { "name": "Seed-starting mix" },
-      { "name": "Clear lid or plastic cover" },
-      { "name": "Grow light or a bright south-facing window" },
-      { "name": "Heat mat", "amount": "optional, for peppers, tomatoes and eggplant" },
-      { "name": "Plant labels and a marker" }
+      {
+        "name": "Seed trays or small pots with drainage holes"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Clear lid or plastic cover"
+      },
+      {
+        "name": "Grow light or a bright south-facing window"
+      },
+      {
+        "name": "Heat mat",
+        "amount": "optional, for peppers, tomatoes and eggplant"
+      },
+      {
+        "name": "Plant labels and a marker"
+      }
     ]
   },
   {
@@ -38,8 +51,13 @@
       "Once they can stay out day and night without wilting, they're ready to plant."
     ],
     "supplies": [
-      { "name": "A tray or box to carry seedlings in and out" },
-      { "name": "Shade cloth or a shady porch", "amount": "for the first days" }
+      {
+        "name": "A tray or box to carry seedlings in and out"
+      },
+      {
+        "name": "Shade cloth or a shady porch",
+        "amount": "for the first days"
+      }
     ]
   },
   {
@@ -58,10 +76,19 @@
       "Keep the soil evenly moist for the first week or two while new roots grow. Shade cloth for a few hot afternoons helps."
     ],
     "supplies": [
-      { "name": "Trowel" },
-      { "name": "Compost", "amount": "a handful per plant" },
-      { "name": "Watering can or hose with a gentle spray" },
-      { "name": "Mulch such as straw or shredded leaves" }
+      {
+        "name": "Trowel"
+      },
+      {
+        "name": "Compost",
+        "amount": "a handful per plant"
+      },
+      {
+        "name": "Watering can or hose with a gentle spray"
+      },
+      {
+        "name": "Mulch such as straw or shredded leaves"
+      }
     ]
   },
   {
@@ -80,11 +107,22 @@
       "When seedlings are a few centimeters tall, thin them to the final spacing by snipping the extras at soil level."
     ],
     "supplies": [
-      { "name": "Garden rake" },
-      { "name": "Hoe or a stick for furrows" },
-      { "name": "Seeds" },
-      { "name": "Watering can with a fine rose" },
-      { "name": "Row cover or a board", "amount": "optional" }
+      {
+        "name": "Garden rake"
+      },
+      {
+        "name": "Hoe or a stick for furrows"
+      },
+      {
+        "name": "Seeds"
+      },
+      {
+        "name": "Watering can with a fine rose"
+      },
+      {
+        "name": "Row cover or a board",
+        "amount": "optional"
+      }
     ]
   },
   {
@@ -102,9 +140,16 @@
       "Keep soil covered with mulch or a cover crop between plantings, so rain doesn't crust it and weeds don't move in."
     ],
     "supplies": [
-      { "name": "Compost bin or a corner for a pile" },
-      { "name": "Garden fork" },
-      { "name": "Dry browns", "amount": "leaves, straw or cardboard" }
+      {
+        "name": "Compost bin or a corner for a pile"
+      },
+      {
+        "name": "Garden fork"
+      },
+      {
+        "name": "Dry browns",
+        "amount": "leaves, straw or cardboard"
+      }
     ]
   },
   {
@@ -122,15 +167,25 @@
       "Mulch keeps moisture in and cuts watering a lot. Containers dry out much faster than beds and may need water daily in summer."
     ],
     "supplies": [
-      { "name": "Drip line or soaker hose", "amount": "ideal" },
-      { "name": "Watering can or hose with a gentle spray" },
-      { "name": "Rain gauge", "amount": "optional" },
-      { "name": "Mulch" }
+      {
+        "name": "Drip line or soaker hose",
+        "amount": "ideal"
+      },
+      {
+        "name": "Watering can or hose with a gentle spray"
+      },
+      {
+        "name": "Rain gauge",
+        "amount": "optional"
+      },
+      {
+        "name": "Mulch"
+      }
     ]
   },
   {
     "starter_key": "guide.basics.raised-beds",
-    "content_version": 1,
+    "content_version": 2,
     "title": "Making a raised bed",
     "summary": "A raised bed warms early, drains well and keeps your soil loose because nobody walks on it.",
     "stage": "general",
@@ -143,9 +198,16 @@
       "Add compost every season and keep the surface mulched."
     ],
     "supplies": [
-      { "name": "Untreated boards, stone or blocks for the sides" },
-      { "name": "Plain cardboard" },
-      { "name": "Topsoil and compost", "amount": "about 0.3 m³ (10 cu ft) per 1.2 × 2.4 m (4 × 8 ft) bed, 30 cm deep" }
+      {
+        "name": "Untreated boards, stone or blocks for the sides"
+      },
+      {
+        "name": "Plain cardboard"
+      },
+      {
+        "name": "Topsoil and compost",
+        "amount": "about 0.9 m³ (32 cu ft) per 1.2 × 2.4 m (4 × 8 ft) bed, 30 cm (1 ft) deep"
+      }
     ]
   },
   {
@@ -164,11 +226,21 @@
       "Group pots together and move them into shade during heat waves, or into a greenhouse or garage before frost."
     ],
     "supplies": [
-      { "name": "Pots with drainage holes" },
-      { "name": "Potting mix" },
-      { "name": "Compost" },
-      { "name": "Organic fertilizer" },
-      { "name": "Pot feet or bricks" }
+      {
+        "name": "Pots with drainage holes"
+      },
+      {
+        "name": "Potting mix"
+      },
+      {
+        "name": "Compost"
+      },
+      {
+        "name": "Organic fertilizer"
+      },
+      {
+        "name": "Pot feet or bricks"
+      }
     ]
   },
   {
@@ -187,10 +259,20 @@
       "Clean out old plants between seasons and check for pests under leaves each week, since bugs love the shelter as much as plants do."
     ],
     "supplies": [
-      { "name": "Max-min thermometer" },
-      { "name": "Shade cloth", "amount": "30 to 50%" },
-      { "name": "Row cover" },
-      { "name": "Water barrels", "amount": "optional, for winter warmth" }
+      {
+        "name": "Max-min thermometer"
+      },
+      {
+        "name": "Shade cloth",
+        "amount": "30 to 50%"
+      },
+      {
+        "name": "Row cover"
+      },
+      {
+        "name": "Water barrels",
+        "amount": "optional, for winter warmth"
+      }
     ]
   },
   {
@@ -209,9 +291,15 @@
       "Can, freeze, dry or ferment the extras at their peak. Follow tested recipes for canning, such as those from a university extension service, to keep food safe."
     ],
     "supplies": [
-      { "name": "Harvest basket or bucket" },
-      { "name": "Scissors or pruners" },
-      { "name": "Crates or mesh bags for storage" }
+      {
+        "name": "Harvest basket or bucket"
+      },
+      {
+        "name": "Scissors or pruners"
+      },
+      {
+        "name": "Crates or mesh bags for storage"
+      }
     ]
   }
 ]

@@ -1,5 +1,6 @@
 import { transaction } from '../db/connection.js';
 import { repos } from '../db/repos.js';
+import { VersionConflict } from '../db/repo.js';
 import { HttpError, notFound, notInTrash } from '../http.js';
 import { validate } from '../validate.js';
 import { addErrors, collector, invalid } from './fields.js';
@@ -52,6 +53,10 @@ function parse(db, body, existing) {
   if (c.any()) throw invalid(c.errors, c.codes);
   if (data.plant_id != null && data.plant_id !== existing?.plant_id && !livePlant(db, data.plant_id)) {
     c.fail('plant_id', 'That plant is gone', 'plant_gone');
+  }
+  if (existing && existing.plant_id == null && data.plant_id != null
+    && db.prepare('SELECT 1 FROM guides WHERE basics_id = ?').get(existing.id)) {
+    c.fail('plant_id', 'Other guides build on this one, so it has to stay a basics guide', 'has_links');
   }
   const merged = { ...existing, ...data };
   if (merged.basics_id != null && (Object.hasOwn(data, 'basics_id') || Object.hasOwn(data, 'plant_id'))) {
@@ -113,7 +118,12 @@ export function updateGuide(db, id, body, version) {
     const changed = Object.keys(data).some(k => !same(data[k], existing[k]))
       || (steps && !same(steps, stepsFor(db, id))) || (supplies && !same(supplies, suppliesFor(db, id)));
     if (existing.is_starter && changed) data.is_starter = 0;
-    const row = repos(db).guides.update(id, data, version);
+    let row;
+    try { row = repos(db).guides.update(id, data, version); } catch (err) {
+      // The other window's version, with its steps and supplies, so "Use theirs" shows all of it.
+      if (err instanceof VersionConflict) throw new VersionConflict(getGuide(db, id));
+      throw err;
+    }
     if (!row) throw notFound();
     setChildren(db, id, steps, supplies);
     return getGuide(db, id);

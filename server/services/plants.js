@@ -1,6 +1,7 @@
 import { transaction } from '../db/connection.js';
 import { NOW } from '../db/migrations.js';
 import { repos } from '../db/repos.js';
+import { VersionConflict } from '../db/repo.js';
 import { HttpError, notFound, notInTrash } from '../http.js';
 import { validate } from '../validate.js';
 import { addErrors, collector, invalid, monthList, textList } from './fields.js';
@@ -134,7 +135,11 @@ export function updatePlant(db, id, body, version) {
     // A save that changes nothing keeps the Starter tag.
     const changed = Object.keys(data).some(k => !same(data[k], existing[k])) || (preserves && !same(preserves, preservesFor(db, id)));
     if (existing.is_starter && changed) data.is_starter = 0;
-    const row = repos(db).plants.update(id, data, version);
+    let row;
+    try { row = repos(db).plants.update(id, data, version); } catch (err) {
+      if (err instanceof VersionConflict) throw new VersionConflict(getPlant(db, id));
+      throw err;
+    }
     if (!row) throw notFound();
     if (preserves) setPreserves(db, id, preserves);
     return getPlant(db, id);

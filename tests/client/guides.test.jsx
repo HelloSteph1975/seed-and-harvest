@@ -118,3 +118,22 @@ describe('guide page in Spanish', () => {
     expect(await screen.findByRole('link', { name: 'Jitomate' })).toHaveAttribute('href', '/library/plants/1');
   });
 });
+
+describe('guide conflict', () => {
+  it('Use theirs keeps the steps and supplies from the other window', async () => {
+    stub();
+    const ok = fetch.getMockImplementation();
+    fetch.mockImplementation(async (url, opts = {}) => {
+      if (url === '/api/guides/5' && opts.method === 'PATCH') {
+        return json({ error: 'changed', code: 'conflict', current: { ...guides[5], version: 9, steps: ['Their step.'], supplies: [{ name: 'Their tray', amount: null }] } }, 409);
+      }
+      return ok(url, opts);
+    });
+    mount('/library/guides/5/edit');
+    await userEvent.type(await screen.findByLabelText('Title'), '!');
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await userEvent.click(await screen.findByRole('button', { name: 'Reload the latest' }));
+    expect(await screen.findByDisplayValue('Their step.')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Their tray')).toBeInTheDocument();
+  });
+});
