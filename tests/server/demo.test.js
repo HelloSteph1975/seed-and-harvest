@@ -58,4 +58,18 @@ describe('demo seed', () => {
     expect(tasks.some(x => x.kind === 'harvest' && x.due_on <= today && x.end_on >= today)).toBe(true);
     expect(t.ctx.db.prepare('SELECT COUNT(*) n FROM tasks WHERE done_on IS NOT NULL').get().n).toBeGreaterThan(0);
   });
+
+  it('the demo has animals, a repeating series and a tray ready to cut', async () => {
+    t = makeTestContext({ contentDir: CONTENT_DIR });
+    seedDemo(t.ctx);
+    seedDemo(t.ctx);
+    expect((await t.http().get('/api/animals')).body.map(a => a.kind).sort()).toEqual(['chicken', 'goat']);
+    const home = (await t.http().get('/api/places')).body.find(p => p.name === 'Riverside Homestead');
+    const today = new Date().toISOString().slice(0, 10);
+    const trays = (await t.http().get(`/api/trays?place_id=${home.id}`)).body;
+    expect(trays.some(x => x.repeat_days && x.next_sow_on)).toBe(true);
+    expect(trays.some(x => x.status === 'growing' && x.harvest_on <= today)).toBe(true);
+    const gh = (await t.http().get(`/api/spaces?place_id=${home.id}`)).body.find(s => s.kind === 'greenhouse');
+    expect(gh.notes_winter).toBeTruthy();
+  });
 });

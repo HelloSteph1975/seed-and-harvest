@@ -1,5 +1,6 @@
 import { transaction } from '../db/connection.js';
 import { purgePlantingsWhere, trashPlantingsIn, untrashPlantingsIn } from './plantings.js';
+import { purgeTraysWhere, trashTraysIn, untrashTraysIn } from './trays.js';
 import { NOW } from '../db/migrations.js';
 import { repos } from '../db/repos.js';
 import { notFound, notInTrash } from '../http.js';
@@ -96,6 +97,7 @@ export function deletePlace(ctx, id) {
     db.prepare('UPDATE spaces SET deleted_at = ?, version = version + 1 WHERE place_id = ? AND deleted_at IS NULL').run(stamp, id);
     for (const s of spaces) cascadeDeletePhotos(ctx, 'space', s.id, stamp);
     trashPlantingsIn(ctx, spaces.map(s => s.id), stamp);
+    trashTraysIn(ctx, spaces.map(s => s.id), stamp);
   });
 }
 
@@ -103,6 +105,7 @@ export function deletePlace(ctx, id) {
 export function purgePlace(ctx, row) {
   for (const s of ctx.db.prepare('SELECT id FROM spaces WHERE place_id = ? AND deleted_at IS NOT NULL').all(row.id)) {
     purgePlantingsWhere(ctx, 'space_id', s.id);
+    purgeTraysWhere(ctx, 'space_id', s.id);
     purgeOwnerPhotos(ctx, 'space', s.id);
     repos(ctx.db).spaces.purge(s.id);
   }
@@ -125,6 +128,7 @@ export function restorePlace(ctx, id) {
       .run(id, row.deleted_at);
     for (const s of spaces) cascadeRestorePhotos(ctx, 'space', s.id, row.deleted_at);
     untrashPlantingsIn(ctx, spaces.map(s => s.id), row.deleted_at);
+    untrashTraysIn(ctx, spaces.map(s => s.id), row.deleted_at);
     return places.get(id);
   });
 }

@@ -22,6 +22,15 @@ describe('spaces', () => {
     expect(bed).toMatchObject({ place_id: home.id, name: 'Bed 1', kind: 'bed', length_m: 3.048, width_m: 1.2192, sun: 'full', version: 1 });
   });
 
+  it('greenhouse season notes save and are cleared when the space becomes a bed', async () => {
+    const gh = await add({ name: 'Big greenhouse', kind: 'greenhouse', notes_winter: 'Kale and lettuce', notes_summer: 'Shade cloth, peppers' });
+    expect(gh).toMatchObject({ notes_winter: 'Kale and lettuce', notes_summer: 'Shade cloth, peppers', notes_spring: null });
+    const bed = (await t.http().patch(`/api/spaces/${gh.id}`).send({ version: gh.version, kind: 'bed' })).body;
+    expect(bed).toMatchObject({ notes_winter: null, notes_summer: null });
+    const bad = await t.http().post('/api/spaces').send({ place_id: home.id, name: 'X', kind: 'greenhouse', notes_fall: 'x'.repeat(2001) });
+    expect(bad.status).toBe(400);
+  });
+
   it('a space needs a kind and a name', async () => {
     const res = await t.http().post('/api/spaces').send({ place_id: home.id });
     expect(res.status).toBe(400);

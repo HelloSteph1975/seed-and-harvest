@@ -8,6 +8,7 @@ import { useToday } from '../../lib/useToday.js';
 import { frostDay, monthName, needsFrostDates } from '../../lib/places.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 import { TaskList } from './TaskList.jsx';
+import { TrayList } from './TrayList.jsx';
 
 export function Today() {
   const { t } = useT();
@@ -62,6 +63,7 @@ function CurrentPlace({ place }) {
         ? <p><Link to={`/spaces?place=${place.id}`}>{t('today.spaceCount', { n })}</Link></p>
         : <p className="muted">{t('places.noSpaces')} <Link to={`/spaces/new?place=${place.id}`}>{t('spaces.add')}</Link></p>)}
     </section>
+    <TrayList place={place} today={today} />
     <TaskList place={place} today={today} />
     </>
   );

@@ -24,7 +24,7 @@ const matcher = (needle, pack) => (row, fields, extra = []) => {
   return texts.some(v => v && fold(v).includes(needle));
 };
 
-// One search over plants, guides, places, spaces, plantings and log entries, ignoring case and accents.
+// One search over plants, guides, places, spaces, plantings, log entries, trays and animals, ignoring case and accents.
 export function searchAll(db, dataDir, q) {
   const text = typeof q === 'string' ? q.trim() : '';
   if (text.length < MIN_QUERY || text.length > MAX_QUERY) {
@@ -68,6 +68,12 @@ export function searchAll(db, dataDir, q) {
     FROM planting_log l JOIN plantings pl ON pl.id = l.planting_id AND pl.deleted_at IS NULL JOIN plants p ON p.id = pl.plant_id
     WHERE l.deleted_at IS NULL AND l.note IS NOT NULL ORDER BY l.on_date DESC, l.id DESC`).filter(r => fold(r.note).includes(needle));
 
+  const trays = live(`SELECT tr.id, tr.notes, tr.status, tr.sown_on, p.name, p.starter_key, p.is_starter, s.name AS space_name
+    FROM trays tr JOIN plants p ON p.id = tr.plant_id JOIN spaces s ON s.id = tr.space_id
+    WHERE tr.deleted_at IS NULL ORDER BY tr.sown_on DESC, tr.id DESC`).filter(r => hit(r, ['name'], [r.notes]));
+  const animals = live('SELECT id, name, kind, notes FROM animals WHERE deleted_at IS NULL ORDER BY sort_order, name COLLATE NOCASE, id')
+    .filter(a => hit(a, ['name', 'notes']));
+
   return {
     q: text,
     groups: {
@@ -78,6 +84,9 @@ export function searchAll(db, dataDir, q) {
       spaces: group(spaces, ({ id, name, kind, place_id, place_name }) => ({ id, name, kind, place_id, place_name })),
       plantings: group(plantings, ({ id, name, starter_key, is_starter, variety_name, space_name, status }) => (
         { id, plant_name: name, plant_starter_key: starter_key, plant_is_starter: is_starter, variety_name, space_name, status })),
+      trays: group(trays, ({ id, status, sown_on, name, starter_key, is_starter, space_name }) => (
+        { id, status, sown_on, plant_name: name, plant_starter_key: starter_key, plant_is_starter: is_starter, space_name })),
+      animals: group(animals, ({ id, name, kind }) => ({ id, name, kind })),
       log: group(log, ({ id, note, kind, on_date, planting_id, name, starter_key, is_starter }) => (
         { id, note, kind, on_date, planting_id, plant_name: name, plant_starter_key: starter_key, plant_is_starter: is_starter })),
     },

@@ -54,6 +54,7 @@ function PlaceCalendar({ place, params, change }) {
   const view = params.get('view') === 'list' ? 'list' : 'month';
   const range = gridRange(month);
   const tasks = useResource(`/api/tasks?place_id=${place.id}&from=${range.from}&to=${range.to}`);
+  const trays = useResource(`/api/trays?place_id=${place.id}`);
   useEffect(() => { if (badMonth) change(p => p.delete('month'), { replace: true }); }, [badMonth]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openDay = params.get('day');
@@ -62,7 +63,7 @@ function PlaceCalendar({ place, params, change }) {
   const goToday = () => change(p => { p.delete('month'); p.delete('day'); });
   const setView = v => change(p => { if (v === 'list') p.set('view', 'list'); else p.delete('view'); });
   const selectDay = d => change(p => { if (d === day) p.delete('day'); else p.set('day', d); });
-  const days = tasks.data && byDay(tasks.data, place, range.from, range.to);
+  const days = tasks.data && trays.data && byDay(tasks.data, place, range.from, range.to, trays.data);
 
   return (
     <>
@@ -80,7 +81,7 @@ function PlaceCalendar({ place, params, change }) {
           </div>
         </div>
       </div>
-      <LoadState loading={!days} error={tasks.error} onRetry={tasks.reload}>
+      <LoadState loading={!days} error={tasks.error ?? trays.error} onRetry={() => { tasks.reload(); trays.reload(); }}>
         {days && (view === 'list' ? <CalendarList month={month} days={days} today={today} /> : (
           <div className="cal-month">
             <MonthGrid month={month} days={days} today={today} selected={day} onSelect={selectDay} />

@@ -5,7 +5,7 @@ const cache = new WeakMap();
 export const PLACE_COLUMNS = ['name', 'location', 'latitude', 'longitude', 'time_zone', 'hemisphere', 'zone', 'last_frost',
   'first_frost', 'frost_free', 'wet_months', 'status', 'notes', 'sort_order'];
 
-export const SPACE_COLUMNS = ['place_id', 'name', 'kind', 'length_m', 'width_m', 'pot_liters', 'tray_count', 'heated', 'sun', 'notes', 'sort_order'];
+export const SPACE_COLUMNS = ['place_id', 'name', 'kind', 'length_m', 'width_m', 'pot_liters', 'tray_count', 'heated', 'sun', 'notes', 'notes_spring', 'notes_summer', 'notes_fall', 'notes_winter', 'sort_order'];
 
 export const PHOTO_COLUMNS = ['owner_type', 'owner_id', 'filename', 'caption', 'is_cover', 'sort_order'];
 
@@ -19,6 +19,8 @@ export const GUIDE_COLUMNS = ['title', 'summary', 'plant_id', 'basics_id', 'stag
 
 export const PLANTING_COLUMNS = ['space_id', 'plant_id', 'variety_id', 'count', 'row_m', 'how_started', 'start_on', 'status', 'notes'];
 export const TASK_COLUMNS = ['planting_id', 'kind', 'title', 'due_on', 'end_on', 'done_on', 'guide_id', 'notes', 'auto', 'edited'];
+export const ANIMAL_COLUMNS = ['name', 'kind', 'notes', 'sort_order'];
+export const TRAY_COLUMNS = ['plant_id', 'space_id', 'animal_id', 'tray_count', 'seed_g', 'sown_on', 'harvest_on', 'status', 'harvested_on', 'series_id', 'repeat_days', 'notes'];
 export const LOG_COLUMNS = ['planting_id', 'on_date', 'kind', 'note', 'task_id'];
 
 const parseList = text => { try { const v = JSON.parse(text); return Array.isArray(v) ? v : []; } catch { return []; } };
@@ -42,6 +44,8 @@ export function repos(db) {
       plantings: createRepo(db, 'plantings', PLANTING_COLUMNS, { orderBy: 'start_on, id' }),
       tasks: createRepo(db, 'tasks', TASK_COLUMNS, { orderBy: 'due_on, id' }),
       log: createRepo(db, 'planting_log', LOG_COLUMNS, { orderBy: 'on_date DESC, id DESC' }),
+      animals: createRepo(db, 'animals', ANIMAL_COLUMNS, { orderBy: 'sort_order, name COLLATE NOCASE, id' }),
+      trays: createRepo(db, 'trays', TRAY_COLUMNS, { orderBy: 'sown_on DESC, id DESC' }),
     };
     cache.set(db, r);
   }

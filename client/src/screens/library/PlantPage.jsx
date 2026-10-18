@@ -182,6 +182,7 @@ function WhenToPlant({ plant }) {
 
 function Facts({ plant: p, text }) {
   const { t } = useT();
+  const others = new Map((useResource('/api/animals').data ?? []).map(x => [x.id, x.name]));
   const { settings } = useSettings();
   const units = settings?.units ?? 'us';
   const num = (kind, v) => `${toDisplay(kind, v, units)} ${unitLabel(kind, units)}`;
@@ -201,6 +202,7 @@ function Facts({ plant: p, text }) {
     p.kind === 'microgreen' && p.seed_g_per_tray != null && [t('plants.seedPerTray'), num('seed', p.seed_g_per_tray)],
     p.kind === 'microgreen' && p.safety_goats && [t('plants.goats'), t(`plants.safety.${p.safety_goats}`)],
     p.kind === 'microgreen' && p.safety_chickens && [t('plants.chickens'), t(`plants.safety.${p.safety_chickens}`)],
+    ...(p.kind === 'microgreen' ? (p.animal_safety ?? []).map(x => others.get(x.animal_id) && [t('plants.forAnimal', { animal: others.get(x.animal_id) }), t(`plants.safety.${x.safety}`)]) : []),
   ].filter(Boolean);
   if (!rows.length) return null;
   return (

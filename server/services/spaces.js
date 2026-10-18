@@ -5,6 +5,7 @@ import { validate } from '../validate.js';
 import { addErrors, collector, invalid } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
 import { purgePlantingsWhere, trashPlantingsIn, untrashPlantingsIn } from './plantings.js';
+import { purgeTraysWhere, trashTraysIn, untrashTraysIn } from './trays.js';
 
 export const SPACE_KINDS = ['bed', 'greenhouse', 'container', 'food_forest', 'microgreen_rack', 'seed_starting'];
 export const SUN = ['full', 'part', 'shade'];
@@ -20,6 +21,10 @@ export const SPACE_SCHEMA = {
   heated: 'bool',
   sun: SUN,
   notes: { type: 'string', maxLength: 2000 },
+  notes_spring: { type: 'string', maxLength: 2000 },
+  notes_summer: { type: 'string', maxLength: 2000 },
+  notes_fall: { type: 'string', maxLength: 2000 },
+  notes_winter: { type: 'string', maxLength: 2000 },
   sort_order: { type: 'int', min: 0, max: 10000 },
 };
 
@@ -27,13 +32,13 @@ export const SPACE_SCHEMA = {
 const SIZED = ['length_m', 'width_m'];
 export const KIND_FIELDS = {
   bed: SIZED,
-  greenhouse: [...SIZED, 'heated'],
+  greenhouse: [...SIZED, 'heated', 'notes_spring', 'notes_summer', 'notes_fall', 'notes_winter'],
   food_forest: SIZED,
   seed_starting: SIZED,
   container: ['pot_liters'],
   microgreen_rack: ['tray_count'],
 };
-const EMPTY = { length_m: null, width_m: null, pot_liters: null, tray_count: null, heated: 0 };
+const EMPTY = { length_m: null, width_m: null, pot_liters: null, tray_count: null, heated: 0, notes_spring: null, notes_summer: null, notes_fall: null, notes_winter: null };
 
 export const livePlace = (db, id) => Boolean(db.prepare('SELECT 1 FROM places WHERE id = ? AND deleted_at IS NULL').get(id));
 
@@ -74,6 +79,7 @@ export function deleteSpace(ctx, id, stamp = new Date().toISOString()) {
     if (!repos(ctx.db).spaces.remove(id, stamp)) throw notFound();
     cascadeDeletePhotos(ctx, 'space', id, stamp);
     trashPlantingsIn(ctx, [id], stamp);
+    trashTraysIn(ctx, [id], stamp);
   });
 }
 
@@ -87,6 +93,7 @@ export function restoreSpace(ctx, id) {
     repos(ctx.db).spaces.restore(id);
     cascadeRestorePhotos(ctx, 'space', id, row.deleted_at);
     untrashPlantingsIn(ctx, [id], row.deleted_at);
+    untrashTraysIn(ctx, [id], row.deleted_at);
     return repos(ctx.db).spaces.get(id);
   });
 }
@@ -94,6 +101,7 @@ export function restoreSpace(ctx, id) {
 // Its plantings and photos still in the Trash go first.
 export function purgeSpace(ctx, row) {
   purgePlantingsWhere(ctx, 'space_id', row.id);
+  purgeTraysWhere(ctx, 'space_id', row.id);
   purgeOwnerPhotos(ctx, 'space', row.id);
   repos(ctx.db).spaces.purge(row.id);
 }

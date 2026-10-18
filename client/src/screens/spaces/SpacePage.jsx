@@ -13,6 +13,8 @@ import { api } from '../../lib/api.js';
 import { errorText } from '../../lib/errors.js';
 import { sizeText } from '../../lib/spaces.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
+import { SEASONS, seasonOf } from '../../lib/seasons.js';
+import { useToday } from '../../lib/useToday.js';
 import { PlantingsOf } from '../plantings/PlantingsOf.jsx';
 
 export function SpacePageRoute() {
@@ -66,6 +68,7 @@ function SpacePage({ id }) {
               {s.sun && <><dt>{t('spaces.sun')}</dt><dd>{t(`spaces.sun.${s.sun}`)}</dd></>}
             </dl>
             {s.notes && s.notes.split(/\n\s*\n/).map((para, i) => <p key={i}>{para}</p>)}
+            {s.kind === 'greenhouse' && <SeasonNotes space={s} />}
             <PlantingsOf url={`/api/plantings?space_id=${s.id}`} title={t('plantings.inSpace')} empty={t('plantings.none')}
               addTo={`/plantings/new?place=${s.place_id}&space=${s.id}`} addLabel={t('plantings.addHere')} showPlant />
             <PhotoGallery ownerType="space" ownerId={s.id} />
@@ -74,5 +77,31 @@ function SpacePage({ id }) {
       </LoadState>
       <p><Link to="/spaces">{t('spaces.back')}</Link></p>
     </article>
+  );
+}
+
+// A greenhouse's notes for each season, the current one (at its place) first.
+function SeasonNotes({ space }) {
+  const { t } = useT();
+  const { settings } = useSettings();
+  const places = useResource('/api/places');
+  const place = places.data?.find(p => p.id === space.place_id);
+  const today = useToday(place?.time_zone || settings?.time_zone);
+  const now = seasonOf(Number(today.slice(5, 7)), place?.hemisphere);
+  const order = [now, ...SEASONS.filter(x => x !== now)];
+  // The season depends on the place's hemisphere, so wait for it rather than guess.
+  if (!places.data) return null;
+  const written = order.filter(x => space[`notes_${x}`]);
+  return (
+    <section aria-labelledby="season-notes">
+      <h2 id="season-notes">{t('spaces.seasonNotes')}</h2>
+      {written.length === 0 && <p className="muted">{t('spaces.seasonNotesNone')}</p>}
+      {written.map(x => (
+        <div key={x} className={x === now ? 'card season-now' : 'season'}>
+          <h3>{x === now ? t('spaces.thisSeason', { season: t(`spaces.season.${x}`) }) : t(`spaces.season.${x}`)}</h3>
+          {space[`notes_${x}`].split(/\n\s*\n/).map((para, i) => <p key={i}>{para}</p>)}
+        </div>
+      ))}
+    </section>
   );
 }

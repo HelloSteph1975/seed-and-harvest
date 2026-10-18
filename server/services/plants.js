@@ -7,6 +7,7 @@ import { validate } from '../validate.js';
 import { addErrors, collector, invalid, monthList, textList } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
 import { livePlantingCount, purgePlantingsWhere } from './plantings.js';
+import { liveTrayCount, purgeTraysWhere } from './trays.js';
 
 export const PLANT_KINDS = ['vegetable', 'herb', 'microgreen', 'fruit_tree', 'shrub', 'vine'];
 export const SAFETY = ['safe', 'small', 'avoid'];
@@ -60,7 +61,19 @@ function preservesOf(v, c) {
   return v.map(p => ({ form: p.form.trim(), unit: p.unit.trim(), raw_kg: p.raw_kg }));
 }
 
-function parse(body, existing) {
+// Ratings for animals of kind "other" (goats and chickens have their own plant fields). Undefined when absent.
+function animalSafetyOf(db, v, c) {
+  if (v === undefined) return undefined;
+  if (v === null) return [];
+  const ok = Array.isArray(v) && v.length <= 50 && v.every(x => x && Number.isInteger(x.animal_id) && SAFETY.includes(x.safety))
+    && new Set(v.map(x => x.animal_id)).size === v.length;
+  if (!ok) { c.fail('animal_safety', 'Each rating needs one of your other animals and safe, small or avoid', 'bad_format'); return undefined; }
+  // A rating for an animal that is gone or is now a goat or chicken is left out.
+  return v.filter(x => db.prepare("SELECT 1 FROM animals WHERE id = ? AND kind = 'other'").get(x.animal_id))
+    .map(x => ({ animal_id: x.animal_id, safety: x.safety }));
+}
+
+function parse(body, existing, db) {
   const c = collector();
   const src = body ?? {};
   const r = validate(PLANT_SCHEMA, src, { partial: Boolean(existing) });
@@ -73,18 +86,30 @@ function parse(body, existing) {
     if (list !== undefined) data[key] = list;
   }
   const preserves = preservesOf(src.preserves, c);
+  let animalSafety = db ? animalSafetyOf(db, src.animal_safety, c) : undefined;
   if (c.any()) throw invalid(c.errors, c.codes);
   const merged = { ...existing, ...data };
   for (const [lo, hi] of RANGES) {
     if (merged[lo] != null && merged[hi] != null && merged[lo] > merged[hi]) c.fail(hi, 'This must not be below the first number', 'range_order');
   }
   if (c.any()) throw invalid(c.errors, c.codes);
-  if ((data.kind ?? existing?.kind) !== 'microgreen') for (const k of MICROGREEN_ONLY) data[k] = null;
-  return { data, preserves };
+  if ((data.kind ?? existing?.kind) !== 'microgreen') {
+    for (const k of MICROGREEN_ONLY) data[k] = null;
+    animalSafety = [];
+  }
+  return { data, preserves, animalSafety };
 }
 
 const listOf = (db, sql, id) => db.prepare(sql).all(id);
 export const preservesFor = (db, id) => listOf(db, 'SELECT form, unit, raw_kg FROM plant_preserves WHERE plant_id = ? ORDER BY position', id);
+
+export const animalSafetyFor = (db, id) => db.prepare('SELECT animal_id, safety FROM plant_animal_safety WHERE plant_id = ? ORDER BY animal_id').all(id);
+
+function setAnimalSafety(db, id, list) {
+  db.prepare('DELETE FROM plant_animal_safety WHERE plant_id = ?').run(id);
+  const add = db.prepare('INSERT INTO plant_animal_safety (plant_id, animal_id, safety) VALUES (?, ?, ?)');
+  for (const x of list) add.run(id, x.animal_id, x.safety);
+}
 
 function setPreserves(db, id, preserves) {
   db.prepare('DELETE FROM plant_preserves WHERE plant_id = ?').run(id);
@@ -111,6 +136,7 @@ export function getPlant(db, id) {
   return {
     ...p,
     preserves: preservesFor(db, id),
+    animal_safety: animalSafetyFor(db, id),
     varieties: listOf(db, 'SELECT * FROM plant_varieties WHERE plant_id = ? AND deleted_at IS NULL ORDER BY sort_order, name COLLATE NOCASE, id', id),
     guides: listOf(db, `SELECT id, title, stage, starter_key, is_starter FROM guides WHERE plant_id = ? AND deleted_at IS NULL
       ORDER BY sort_order, id`, id),
@@ -119,9 +145,10 @@ export function getPlant(db, id) {
 
 export function createPlant(db, body) {
   return transaction(db, () => {
-    const { data, preserves } = parse(body, null);
+    const { data, preserves, animalSafety } = parse(body, null, db);
     const row = repos(db).plants.create(data);
     if (preserves) setPreserves(db, row.id, preserves);
+    if (animalSafety) setAnimalSafety(db, row.id, animalSafety);
     return getPlant(db, row.id);
   });
 }
@@ -132,8 +159,9 @@ export function updatePlant(db, id, body, version) {
   return transaction(db, () => {
     const existing = repos(db).plants.get(id);
     if (!existing) throw notFound();
-    const { data, preserves } = parse(body, existing);
-    // A save that changes nothing keeps the Starter tag.
+    const { data, preserves, animalSafety } = parse(body, existing, db);
+    // A save that changes nothing keeps the Starter tag. Ratings for the owner's own animals are
+    // theirs alone, so they never drop it.
     const changed = Object.keys(data).some(k => !same(data[k], existing[k])) || (preserves && !same(preserves, preservesFor(db, id)));
     if (existing.is_starter && changed) data.is_starter = 0;
     let row;
@@ -143,6 +171,7 @@ export function updatePlant(db, id, body, version) {
     }
     if (!row) throw notFound();
     if (preserves) setPreserves(db, id, preserves);
+    if (animalSafety) setAnimalSafety(db, id, animalSafety);
     return getPlant(db, id);
   });
 }
@@ -153,8 +182,8 @@ export function deletePlant(ctx, id) {
   const { db } = ctx;
   transaction(db, () => {
     const stamp = new Date().toISOString();
-    const n = livePlantingCount(db, id);
-    if (n > 0) throw new HttpError(409, 'This plant has plantings. Delete those first.', undefined, { code: 'plant_in_use', vars: { n } });
+    const n = livePlantingCount(db, id) + liveTrayCount(db, id);
+    if (n > 0) throw new HttpError(409, 'This plant has plantings or trays. Delete those first.', undefined, { code: 'plant_in_use', vars: { n } });
     if (!repos(db).plants.remove(id, stamp)) throw notFound();
     db.prepare('UPDATE plant_varieties SET deleted_at = ?, version = version + 1 WHERE plant_id = ? AND deleted_at IS NULL').run(stamp, id);
     db.prepare('UPDATE guides SET deleted_at = ?, version = version + 1 WHERE plant_id = ? AND deleted_at IS NULL').run(stamp, id);
@@ -183,6 +212,7 @@ const forget = (db, key) => { if (key) db.prepare('INSERT OR IGNORE INTO starter
 export function purgePlant(ctx, row) {
   const { db } = ctx;
   purgePlantingsWhere(ctx, 'plant_id', row.id);
+  purgeTraysWhere(ctx, 'plant_id', row.id);
   for (const g of db.prepare('SELECT id, starter_key FROM guides WHERE plant_id = ? AND deleted_at IS NOT NULL').all(row.id)) {
     forget(db, g.starter_key);
     db.prepare('UPDATE guides SET basics_id = NULL WHERE basics_id = ?').run(g.id);

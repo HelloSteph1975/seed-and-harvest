@@ -7,6 +7,8 @@ import { climateRouter } from './climate.js';
 import { photosRouter } from './photos.js';
 import { plantsRouter, varietiesRouter, guidesRouter } from './library.js';
 import { searchRouter } from './search.js';
+import { animalsRouter } from './animals.js';
+import { traysRouter } from './trays.js';
 import { plantingsRouter, logRouter, tasksRouter, suppliesRouter } from './plantings.js';
 import { systemRouter } from './system.js';
 import { settingsRouter } from './settings.js';
@@ -26,6 +28,8 @@ export function apiRouter(ctx, { onShutdown }) {
   r.use('/log', logRouter(ctx));
   r.use('/tasks', tasksRouter(ctx));
   r.use('/supplies', suppliesRouter(ctx));
+  r.use('/animals', animalsRouter(ctx));
+  r.use('/trays', traysRouter(ctx));
   r.use('/search', searchRouter(ctx));
   r.use('/trash', trashRouter(ctx));
   r.use('/settings', settingsRouter(ctx));
