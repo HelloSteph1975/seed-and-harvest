@@ -1,0 +1,44 @@
+import { describe, it, expect } from 'vitest';
+import { toDisplay, toMetric, unitLabel, keepOrConvert, UnitError } from '../../client/src/lib/units.js';
+
+describe('units', () => {
+  it('shows metres as feet in US units', () => {
+    expect(toDisplay('length', 3.048, 'us')).toBe('10');
+    expect(toDisplay('length', 1.2192, 'us')).toBe('4');
+    expect(toDisplay('length', 1, 'us')).toBe('3.3');
+    expect(toDisplay('length', 3.048, 'metric')).toBe('3');
+    expect(toDisplay('length', 1.25, 'metric')).toBe('1.3');
+  });
+  it('shows litres as gallons in US units', () => {
+    expect(toDisplay('volume', 18.927, 'us')).toBe('5');
+    expect(toDisplay('volume', 20, 'metric')).toBe('20');
+  });
+  it('shows temperatures', () => {
+    expect(toDisplay('temp', -2, 'us')).toBe('28.4');
+    expect(toDisplay('temp', -2, 'metric')).toBe('-2');
+  });
+  it('shows nothing for no value', () => {
+    expect(toDisplay('length', null, 'us')).toBe('');
+  });
+  it('turns typed text back into metric', () => {
+    expect(toMetric('length', '10', 'us')).toBeCloseTo(3.048, 9);
+    expect(toMetric('volume', '5', 'us')).toBeCloseTo(18.92705892, 6);
+    expect(toMetric('length', ' 2,5 ', 'metric')).toBe(2.5);
+    expect(toMetric('length', '', 'us')).toBeNull();
+    expect(() => toMetric('length', 'abc', 'us')).toThrow(UnitError);
+    expect(() => toMetric('length', '-1', 'us')).toThrow(UnitError);
+  });
+  it('labels units', () => {
+    expect(unitLabel('length', 'us')).toBe('ft');
+    expect(unitLabel('length', 'metric')).toBe('m');
+    expect(unitLabel('volume', 'us')).toBe('gal');
+    expect(unitLabel('volume', 'metric')).toBe('L');
+    expect(unitLabel('temp', 'us')).toBe('°F');
+    expect(unitLabel('temp', 'metric')).toBe('°C');
+  });
+  it('keeps the stored value when the text was not touched', () => {
+    expect(keepOrConvert('length', '10', '10', 3.048, 'us')).toBe(3.048);
+    expect(keepOrConvert('length', '3.3', '3.3', 1, 'us')).toBe(1);
+    expect(keepOrConvert('length', '12', '10', 3.048, 'us')).toBeCloseTo(3.6576, 9);
+  });
+});
