@@ -44,13 +44,16 @@ function move(from, to, { stamp = false } = {}) {
 const trashFile = (dataDir, f) => move(live(dataDir, f), trashed(dataDir, f));
 const untrashFile = (dataDir, f) => move(trashed(dataDir, f), live(dataDir, f));
 
-// Live photo rows may point at files in the trash or removed folders: after a backup restore, or
-// after a file move that failed. Bring those files back; best effort.
+// Each photo row's file belongs in photos\ (live row) or photos\_trash (row in the Trash). After a
+// backup restore, or a file move that failed, a file can be in another folder; put it where its row
+// expects it. Best effort.
 export function untrashLivePhotos(db, dataDir) {
-  for (const { filename } of db.prepare('SELECT filename FROM photos WHERE deleted_at IS NULL').all()) {
-    if (!PHOTO_NAME.test(filename) || fs.existsSync(live(dataDir, filename))) continue;
-    if (fs.existsSync(trashed(dataDir, filename))) untrashFile(dataDir, filename);
-    else move(removed(dataDir, filename), live(dataDir, filename));
+  for (const { filename, deleted_at: deleted } of db.prepare('SELECT filename, deleted_at FROM photos').all()) {
+    if (!PHOTO_NAME.test(filename)) continue;
+    const want = deleted ? trashed(dataDir, filename) : live(dataDir, filename);
+    if (fs.existsSync(want)) continue;
+    const from = [live(dataDir, filename), trashed(dataDir, filename), removed(dataDir, filename)].find(f => f !== want && fs.existsSync(f));
+    if (from) move(from, want);
   }
 }
 
@@ -62,8 +65,10 @@ export function cleanRemovedPhotos(ctx) {
   const dir = path.join(dataDir, 'photos', '_removed');
   if (!backups.length || !fs.existsSync(dir)) return;
   const oldest = Math.min(...backups.map(b => Date.parse(b.modified)));
+  const named = ctx.db.prepare('SELECT 1 FROM photos WHERE filename = ?');
   for (const name of fs.readdirSync(dir)) {
-    if (!PHOTO_NAME.test(name)) continue;
+    // A file a photo row still names is never thrown away, however old.
+    if (!PHOTO_NAME.test(name) || named.get(name)) continue;
     const file = path.join(dir, name);
     if (fs.statSync(file).mtimeMs < oldest) ctx.recycle(file, { dataDir });
   }

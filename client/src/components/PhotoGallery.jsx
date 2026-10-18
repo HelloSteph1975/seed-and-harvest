@@ -32,8 +32,12 @@ export function PhotoGallery({ ownerType, ownerId }) {
   const [drafts, setDrafts] = useState({});
   const versions = useRef({});
   const queues = useRef({});
+  // Photos whose caption draft hit a conflict: leaving the field won't save it until Keep mine.
+  const conflicted = useRef(new Set());
   const fail = err => toast.show({ message: errorText(err, t), duration: 6000 });
 
+  const latestDraft = useRef(drafts);
+  latestDraft.current = drafts;
   const photos = list.data ?? [];
   for (const p of photos) versions.current[p.id] = Math.max(versions.current[p.id] ?? 0, p.version);
   const captionOf = p => drafts[p.id] ?? p.caption ?? '';
@@ -63,10 +67,22 @@ export function PhotoGallery({ ownerType, ownerId }) {
         if (err.status === 409 && err.current) {
           versions.current[p.id] = err.current.version;
           if (body.caption !== undefined) {
-            // Show what the other window saved; keeping mine is a choice, not a side effect of leaving the field.
-            const mine = body.caption;
-            dropDraft(p.id);
-            toast.show({ message: t('photos.conflict'), action: { label: t('photos.keepMine'), onClick: () => save(p, { caption: mine }) }, duration: 10000 });
+            // Keeping mine is a choice, not a side effect of leaving the field. A draft that is still
+            // what was sent goes, showing the other window's text; one typed since then stays on screen.
+            const sent = body.caption;
+            let newer;
+            setDrafts(d => {
+              newer = d[p.id] !== undefined && d[p.id] !== sent ? d[p.id] : undefined;
+              if (newer !== undefined) return d;
+              const { [p.id]: gone, ...rest } = d;
+              return rest;
+            });
+            conflicted.current.add(p.id);
+            toast.show({
+              message: t('photos.conflict'),
+              action: { label: t('photos.keepMine'), onClick: () => { conflicted.current.delete(p.id); save(p, { caption: latestDraft.current[p.id] ?? sent }); } },
+              duration: 10000,
+            });
           } else fail(err);
         } else fail(err);
       }
@@ -75,11 +91,15 @@ export function PhotoGallery({ ownerType, ownerId }) {
     queues.current[p.id] = (queues.current[p.id] ?? Promise.resolve()).then(run);
     return queues.current[p.id];
   };
-  const saveCaption = p => { if (drafts[p.id] !== undefined && drafts[p.id] !== (p.caption ?? '')) save(p, { caption: drafts[p.id] }); };
+  const saveCaption = p => {
+    if (conflicted.current.has(p.id)) return;
+    if (drafts[p.id] !== undefined && drafts[p.id] !== (p.caption ?? '')) save(p, { caption: drafts[p.id] });
+  };
   const remove = async p => {
     try {
       await list.act(() => api.del(`/api/photos/${p.id}`));
       dropDraft(p.id);
+      conflicted.current.delete(p.id);
       toast.show({ message: t('photos.deleted'), action: { label: t('common.undo'), onClick: () => list.act(() => api.post(`/api/photos/${p.id}/restore`)).catch(fail) }, duration: 8000 });
     } catch (err) { fail(err); }
   };
@@ -95,7 +115,7 @@ export function PhotoGallery({ ownerType, ownerId }) {
               <figcaption>
                 <input className="input caption-input" value={captionOf(p)} placeholder={t('photos.captionPlaceholder')}
                   aria-label={t('photos.caption', { n: i + 1 })} maxLength={300}
-                  onChange={e => { const v = e.target.value; setDrafts(d => ({ ...d, [p.id]: v })); }}
+                  onChange={e => { const v = e.target.value; conflicted.current.delete(p.id); setDrafts(d => ({ ...d, [p.id]: v })); }}
                   onBlur={() => saveCaption(p)} />
                 {p.is_cover
                   ? <span className="tag">{t('photos.cover')}</span>

@@ -80,4 +80,46 @@ describe('PhotoGallery', () => {
     await vi.waitFor(() => expect(patches).toHaveLength(2));
     expect(patches[1]).toMatchObject({ caption: 'Mine', version: 2 });
   });
+
+  it('text typed while a save was on its way is kept when that save hits a conflict', async () => {
+    stub();
+    let release;
+    const ok = fetch.getMockImplementation();
+    fetch.mockImplementation(async (url, opts = {}) => {
+      if (url === '/api/photos/3' && opts.method === 'PATCH' && !release) {
+        patches.push(JSON.parse(opts.body));
+        return new Promise(r => { release = () => r(json({ error: 'changed', code: 'conflict', current: { ...photo, caption: 'Theirs', version: 2 } }, 409)); });
+      }
+      return ok(url, opts);
+    });
+    mount();
+    const caption = await screen.findByLabelText('Caption for photo 1');
+    await userEvent.type(caption, 'Mine');
+    fireEvent.blur(caption);
+    await vi.waitFor(() => expect(release).toBeDefined());
+    await userEvent.type(caption, ' and more');
+    photo = { ...photo, caption: 'Theirs', version: 2 };
+    release();
+    expect(await screen.findByText(/changed in another window/i)).toBeInTheDocument();
+    expect(screen.getByLabelText('Caption for photo 1')).toHaveValue('Mine and more');
+    fireEvent.blur(screen.getByLabelText('Caption for photo 1'));
+    expect(patches).toHaveLength(1);
+    await userEvent.click(screen.getByRole('button', { name: 'Keep mine' }));
+    await vi.waitFor(() => expect(patches).toHaveLength(2));
+    expect(patches[1]).toMatchObject({ caption: 'Mine and more', version: 2 });
+  });
+
+  it('typing again after a conflict counts as choosing, so leaving the field saves', async () => {
+    stub();
+    conflictOnce = { caption: 'From the other window' };
+    mount();
+    const caption = await screen.findByLabelText('Caption for photo 1');
+    await userEvent.type(caption, 'Mine');
+    fireEvent.blur(caption);
+    await vi.waitFor(() => expect(screen.getByLabelText('Caption for photo 1')).toHaveValue('From the other window'));
+    await userEvent.type(screen.getByLabelText('Caption for photo 1'), '!');
+    fireEvent.blur(screen.getByLabelText('Caption for photo 1'));
+    await vi.waitFor(() => expect(patches).toHaveLength(2));
+    expect(patches[1]).toMatchObject({ caption: 'From the other window!', version: 2 });
+  });
 });

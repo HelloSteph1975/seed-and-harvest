@@ -193,4 +193,28 @@ describe('photos', () => {
     expect((await t.http().post(`/api/trash/space/${space.id}/restore`)).status).toBe(200);
     expect(fs.existsSync(live(photo.filename))).toBe(true);
   });
+
+  it('restoring the backup made before emptying the Trash puts the photo file back in the trash folder', async () => {
+    const { body: photo } = await upload();
+    await t.http().delete(`/api/photos/${photo.id}`);
+    const { body: emptied } = await t.http().post('/api/trash/empty');
+    const res = await t.http().post('/api/backups/restore').send({ name: emptied.backup });
+    expect(res.status).toBe(200);
+    expect(fs.existsSync(trashed(photo.filename))).toBe(true);
+    expect((await t.http().post(`/api/trash/photo/${photo.id}/restore`)).status).toBe(200);
+    expect(fs.existsSync(live(photo.filename))).toBe(true);
+  });
+
+  it('a removed file that a photo row still names is never sent to the Recycle Bin', async () => {
+    const { body: photo } = await upload();
+    await t.http().delete(`/api/photos/${photo.id}`);
+    // The row is in the Trash but its file ended up in _removed (an older backup restored, say).
+    fs.mkdirSync(path.join(t.dataDir, 'photos', '_removed'), { recursive: true });
+    fs.renameSync(trashed(photo.filename), removed(photo.filename));
+    await t.http().post('/api/backups');
+    const old = new Date('2020-01-01T00:00:00Z');
+    fs.utimesSync(removed(photo.filename), old, old);
+    cleanRemovedPhotos(t.ctx);
+    expect(recycled).toEqual([]);
+  });
 });
