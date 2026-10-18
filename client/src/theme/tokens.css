@@ -1,0 +1,29 @@
+:root {
+  /* The frame around the page: deep garden greens. */
+  --frame-900: #172a1c;
+  --frame-800: #213827;
+  --frame-700: #2f4c35;
+  /* The journal page. */
+  --page: #f7f1e3;
+  --page-deep: #ece2c9;
+  --page-edge: #c2b28a;
+  --ink: #2f2a1f;
+  --ink-soft: #5a4f3a;
+  --text-on-frame: #eef0dc;
+  --tomato: #a8402a;
+  --tomato-wash: #f5ddd3;
+  --rule: #a88a3e;
+  --accent: #3f6b3a;
+  --accent-ink: #33582f;
+  --leaf: #3f6b3a;
+  --soil: #6b4a2e;
+  --sprout: #b9d98c;
+  --sage: #c9d3b4;
+
+  --font-head: 'Fraunces', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --radius: 6px;
+  --sidebar-w: 236px;
+  --gutter: clamp(16px, 3vw, 40px);
+  --focus: var(--tomato);
+}

@@ -1,0 +1,3 @@
+{ "name": "Seed & Harvest", "short_name": "Seed & Harvest", "start_url": "/", "display": "standalone",
+  "background_color": "#172a1c", "theme_color": "#213827",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }] }
