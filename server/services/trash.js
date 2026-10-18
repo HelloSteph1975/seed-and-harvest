@@ -5,8 +5,11 @@ import { backupNow, rotateQuietly } from './backup.js';
 import { restorePlace, purgePlace } from './places.js';
 import { restoreSpace, purgeSpace } from './spaces.js';
 import { restorePhoto, purgePhoto } from './photos.js';
-import { restorePlant, purgePlant, restoreVariety } from './plants.js';
+import { restorePlant, purgePlant, restoreVariety, purgeVariety } from './plants.js';
 import { restoreGuide, purgeGuide } from './guides.js';
+import { restorePlanting, purgePlanting } from './plantings.js';
+import { restoreLogEntry, purgeLogEntry } from './plantingLog.js';
+import { restoreTask, purgeTask } from './tasks.js';
 
 function recordRemoved(db, row) {
   if (row.starter_key) db.prepare('INSERT OR IGNORE INTO starter_removed (starter_key) VALUES (?)').run(row.starter_key);
@@ -25,13 +28,22 @@ function purgeRow(db, repo, row) {
 export const TRASH_TYPES = {
   photo: { repo: db => repos(db).photos, title: row => row.caption || row.filename, restore: restorePhoto, purge: purgePhoto,
     parentOf: row => `${row.owner_type}:${row.owner_id}` },
-  variety: { repo: db => repos(db).varieties, title: row => row.name, restore: restoreVariety, parentOf: row => `plant:${row.plant_id}` },
+  log: { repo: db => repos(db).log, title: row => row.note || null, meta: row => ({ log_kind: row.kind }), restore: restoreLogEntry, purge: purgeLogEntry,
+    parentOf: row => `planting:${row.planting_id}` },
+  task: { repo: db => repos(db).tasks, title: row => row.title || null, meta: row => ({ task_kind: row.kind }), restore: restoreTask, purge: purgeTask,
+    parentOf: row => `planting:${row.planting_id}` },
+  planting: { repo: db => repos(db).plantings, title: (row, db) => plantOf(db, row.plant_id).name,
+    meta: (row, db) => { const p = plantOf(db, row.plant_id); return { starter_key: p.is_starter ? p.starter_key : null }; },
+    restore: restorePlanting, purge: purgePlanting, parentOf: row => `space:${row.space_id}` },
+  variety: { repo: db => repos(db).varieties, title: row => row.name, restore: restoreVariety, purge: purgeVariety, parentOf: row => `plant:${row.plant_id}` },
   guide: { repo: db => repos(db).guides, title: row => row.title, restore: restoreGuide, purge: purgeGuide,
     parentOf: row => (row.plant_id == null ? null : `plant:${row.plant_id}`) },
   plant: { repo: db => repos(db).plants, title: row => row.name, restore: restorePlant, purge: purgePlant },
   space: { repo: db => repos(db).spaces, title: row => row.name, restore: restoreSpace, purge: purgeSpace, parentOf: row => `place:${row.place_id}` },
   place: { repo: db => repos(db).places, title: row => row.name, restore: restorePlace, purge: purgePlace },
 };
+
+const plantOf = (db, id) => db.prepare('SELECT name, starter_key, is_starter FROM plants WHERE id = ?').get(id);
 
 function typeOf(type) {
   if (!Object.hasOwn(TRASH_TYPES, type)) throw new HttpError(404, 'Unknown kind of record', undefined, { code: 'unknown_kind' });
@@ -48,7 +60,8 @@ export function listTrash(db) {
   const add = (map, k) => map.set(k, (map.get(k) ?? 0) + 1);
   const out = [];
   for (const { type, t, row } of rows) {
-    const item = { type, id: row.id, title: t.title(row), deleted_at: row.deleted_at, starter_key: row.is_starter ? row.starter_key ?? null : null };
+    const item = { type, id: row.id, title: t.title(row, db), deleted_at: row.deleted_at, starter_key: row.is_starter ? row.starter_key ?? null : null,
+      ...t.meta?.(row, db) };
     if (t.parentOf) {
       const parentKey = t.parentOf(row);
       if (stamps.has(parentKey)) {

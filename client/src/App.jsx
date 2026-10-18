@@ -20,6 +20,11 @@ import { PlacePageRoute } from './screens/places/PlacePage.jsx';
 import { Spaces } from './screens/spaces/Spaces.jsx';
 import { SpaceFormRoute } from './screens/spaces/SpaceForm.jsx';
 import { SpacePageRoute } from './screens/spaces/SpacePage.jsx';
+import { Plantings } from './screens/plantings/Plantings.jsx';
+import { Calendar } from './screens/calendar/Calendar.jsx';
+import { Supplies } from './screens/supplies/Supplies.jsx';
+import { PlantingFormRoute } from './screens/plantings/PlantingForm.jsx';
+import { PlantingPageRoute } from './screens/plantings/PlantingPage.jsx';
 
 function Shell() {
   return (
@@ -40,6 +45,12 @@ export const routes = [
     element: <Shell />,
     children: [
       { path: '/', element: <Today /> },
+      { path: 'calendar', element: <Calendar /> },
+      { path: 'supplies', element: <Supplies /> },
+      { path: 'plantings', element: <Plantings /> },
+      { path: 'plantings/new', element: <PlantingFormRoute /> },
+      { path: 'plantings/:id', element: <PlantingPageRoute /> },
+      { path: 'plantings/:id/edit', element: <PlantingFormRoute /> },
       { path: 'spaces', element: <Spaces /> },
       { path: 'spaces/new', element: <SpaceFormRoute /> },
       { path: 'spaces/:id', element: <SpacePageRoute /> },

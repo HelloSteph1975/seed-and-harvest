@@ -263,3 +263,64 @@ section + section { margin-top: 36px; }
 .supply-name { flex: 2 1 180px; }
 .supply-amount { flex: 1 1 120px; }
 .guide-step { flex: 1 1 100%; }
+
+/* Tasks and plantings */
+.tasks .task { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.task-check { display: flex; align-items: flex-start; gap: 8px; flex: 1 1 16rem; min-width: 0; }
+.task-check input { margin-top: 4px; flex: none; }
+.task.is-done .task-check span { text-decoration: line-through; color: var(--ink-soft); }
+.task.is-overdue .task-when { color: var(--tomato); font-weight: 600; }
+.task-notes, .task .supplies { flex-basis: 100%; margin: 0 0 0 28px; }
+.supplies { padding-left: 1.2rem; }
+.suggest p { margin: 4px 0; }
+.preview { margin-top: 24px; }
+.planting-group h2 { font-size: 1.15rem; margin-top: 20px; }
+
+/* Calendar (adapted from The Grimoire) */
+.cal-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0 12px; }
+.cal-nav { display: flex; align-items: center; gap: 8px; }
+.cal-nav h2 { margin: 0; font-size: 1.5rem; min-width: 8em; text-align: center; }
+.cal-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.cal-views { display: flex; gap: 6px; }
+.cal-grid { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.cal-grid th { font-family: var(--font-head); font-weight: 600; color: var(--ink-soft); padding: 4px 0; border-bottom: 1px solid var(--rule); }
+.cal-grid td { padding: 0; border: 1px solid var(--page-edge); vertical-align: top; }
+.cal-day { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; min-height: 84px; padding: 4px 6px;
+  background: none; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.cal-day:hover:not(:disabled) { background: var(--page-deep); }
+.cal-day:disabled { cursor: default; }
+.cal-day[aria-pressed='true'] { background: var(--page-deep); box-shadow: inset 0 0 0 2px var(--accent-ink); }
+.cal-day.cal-today { box-shadow: inset 0 0 0 2px var(--tomato); }
+.cal-day.cal-today[aria-pressed='true'] { box-shadow: inset 0 0 0 2px var(--tomato), inset 0 0 0 4px var(--accent-ink); }
+.cal-day.cal-today .cal-num { color: var(--tomato); font-weight: 700; }
+.cal-out { color: var(--ink-soft); }
+.cal-out .cal-num { font-style: italic; }
+.cal-num { font-family: var(--font-head); font-size: 1.05rem; line-height: 1; }
+.cal-marks { display: flex; flex-direction: column; gap: 1px; width: 100%; min-width: 0; }
+.cal-mark { display: flex; align-items: center; gap: 4px; min-width: 0; font-size: .82rem; line-height: 1.2; }
+.cal-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.cal-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--leaf); }
+.cal-kind-frost .cal-dot { background: #2f5d8a; }
+.cal-done .cal-name { text-decoration: line-through; color: var(--ink-soft); }
+.cal-done .cal-dot { background: var(--page-edge); }
+.cal-panel { margin-top: 20px; padding-top: 8px; border-top: 3px double var(--rule); }
+.cal-panel h2, .cal-list h3 { font-size: 1.25rem; margin: 0 0 6px; }
+.cal-items { list-style: none; margin: 0; padding: 0; }
+.cal-item { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px dotted var(--page-edge); }
+.cal-item:last-child { border-bottom: 0; }
+.cal-list { list-style: none; margin: 0; padding: 0; }
+.cal-list > li { padding: 10px 0; border-bottom: 1px solid var(--page-edge); }
+@media (max-width: 640px) {
+  .cal-nav h2 { font-size: 1.2rem; min-width: 0; }
+  .cal-grid th { font-size: .8rem; }
+  .cal-day { min-height: 56px; padding: 3px; align-items: center; }
+  .cal-marks { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 2px; }
+  .cal-mark { gap: 0; }
+  .cal-name { display: none; }
+}
+.supply-list summary { cursor: pointer; }
+.supply-list ul { margin: 6px 0 0 1.2rem; }
+@media print {
+  .sidebar, .no-print, .topbar { display: none !important; }
+  .supply-list details > ul { display: block; }
+}

@@ -17,6 +17,10 @@ export const PLANT_COLUMNS = ['name', 'latin_name', 'kind', 'family', 'summary',
 export const VARIETY_COLUMNS = ['plant_id', 'name', 'days', 'notes', 'sort_order'];
 export const GUIDE_COLUMNS = ['title', 'summary', 'plant_id', 'basics_id', 'stage', 'sort_order', 'starter_key', 'is_starter', 'content_version'];
 
+export const PLANTING_COLUMNS = ['space_id', 'plant_id', 'variety_id', 'count', 'row_m', 'how_started', 'start_on', 'status', 'notes'];
+export const TASK_COLUMNS = ['planting_id', 'kind', 'title', 'due_on', 'end_on', 'done_on', 'guide_id', 'notes', 'auto', 'edited'];
+export const LOG_COLUMNS = ['planting_id', 'on_date', 'kind', 'note', 'task_id'];
+
 const parseList = text => { try { const v = JSON.parse(text); return Array.isArray(v) ? v : []; } catch { return []; } };
 const placeIn = row => ({ ...row, wet_months: parseList(row.wet_months) });
 const placeOut = d => (Array.isArray(d.wet_months) ? { ...d, wet_months: JSON.stringify(d.wet_months) } : d);
@@ -35,6 +39,9 @@ export function repos(db) {
       plants: createRepo(db, 'plants', PLANT_COLUMNS, { orderBy: 'name COLLATE NOCASE, id', fromRow: plantIn, toRow: plantOut }),
       varieties: createRepo(db, 'plant_varieties', VARIETY_COLUMNS, { orderBy: 'sort_order, name COLLATE NOCASE, id' }),
       guides: createRepo(db, 'guides', GUIDE_COLUMNS, { orderBy: 'sort_order, title COLLATE NOCASE, id' }),
+      plantings: createRepo(db, 'plantings', PLANTING_COLUMNS, { orderBy: 'start_on, id' }),
+      tasks: createRepo(db, 'tasks', TASK_COLUMNS, { orderBy: 'due_on, id' }),
+      log: createRepo(db, 'planting_log', LOG_COLUMNS, { orderBy: 'on_date DESC, id DESC' }),
     };
     cache.set(db, r);
   }

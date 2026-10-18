@@ -4,6 +4,7 @@ import { HttpError, notFound, notInTrash } from '../http.js';
 import { validate } from '../validate.js';
 import { addErrors, collector, invalid } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
+import { purgePlantingsWhere, trashPlantingsIn, untrashPlantingsIn } from './plantings.js';
 
 export const SPACE_KINDS = ['bed', 'greenhouse', 'container', 'food_forest', 'microgreen_rack', 'seed_starting'];
 export const SUN = ['full', 'part', 'shade'];
@@ -72,6 +73,7 @@ export function deleteSpace(ctx, id, stamp = new Date().toISOString()) {
   transaction(ctx.db, () => {
     if (!repos(ctx.db).spaces.remove(id, stamp)) throw notFound();
     cascadeDeletePhotos(ctx, 'space', id, stamp);
+    trashPlantingsIn(ctx, [id], stamp);
   });
 }
 
@@ -84,12 +86,14 @@ export function restoreSpace(ctx, id) {
     }
     repos(ctx.db).spaces.restore(id);
     cascadeRestorePhotos(ctx, 'space', id, row.deleted_at);
+    untrashPlantingsIn(ctx, [id], row.deleted_at);
     return repos(ctx.db).spaces.get(id);
   });
 }
 
-// Its photos still in the Trash go first.
+// Its plantings and photos still in the Trash go first.
 export function purgeSpace(ctx, row) {
+  purgePlantingsWhere(ctx, 'space_id', row.id);
   purgeOwnerPhotos(ctx, 'space', row.id);
   repos(ctx.db).spaces.purge(row.id);
 }

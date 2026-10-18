@@ -3,6 +3,9 @@ import { seedStarter } from '../services/starter.js';
 import { createPlace } from '../services/places.js';
 import { createSpace } from '../services/spaces.js';
 import { createPlant, createVariety } from '../services/plants.js';
+import { createPlanting } from '../services/plantings.js';
+import { updateTask } from '../services/tasks.js';
+import { addDays } from '../services/dates.js';
 
 // Generic sample places for the demo folder only (never the owner's real places).
 const PLACES = [
@@ -28,7 +31,7 @@ export function seedDemo(ctx, { reset = false } = {}) {
   const db = ctx.db;
   transaction(db, () => {
     if (reset) {
-      db.exec(`DELETE FROM photos; DELETE FROM spaces; DELETE FROM places; DELETE FROM guide_steps; DELETE FROM guide_supplies;
+      db.exec(`DELETE FROM photos; DELETE FROM planting_log; DELETE FROM tasks; DELETE FROM plantings; DELETE FROM spaces; DELETE FROM places; DELETE FROM guide_steps; DELETE FROM guide_supplies;
         DELETE FROM plant_varieties; DELETE FROM plant_preserves; UPDATE guides SET basics_id = NULL; DELETE FROM guides; DELETE FROM plants;
         DELETE FROM starter_removed; DELETE FROM settings;`);
     }
@@ -41,6 +44,39 @@ export function seedDemo(ctx, { reset = false } = {}) {
   });
   seedStarter(db, ctx.config?.contentDir ? { content: ctx.config.contentDir } : undefined);
   transaction(db, () => seedLibrarySamples(db));
+  transaction(db, () => seedPlantings(ctx));
+}
+
+// A few plantings at the demo's current place, dated around the day the demo was made, so Today
+// shows something overdue, a harvest window open now, and work already done.
+function seedPlantings(ctx) {
+  const { db } = ctx;
+  if (db.prepare('SELECT 1 FROM plantings').get()) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const home = db.prepare("SELECT id FROM places WHERE name = 'Riverside Homestead' AND deleted_at IS NULL").get();
+  if (!home) return;
+  const space = name => db.prepare('SELECT id FROM spaces WHERE place_id = ? AND name = ? AND deleted_at IS NULL').get(home.id, name)?.id;
+  const plant = key => db.prepare('SELECT * FROM plants WHERE starter_key = ? AND deleted_at IS NULL').get(key);
+  const finish = (planting, kinds) => {
+    for (const t of planting.tasks.filter(x => kinds.includes(x.kind))) updateTask(ctx, t.id, { done_on: t.due_on }, t.version);
+  };
+  const tomato = plant('plant.tomato');
+  const roma = tomato && db.prepare("SELECT id FROM plant_varieties WHERE plant_id = ? AND name = 'Roma'").get(tomato.id);
+  if (tomato && space('Kitchen bed 1')) {
+    const p = createPlanting(db, { space_id: space('Kitchen bed 1'), plant_id: tomato.id, variety_id: roma?.id ?? null, how_started: 'seed_indoors',
+      start_on: addDays(today, -30), count: 6, notes: 'Sauce tomatoes for the pantry.' });
+    finish(p, ['start_seeds']);
+  }
+  const beans = plant('plant.green-bean');
+  if (beans && beans.days_min && space('Kitchen bed 2')) {
+    const p = createPlanting(db, { space_id: space('Kitchen bed 2'), plant_id: beans.id, how_started: 'seed_outdoors', start_on: addDays(today, -(beans.days_min + 2)), count: 40 });
+    finish(p, ['sow', 'thin', 'feed']);
+  }
+  const fig = plant('plant.fig');
+  if (fig && space('Dwarf fig')) {
+    const p = createPlanting(db, { space_id: space('Dwarf fig'), plant_id: fig.id, how_started: 'mature', start_on: addDays(today, -100), count: 1 });
+    finish(p, ['plant']);
+  }
 }
 
 // One plant of the gardener's own and a variety on a starter plant, so the demo shows both kinds.

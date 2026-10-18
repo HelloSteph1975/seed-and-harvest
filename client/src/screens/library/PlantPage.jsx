@@ -19,6 +19,7 @@ import { toDisplay, unitLabel } from '../../lib/units.js';
 import { plantingWindows, zoneFit } from '../../lib/windows.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 import { VarietyDialog } from './VarietyDialog.jsx';
+import { PlantingsOf } from '../plantings/PlantingsOf.jsx';
 
 const FRUIT_KINDS = ['fruit_tree', 'shrub', 'vine'];
 
@@ -100,6 +101,8 @@ function PlantPage({ id }) {
               </ul>
               <p><Link to={`/library/guides/new?plant=${p.id}`}>{t('guides.addForPlant')}</Link></p>
             </section>
+            <PlantingsOf url={`/api/plantings?plant_id=${p.id}`} title={t('plantings.forPlant')} empty={t('plantings.noneForPlant')}
+              addTo={`/plantings/new?plant=${p.id}`} addLabel={t('plantings.add')} />
             <section aria-labelledby="plant-varieties">
               <h2 id="plant-varieties">{t('varieties.title')}</h2>
               {p.varieties.length === 0 && <p className="muted">{t('varieties.none')}</p>}

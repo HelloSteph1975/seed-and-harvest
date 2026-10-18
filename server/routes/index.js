@@ -7,6 +7,7 @@ import { climateRouter } from './climate.js';
 import { photosRouter } from './photos.js';
 import { plantsRouter, varietiesRouter, guidesRouter } from './library.js';
 import { searchRouter } from './search.js';
+import { plantingsRouter, logRouter, tasksRouter, suppliesRouter } from './plantings.js';
 import { systemRouter } from './system.js';
 import { settingsRouter } from './settings.js';
 import { localesRouter } from './locales.js';
@@ -21,6 +22,10 @@ export function apiRouter(ctx, { onShutdown }) {
   r.use('/plants', plantsRouter(ctx));
   r.use('/varieties', varietiesRouter(ctx));
   r.use('/guides', guidesRouter(ctx));
+  r.use('/plantings', plantingsRouter(ctx));
+  r.use('/log', logRouter(ctx));
+  r.use('/tasks', tasksRouter(ctx));
+  r.use('/supplies', suppliesRouter(ctx));
   r.use('/search', searchRouter(ctx));
   r.use('/trash', trashRouter(ctx));
   r.use('/settings', settingsRouter(ctx));

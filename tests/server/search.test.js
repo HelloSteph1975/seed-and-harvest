@@ -58,4 +58,21 @@ describe('search', () => {
     const res = await search('fixture: starting tomatoes');
     expect(res.body.groups.guides.items[0]).toMatchObject({ plant_name: 'Test tomato', plant_starter_key: 'plant.test-tomato', plant_is_starter: 1 });
   });
+
+  it('search finds a planting by its plant Spanish name and a log entry by its note', async () => {
+    const place = (await t.http().post('/api/places').send({ name: 'Springfield', last_frost: '04-01' })).body;
+    const space = (await t.http().post('/api/spaces').send({ place_id: place.id, name: 'North bed', kind: 'bed' })).body;
+    const tomato = (await t.http().get('/api/plants')).body.find(p => p.starter_key === 'plant.test-tomato');
+    const p = (await t.http().post('/api/plantings').send({ space_id: space.id, plant_id: tomato.id, how_started: 'start', start_on: '2027-04-10' })).body;
+    await t.http().post(`/api/plantings/${p.id}/log`).send({ on_date: '2027-04-12', kind: 'problem', note: 'Aphids on the new leaves' });
+    const dir = path.join(t.dataDir, 'locales', 'es');
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'ui.json'), JSON.stringify({ _name: 'Español' }));
+    fs.writeFileSync(path.join(dir, 'content.json'), JSON.stringify({ 'plant.test-tomato.name': 'Jitomate de prueba' }));
+    await t.http().put('/api/settings').send({ language: 'es' });
+    const res = (await search('jitomate')).body;
+    expect(res.groups.plantings.items.map(x => x.id)).toEqual([p.id]);
+    expect(res.groups.plantings.items[0]).toMatchObject({ space_name: 'North bed', plant_starter_key: 'plant.test-tomato' });
+    expect((await search('aphids')).body.groups.log.items.map(x => x.planting_id)).toEqual([p.id]);
+  });
 });
