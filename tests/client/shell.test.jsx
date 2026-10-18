@@ -21,7 +21,7 @@ describe('app shell', () => {
     render(<App />);
     const nav = await screen.findByRole('navigation', { name: 'Sections' });
     expect(within(nav).getAllByRole('link').map(a => a.textContent)).toEqual(
-      ['Today', 'Calendar', 'Plantings', 'Spaces', 'Microgreens', 'Library', 'Places', 'Trash', 'Settings']);
+      ['Today', 'Calendar', 'Plantings', 'Spaces', 'Microgreens', 'Food Forest', 'Library', 'Places', 'Trash', 'Settings']);
   });
   it('shows Not found for unknown pages', async () => {
     stubApi();

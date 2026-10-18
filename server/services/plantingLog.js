@@ -6,7 +6,7 @@ import { invalid } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
 import { livePlanting } from './plantings.js';
 
-export const LOG_KINDS = ['sowed', 'transplanted', 'planted', 'thinned', 'fed', 'pruned', 'watered', 'problem', 'harvested', 'note'];
+export const LOG_KINDS = ['sowed', 'transplanted', 'planted', 'thinned', 'fed', 'pruned', 'watered', 'problem', 'harvested', 'note', 'mulched', 'protected', 'moved', 'repotted'];
 
 export const LOG_SCHEMA = {
   on_date: { type: 'date', required: true },

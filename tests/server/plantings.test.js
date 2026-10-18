@@ -136,4 +136,38 @@ describe('plantings', () => {
     expect(db.prepare('SELECT COUNT(*) n FROM planting_log').get().n).toBe(0);
     expect(db.prepare('SELECT COUNT(*) n FROM spaces').get().n).toBe(0);
   });
+
+  it('a planting saves its purchase details and comes back with them', async () => {
+    const s = await setup();
+    const fig = await post(t, '/api/plants', { name: 'Fig', kind: 'fruit_tree', perennial: true, years_min: 1, years_max: 2 });
+    const p = await post(t, '/api/plantings', { space_id: s.space.id, plant_id: fig.id, how_started: 'mature', start_on: '2027-03-15',
+      bought_from: 'Valley Nursery', bought_on: '2027-03-10', price: 45.5, size_when_bought: '3 years, 15 gal', bears_on: '2027-07-01' });
+    expect(p).toMatchObject({ bought_from: 'Valley Nursery', bought_on: '2027-03-10', price: 45.5, size_when_bought: '3 years, 15 gal', bears_on: '2027-07-01', in_container: 0 });
+  });
+
+  it('a planting in a container space starts in a container', async () => {
+    const s = await setup();
+    const pot = await post(t, '/api/spaces', { place_id: s.place.id, name: 'Big pot', kind: 'container' });
+    const p = await post(t, '/api/plantings', { space_id: pot.id, plant_id: s.tomato.id, how_started: 'start', start_on: '2027-04-10' });
+    expect(p.in_container).toBe(1);
+    const q = await post(t, '/api/plantings', { space_id: pot.id, plant_id: s.tomato.id, how_started: 'start', start_on: '2027-04-10', in_container: false });
+    expect(q.in_container).toBe(0);
+  });
+
+  it('bearing cannot be before it was bought or planted', async () => {
+    const s = await setup();
+    const res = await t.http().post('/api/plantings').send({ space_id: s.space.id, plant_id: s.tomato.id, how_started: 'start', start_on: '2027-04-10', bears_on: '2027-04-01' });
+    expect(res.status).toBe(400);
+    expect(res.body.detailCodes.bears_on.code).toBe('range_order');
+    const res2 = await t.http().post('/api/plantings').send({ space_id: s.space.id, plant_id: s.tomato.id, how_started: 'start', start_on: '2027-04-10', bought_on: '2027-05-01', bears_on: '2027-04-20' });
+    expect(res2.body.detailCodes.bears_on.code).toBe('range_order');
+  });
+
+  it('the list filters to perennials', async () => {
+    const s = await setup();
+    const fig = await post(t, '/api/plants', { name: 'Fig', kind: 'fruit_tree', perennial: true });
+    await planting(s);
+    const p = await post(t, '/api/plantings', { space_id: s.space.id, plant_id: fig.id, how_started: 'mature', start_on: '2027-03-15' });
+    expect((await t.http().get(`/api/plantings?place_id=${s.place.id}&perennial=1`)).body.map(x => x.id)).toEqual([p.id]);
+  });
 });

@@ -60,10 +60,10 @@ export function searchAll(db, dataDir, q) {
   const spaces = live(`SELECT s.id, s.name, s.kind, s.notes, s.place_id, p.name AS place_name FROM spaces s JOIN places p ON p.id = s.place_id
     WHERE s.deleted_at IS NULL ORDER BY s.name COLLATE NOCASE, s.id`).filter(s => hit(s, ['name', 'notes']));
 
-  const plantings = live(`SELECT pl.id, pl.notes, pl.status, p.name, p.starter_key, p.is_starter, v.name AS variety_name, s.name AS space_name
+  const plantings = live(`SELECT pl.id, pl.notes, pl.status, pl.bought_from, pl.size_when_bought, p.name, p.starter_key, p.is_starter, v.name AS variety_name, s.name AS space_name
     FROM plantings pl JOIN plants p ON p.id = pl.plant_id JOIN spaces s ON s.id = pl.space_id
     LEFT JOIN plant_varieties v ON v.id = pl.variety_id AND v.deleted_at IS NULL
-    WHERE pl.deleted_at IS NULL ORDER BY p.name COLLATE NOCASE, pl.start_on, pl.id`).filter(r => hit(r, ['name'], [r.variety_name, r.notes]));
+    WHERE pl.deleted_at IS NULL ORDER BY p.name COLLATE NOCASE, pl.start_on, pl.id`).filter(r => hit(r, ['name'], [r.variety_name, r.notes, r.bought_from, r.size_when_bought]));
   const log = live(`SELECT l.id, l.note, l.kind, l.on_date, l.planting_id, p.name, p.starter_key, p.is_starter
     FROM planting_log l JOIN plantings pl ON pl.id = l.planting_id AND pl.deleted_at IS NULL JOIN plants p ON p.id = pl.plant_id
     WHERE l.deleted_at IS NULL AND l.note IS NOT NULL ORDER BY l.on_date DESC, l.id DESC`).filter(r => fold(r.note).includes(needle));

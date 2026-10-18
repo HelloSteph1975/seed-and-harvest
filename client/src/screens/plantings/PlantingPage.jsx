@@ -14,10 +14,11 @@ import { useToday } from '../../lib/useToday.js';
 import { api } from '../../lib/api.js';
 import { errorText } from '../../lib/errors.js';
 import { starterText } from '../../lib/starter.js';
-import { dayText, STATUSES, taskTitle } from '../../lib/tasks.js';
+import { bearingText, dayText, STATUSES, taskTitle } from '../../lib/tasks.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 import { TaskDialog } from './TaskDialog.jsx';
 import { LogDialog } from './LogDialog.jsx';
+import { MoveDialog } from './MoveDialog.jsx';
 
 export function PlantingPageRoute() {
   const { id } = useParams();
@@ -92,6 +93,7 @@ function PlantingPage({ id }) {
   const places = useResource('/api/places');
   const [task, setTask] = useState(null);
   const [entry, setEntry] = useState(null);
+  const [moving, setMoving] = useState(false);
   const p = planting.data;
   const place = p ? places.data?.find(x => x.id === p.space.place_id) : null;
   const today = useToday(place?.time_zone || settings?.time_zone);
@@ -126,12 +128,14 @@ function PlantingPage({ id }) {
           <>
             <PageHeader title={p.variety ? `${name} (${p.variety.name})` : name}>
               <Button as={Link} variant="ghost" icon={Pencil} to={`/plantings/${p.id}/edit`}>{t('common.edit')}</Button>
+              {p.in_container ? <Button variant="ghost" onClick={() => setMoving(true)}>{t('plantings.move')}</Button> : null}
               <Button variant="ghost" icon={Trash2} onClick={remove}>{t('common.delete')}</Button>
             </PageHeader>
             <p className="entry-meta">
               <Link to={`/spaces/${p.space.id}`}>{p.space.name}</Link>
               {place && <span>{place.name}</span>}
               <span>{t(`plantings.how.${p.how_started}`)}</span>
+              {p.in_container ? <span className="tag">{t('foodForest.pot')}</span> : null}
               {p.count != null && <span>{t('plantings.countShort', { n: p.count })}</span>}
               <Link to={`/library/plants/${p.plant.id}`}>{t('plantings.aboutPlant')}</Link>
             </p>
@@ -139,6 +143,18 @@ function PlantingPage({ id }) {
               <Select aria-label={t('plantings.status')} value={p.status} onChange={e => setStatus(e.target.value)}
                 options={STATUSES.map(s => ({ value: s, label: t(`plantings.statusName.${s}`) }))} />
             </label>
+            {p.bears_on && <p className="lead">{bearingText(p.bears_on, today, t, language)}</p>}
+            {(p.bought_from || p.bought_on || p.price != null || p.size_when_bought) && (
+              <section aria-labelledby="purchase-title">
+                <h2 id="purchase-title">{t('plantings.purchase')}</h2>
+                <dl className="entry-facts">
+                  {p.bought_from && <div className="fact-row"><dt>{t('plantings.boughtFrom')}</dt><dd>{p.bought_from}</dd></div>}
+                  {p.bought_on && <div className="fact-row"><dt>{t('plantings.boughtOn')}</dt><dd>{dayText(p.bought_on, language, today)}</dd></div>}
+                  {p.price != null && <div className="fact-row"><dt>{t('plantings.price')}</dt><dd>{p.price.toLocaleString(language, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</dd></div>}
+                  {p.size_when_bought && <div className="fact-row"><dt>{t('plantings.sizeWhenBought')}</dt><dd>{p.size_when_bought}</dd></div>}
+                </dl>
+              </section>
+            )}
             {p.notes && p.notes.split(/\n\s*\n/).map((x, i) => <p key={i}>{x}</p>)}
             <section aria-labelledby="tasks-title">
               <h2 id="tasks-title">{t('tasks.title')}</h2>
@@ -166,6 +182,9 @@ function PlantingPage({ id }) {
             <PhotoGallery ownerType="planting" ownerId={p.id} />
             {task && <TaskDialog plantingId={p.id} record={task.id ? task : null} today={today}
               onClose={() => setTask(null)} onSaved={() => { setTask(null); planting.reload(); }} />}
+            {moving && <MoveDialog planting={p} today={today} onClose={() => { setMoving(false); planting.reload(); }}
+              onMove={body => planting.save({ version: p.version, ...body }, { method: 'post', to: `/api/plantings/${p.id}/move` })}
+              onMoved={out => { setMoving(false); toast.show({ message: t('plantings.moved', { space: out.space.name }) }); }} />}
             {entry && <LogDialog plantingId={p.id} record={entry.id ? entry : null} today={today}
               onClose={() => setEntry(null)} onSaved={() => { setEntry(null); planting.reload(); }} />}
           </>

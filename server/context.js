@@ -3,11 +3,14 @@ import { seedStarter } from './services/starter.js';
 import { readEpoch } from './services/epoch.js';
 import { untrashLivePhotos } from './services/photos.js';
 import { sendToRecycleBin } from './lib/recycle.js';
+import { topUpAllCare } from './services/care.js';
 
 // Opening (and reopening after a restore) always tops up starter content.
 function open(dataDir, contentDir) {
   const db = openDb(dataDir);
   seedStarter(db, contentDir ? { content: contentDir } : undefined);
+  // The app opens every morning: top up each perennial's next year of care. Never fatal.
+  try { topUpAllCare({ db }); } catch (err) { console.error('Could not top up care tasks:', err.message); }
   return db;
 }
 

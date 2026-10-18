@@ -92,4 +92,12 @@ describe('search', () => {
     expect((await search('thick')).body.groups.trays.items.map(x => x.id)).toEqual([tray.id]);
     expect((await search('nanny')).body.groups.animals.items.map(x => x.name)).toEqual(['Nanny goats']);
   });
+
+  it('search finds a planting by where it was bought', async () => {
+    const place = (await t.http().post('/api/places').send({ name: 'Springfield' })).body;
+    const pot = (await t.http().post('/api/spaces').send({ place_id: place.id, name: 'Pot', kind: 'container' })).body;
+    const fig = (await t.http().post('/api/plants').send({ name: 'Fig', kind: 'fruit_tree', perennial: true })).body;
+    const p = (await t.http().post('/api/plantings').send({ space_id: pot.id, plant_id: fig.id, how_started: 'mature', start_on: '2027-03-01', bought_from: 'Valley Nursery' })).body;
+    expect((await search('valley nursery')).body.groups.plantings.items.map(x => x.id)).toEqual([p.id]);
+  });
 });

@@ -51,7 +51,7 @@ describe('demo seed', () => {
     seedDemo(t.ctx);
     const home = (await t.http().get('/api/places')).body.find(p => p.name === 'Riverside Homestead');
     const plantings = (await t.http().get(`/api/plantings?place_id=${home.id}`)).body;
-    expect(plantings.length).toBe(3);
+    expect(plantings.length).toBe(4);
     const today = new Date().toISOString().slice(0, 10);
     const tasks = (await t.http().get(`/api/tasks?place_id=${home.id}&from=${today}&to=${today}&open=1`)).body;
     expect(tasks.some(x => !x.done_on && (x.end_on ?? x.due_on) < today)).toBe(true);
@@ -71,5 +71,18 @@ describe('demo seed', () => {
     expect(trays.some(x => x.status === 'growing' && x.harvest_on <= today)).toBe(true);
     const gh = (await t.http().get(`/api/spaces?place_id=${home.id}`)).body.find(s => s.kind === 'greenhouse');
     expect(gh.notes_winter).toBeTruthy();
+  });
+
+  it('the demo has perennials with purchase details and care tasks', async () => {
+    t = makeTestContext({ contentDir: CONTENT_DIR });
+    seedDemo(t.ctx);
+    seedDemo(t.ctx);
+    const home = (await t.http().get('/api/places')).body.find(p => p.name === 'Riverside Homestead');
+    const perennials = (await t.http().get(`/api/plantings?place_id=${home.id}&perennial=1`)).body;
+    expect(perennials.map(p => p.plant.starter_key).sort()).toEqual(['plant.apple', 'plant.fig']);
+    expect(perennials.find(p => p.plant.starter_key === 'plant.fig')).toMatchObject({ in_container: 1, bought_from: 'Valley Nursery' });
+    expect(perennials.find(p => p.plant.starter_key === 'plant.apple')).toMatchObject({ in_container: 0 });
+    const care = t.ctx.db.prepare('SELECT COUNT(*) n FROM tasks WHERE season_key IS NOT NULL AND deleted_at IS NULL').get().n;
+    expect(care).toBeGreaterThan(4);
   });
 });

@@ -119,6 +119,46 @@ export const migrations = [
   ALTER TABLE spaces ADD COLUMN notes_fall TEXT;
   ALTER TABLE spaces ADD COLUMN notes_winter TEXT;
   `,
+  // 10: purchase details and containers on plantings; care and move kinds for tasks and the log.
+  // SQLite can't change a CHECK in place, so tasks and planting_log are rebuilt with every row and
+  // id kept (migrate() checks every foreign key before committing).
+  `
+  ALTER TABLE plantings ADD COLUMN in_container INTEGER NOT NULL DEFAULT 0;
+  ALTER TABLE plantings ADD COLUMN bought_from TEXT;
+  ALTER TABLE plantings ADD COLUMN bought_on TEXT;
+  ALTER TABLE plantings ADD COLUMN price REAL;
+  ALTER TABLE plantings ADD COLUMN size_when_bought TEXT;
+  ALTER TABLE plantings ADD COLUMN bears_on TEXT;
+  UPDATE plantings SET in_container = 1 WHERE space_id IN (SELECT id FROM spaces WHERE kind = 'container');
+  CREATE TABLE tasks_new (id INTEGER PRIMARY KEY AUTOINCREMENT, planting_id INTEGER NOT NULL REFERENCES plantings(id),
+    kind TEXT NOT NULL CHECK (kind IN ('start_seeds', 'pot_up', 'harden_off', 'transplant', 'plant', 'sow', 'thin', 'feed', 'pests', 'harvest', 'other',
+      'prune', 'mulch', 'protect', 'check_pot')),
+    title TEXT, due_on TEXT NOT NULL, end_on TEXT, done_on TEXT, guide_id INTEGER REFERENCES guides(id), notes TEXT,
+    auto INTEGER NOT NULL DEFAULT 0, edited INTEGER NOT NULL DEFAULT 0, season_key TEXT, ${TS});
+  INSERT INTO tasks_new (id, planting_id, kind, title, due_on, end_on, done_on, guide_id, notes, auto, edited, version, created_at, updated_at, deleted_at)
+    SELECT id, planting_id, kind, title, due_on, end_on, done_on, guide_id, notes, auto, edited, version, created_at, updated_at, deleted_at FROM tasks;
+  -- Carry the id counter over, so ids used before (even of rows since removed) are never handed out again.
+  DELETE FROM sqlite_sequence WHERE name = 'tasks_new';
+  INSERT INTO sqlite_sequence (name, seq) SELECT 'tasks_new', seq FROM sqlite_sequence WHERE name = 'tasks';
+  DROP TABLE tasks;
+  ALTER TABLE tasks_new RENAME TO tasks;
+  CREATE INDEX idx_tasks_planting ON tasks(planting_id);
+  CREATE INDEX idx_tasks_due ON tasks(due_on);
+  CREATE TABLE planting_log_new (id INTEGER PRIMARY KEY AUTOINCREMENT, planting_id INTEGER NOT NULL REFERENCES plantings(id),
+    on_date TEXT NOT NULL,
+    kind TEXT NOT NULL CHECK (kind IN ('sowed', 'transplanted', 'planted', 'thinned', 'fed', 'pruned', 'watered', 'problem', 'harvested', 'note',
+      'mulched', 'protected', 'moved', 'repotted')),
+    note TEXT, task_id INTEGER REFERENCES tasks(id), ${TS});
+  INSERT INTO planting_log_new (id, planting_id, on_date, kind, note, task_id, version, created_at, updated_at, deleted_at)
+    SELECT id, planting_id, on_date, kind, note, task_id, version, created_at, updated_at, deleted_at FROM planting_log;
+  DELETE FROM sqlite_sequence WHERE name = 'planting_log_new';
+  INSERT INTO sqlite_sequence (name, seq) SELECT 'planting_log_new', seq FROM sqlite_sequence WHERE name = 'planting_log';
+  DROP TABLE planting_log;
+  ALTER TABLE planting_log_new RENAME TO planting_log;
+  CREATE INDEX idx_log_planting ON planting_log(planting_id);
+  -- Care seasons the owner deleted forever, so the morning top-up never makes them again.
+  CREATE TABLE care_skipped (planting_id INTEGER NOT NULL, season_key TEXT NOT NULL, PRIMARY KEY (planting_id, season_key));
+  `,
 ];
 
 export function migrate(db) {
@@ -126,15 +166,25 @@ export function migrate(db) {
   if (current > migrations.length) {
     throw new Error(`This data folder was saved by a newer version of Seed & Harvest (database version ${current}, this app knows ${migrations.length}). Update the app; nothing was changed.`);
   }
-  for (let i = current; i < migrations.length; i++) {
-    db.exec('BEGIN IMMEDIATE');
-    try {
-      db.exec(migrations[i]);
-      db.exec(`PRAGMA user_version = ${i + 1}`);
-      db.exec('COMMIT');
-    } catch (err) {
-      db.exec('ROLLBACK');
-      throw err;
+  // SQLite's own way to rebuild a table: foreign keys off while migrating (the switch only works
+  // outside a transaction), and every key checked before each step commits.
+  const keysWereOn = db.prepare('PRAGMA foreign_keys').get().foreign_keys === 1;
+  db.exec('PRAGMA foreign_keys = OFF');
+  try {
+    for (let i = current; i < migrations.length; i++) {
+      db.exec('BEGIN IMMEDIATE');
+      try {
+        db.exec(migrations[i]);
+        const broken = db.prepare('PRAGMA foreign_key_check').all();
+        if (broken.length) throw new Error(`Database upgrade ${i + 1} would break ${broken.length} links between records; nothing was changed.`);
+        db.exec(`PRAGMA user_version = ${i + 1}`);
+        db.exec('COMMIT');
+      } catch (err) {
+        db.exec('ROLLBACK');
+        throw err;
+      }
     }
+  } finally {
+    if (keysWereOn) db.exec('PRAGMA foreign_keys = ON');
   }
 }
