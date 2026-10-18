@@ -161,4 +161,32 @@ describe('trays', () => {
     expect(res.status).toBe(200);
     expect((await get(`/api/trays/${a.id}`)).animal).toMatchObject({ id: s.goats.id, deleted: true });
   });
+
+  it('an update returns the whole tray, with its crop, rack and safety', async () => {
+    const s = await setup();
+    const a = await tray(s, { animal_id: s.goats.id });
+    const res = await t.http().patch(`/api/trays/${a.id}`).send({ version: a.version, status: 'harvested', harvested_on: '2027-03-11' });
+    expect(res.body).toMatchObject({ plant: { name: 'Pea shoots' }, space: { name: 'Rack' }, animal: { name: 'The goats' }, safety: 'safe', status: 'harvested' });
+    const stale = await t.http().patch(`/api/trays/${a.id}`).send({ version: a.version, notes: 'x' });
+    expect(stale.status).toBe(409);
+    expect(stale.body.current.space).toMatchObject({ name: 'Rack' });
+  });
+
+  it('a new repeat set on an older tray replaces the series interval', async () => {
+    const s = await setup();
+    const a = await tray(s, { repeat_days: 5 });
+    const b = await post(`/api/trays/${a.id}/sow-again`, { sown_on: '2027-03-06' });
+    const old = await get(`/api/trays/${a.id}`);
+    await t.http().patch(`/api/trays/${a.id}`).send({ version: old.version, repeat_days: 3 }).expect(200);
+    expect((await get(`/api/trays/${b.id}`)).repeat_days).toBe(3);
+    expect((await get(`/api/trays/${a.id}`)).repeat_days).toBeNull();
+  });
+
+  it('clearing the ready date on an edit puts back the crop default', async () => {
+    const s = await setup();
+    const a = await tray(s, { harvest_on: '2027-03-09' });
+    const res = await t.http().patch(`/api/trays/${a.id}`).send({ version: a.version, harvest_on: null });
+    expect(res.status).toBe(200);
+    expect(res.body.harvest_on).toBe('2027-03-11');
+  });
 });

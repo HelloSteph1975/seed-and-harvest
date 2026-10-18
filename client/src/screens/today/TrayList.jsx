@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/Button.jsx';
+import { LoadState } from '../../components/LoadState.jsx';
 import { useToast } from '../../components/ToastProvider.jsx';
 import { useResource } from '../../lib/useResource.js';
 import { api } from '../../lib/api.js';
@@ -19,6 +20,15 @@ export function TrayList({ place, today }) {
   const inFlight = useRef(false);
   const ready = due.data?.ready ?? [];
   const sow = due.data?.sow ?? [];
+  // A failed read must never look like an empty schedule.
+  if (due.error && !due.data) {
+    return (
+      <section className="today-tasks" aria-labelledby="today-trays">
+        <h2 id="today-trays">{t('nav.microgreens')}</h2>
+        <LoadState error={due.error} onRetry={due.reload} />
+      </section>
+    );
+  }
   if (!ready.length && !sow.length) return null;
   const name = x => starterText(tc, x.plant, 'name', x.plant.name);
   const day = iso => dayText(iso, language, today);

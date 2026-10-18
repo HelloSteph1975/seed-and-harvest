@@ -30,7 +30,11 @@ const trayRow = (id, extra = {}) => ({ id, plant_id: 1, space_id: 6, animal_id: 
 let calls;
 let pack;
 let trays;
+let trayConflict;
+let places;
 function stub() {
+  trayConflict = false;
+  places = [HOME];
   calls = [];
   pack = null;
   trays = [trayRow(40), trayRow(41, { harvest_on: '2027-03-20', next_sow_on: null, repeat_days: null, series_id: 41 })];
@@ -40,7 +44,7 @@ function stub() {
     calls.push({ url, m, body });
     if (url === '/api/settings') return json({ language: pack ? 'es' : 'en', time_zone: 'UTC', units: 'metric' });
     if (url.startsWith('/api/locales/')) return json(url.endsWith('/content') ? pack.content : pack.ui);
-    if (url === '/api/places') return json([HOME]);
+    if (url === '/api/places') return json(places);
     if (url.startsWith('/api/spaces?')) return json(SPACES);
     if (url === '/api/plants' || url.startsWith('/api/plants?')) return json(PLANTS);
     if (url === '/api/plants/1') return json(PEA);
@@ -50,6 +54,10 @@ function stub() {
     if (url.startsWith('/api/trays?')) return json(trays);
     if (url.startsWith('/api/trays/due?')) return json({ ready: [], sow: [] });
     if (url === '/api/trays' && m === 'POST') return json({ id: 50, ...body, version: 1 }, 201);
+    if (url === '/api/trays/40' && m === 'PATCH') {
+      if (trayConflict) { trayConflict = false; return json({ error: 'conflict', code: 'conflict', current: { ...trays[0], status: 'harvested', harvested_on: '2027-03-11', version: 5 } }, 409); }
+      return json({ ...trays[0], ...body, version: (body.version ?? 1) + 1 });
+    }
     if (url === '/api/trays/40') return json(trays[0]);
     if (url === '/api/trays/45') return json(trayRow(45, { plant_id: 2, animal_id: 14, animal: { id: 14, name: 'Old goat', kind: 'goat', deleted: true }, safety: 'avoid',
       plant: { id: 2, name: 'Mustard microgreens', starter_key: null, is_starter: 0, days_min: 8, seed_g_per_tray: 20 } }));
@@ -184,5 +192,36 @@ describe('review fixes', () => {
     await userEvent.dblClick(button);
     await vi.waitFor(() => expect(where.pathname).toBe('/microgreens/trays/51'));
     expect(calls.filter(c => c.url === '/api/trays/40/sow-again')).toHaveLength(1);
+  });
+
+  it('after taking the newer record from a conflict, saving does not undo its cut', async () => {
+    stub();
+    trayConflict = true;
+    mount('/microgreens/trays/40/edit');
+    await userEvent.type(await screen.findByLabelText('Notes'), 'mine');
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await userEvent.click(await screen.findByRole('button', { name: 'Reload the latest' }));
+    await userEvent.type(screen.getByLabelText('Notes'), 'again');
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await vi.waitFor(() => expect(calls.filter(c => c.url === '/api/trays/40' && c.m === 'PATCH')).toHaveLength(2));
+    const last = calls.filter(c => c.url === '/api/trays/40' && c.m === 'PATCH')[1].body;
+    expect(last.version).toBe(5);
+    expect(last).not.toHaveProperty('status');
+  });
+
+  it('the sown date is judged against the chosen place own today', async () => {
+    at('2027-03-01');
+    stub();
+    places = [HOME, { ...HOME, id: 2, name: 'Far east', status: 'future', time_zone: 'Pacific/Kiritimati', sort_order: 5 }];
+    mount('/microgreens/trays/new?plant=1');
+    await screen.findByLabelText('Ready to cut');
+    await userEvent.selectOptions(screen.getByLabelText('Place'), '2');
+    const sown = screen.getByLabelText('Sown');
+    await userEvent.clear(sown);
+    await userEvent.type(sown, '2027-03-02');
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: 'Save' })).toBeEnabled());
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await vi.waitFor(() => expect(calls.find(c => c.url === '/api/trays' && c.m === 'POST')).toBeDefined());
+    expect(calls.find(c => c.url === '/api/trays' && c.m === 'POST').body.status).toBe('growing');
   });
 });

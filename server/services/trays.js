@@ -46,8 +46,11 @@ function parse(db, body, existing) {
   }
   if (c.any()) throw invalid(c.errors, c.codes);
   const out = { ...r.data };
+  // No ready date (left empty, or cleared on an edit) means the crop's own.
+  if (!existing || out.harvest_on === null) {
+    if (out.harvest_on == null) out.harvest_on = addDays(out.sown_on ?? existing.sown_on, daysTo(plant));
+  }
   if (!existing) {
-    if (out.harvest_on == null) out.harvest_on = addDays(out.sown_on, daysTo(plant));
     if (out.seed_g == null && plant?.seed_g_per_tray != null) out.seed_g = (out.tray_count ?? 1) * plant.seed_g_per_tray;
   }
   const after = { ...existing, ...out };
@@ -62,8 +65,13 @@ const newestOf = (db, seriesId) => one(db, 'SELECT * FROM trays WHERE series_id 
 
 // Keeps a series' repeat on its newest live tray, whatever changed. When several trays carry one,
 // the newest carrier's interval wins; when none does, nothing repeats.
-function settleRepeat(db, seriesId) {
+function settleRepeat(db, seriesId, chosen) {
   if (seriesId == null) return;
+  // An interval the owner just set wins over the one already running.
+  if (chosen != null) {
+    const newest = newestOf(db, seriesId);
+    if (newest) db.prepare('UPDATE trays SET repeat_days = ?, version = version + 1 WHERE id = ? AND repeat_days IS NOT ?').run(chosen, newest.id, chosen);
+  }
   const carrier = one(db, `SELECT id, repeat_days FROM trays WHERE series_id = ? AND deleted_at IS NULL AND repeat_days IS NOT NULL
     ORDER BY sown_on DESC, id DESC LIMIT 1`, seriesId);
   const newest = newestOf(db, seriesId);
@@ -129,10 +137,10 @@ export function updateTray(db, id, body, version) {
     try {
       const row = repos(db).trays.update(id, data, version);
       if (!row) throw notFound();
-      settleRepeat(db, row.series_id);
-      return repos(db).trays.get(id);
+      settleRepeat(db, row.series_id, data.repeat_days);
+      return getTray(db, id);
     } catch (err) {
-      if (err instanceof VersionConflict) throw new VersionConflict(repos(db).trays.get(id));
+      if (err instanceof VersionConflict) throw new VersionConflict(getTray(db, id));
       throw err;
     }
   });

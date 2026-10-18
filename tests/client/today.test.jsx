@@ -7,11 +7,11 @@ import { Today } from '../../client/src/screens/today/Today.jsx';
 const json = b => new Response(JSON.stringify(b), { status: 200 });
 let taskCalls;
 let trayCalls;
-function stub({ places, spaces = [], tasks = [], due = { ready: [], sow: [] } }) {
+function stub({ places, spaces = [], tasks = [], due = { ready: [], sow: [] }, dueFails = false }) {
   taskCalls = [];
   trayCalls = [];
   vi.stubGlobal('fetch', vi.fn(async (url, opts = {}) => {
-    if (url.startsWith('/api/trays')) { trayCalls.push({ url, m: opts.method ?? 'GET', body: opts.body ? JSON.parse(opts.body) : null }); return json(url.startsWith('/api/trays/due') ? due : {}); }
+    if (url.startsWith('/api/trays')) { trayCalls.push({ url, m: opts.method ?? 'GET', body: opts.body ? JSON.parse(opts.body) : null }); if (dueFails && url.startsWith('/api/trays/due')) return new Response(JSON.stringify({ error: 'boom' }), { status: 500 }); return json(url.startsWith('/api/trays/due') ? due : {}); }
     if (url === '/api/settings') return json({ language: 'en', time_zone: 'UTC', units: 'us' });
     if (url === '/api/places') return json(places);
     if (url.startsWith('/api/spaces?place_id=')) return json(spaces);
@@ -167,5 +167,12 @@ describe('Today', () => {
     mount();
     const box = await screen.findByRole('region', { name: 'Microgreens' });
     expect(within(box).getByText('Not safe')).toBeInTheDocument();
+  });
+
+  it('a failed microgreens load says so and offers to try again', async () => {
+    stub({ places: [HOME], dueFails: true });
+    mount();
+    const box = await screen.findByRole('region', { name: 'Microgreens' });
+    expect(within(box).getByRole('button', { name: 'Try again' })).toBeInTheDocument();
   });
 });

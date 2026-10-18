@@ -9,6 +9,7 @@ import { useSettings } from '../../components/SettingsProvider.jsx';
 import { useResource } from '../../lib/useResource.js';
 import { useRecordForm } from '../../lib/useRecordForm.js';
 import { useToday } from '../../lib/useToday.js';
+import { todayIn } from '../../lib/frost.js';
 import { api, ApiError } from '../../lib/api.js';
 import { byStatus } from '../../lib/places.js';
 import { starterText } from '../../lib/starter.js';
@@ -74,8 +75,6 @@ function TrayForm({ record, places, plants, animals, settings, defaults }) {
   // Dates and seed fill in from the crop until the owner changes them by hand.
   const touched = useRef({ harvest_on: Boolean(record), seed: Boolean(record) });
 
-  const place = places.find(p => String(p.id) === initialPlace(record, fallbackPlace)) ?? null;
-  const today = useToday(place?.time_zone || settings.time_zone);
 
   const submit = useCallback(async (v, { version: forced }) => {
     const bad = {};
@@ -95,14 +94,18 @@ function TrayForm({ record, places, plants, animals, settings, defaults }) {
       bad.seed = { code: 'not_size' };
     }
     if (Object.keys(bad).length) throw new ApiError('Please fix the highlighted fields.', 400, Object.fromEntries(Object.keys(bad).map(k => [k, ''])), null, { detailCodes: bad });
-    if (!record || ACTIVE.includes(record.status)) body.status = v.sown_on > today ? 'planned' : 'growing';
+    // Planned or growing follows the sown date against the chosen place's own today. A tray that is
+    // already cut or thrown out (as last saved or taken from a conflict) keeps its status.
+    const chosen = places.find(p => String(p.id) === v.place_id);
+    const placeToday = todayIn(chosen?.time_zone || settings.time_zone);
+    if (!start.row || ACTIVE.includes(start.row.status)) body.status = v.sown_on > placeToday ? 'planned' : 'growing';
     const out = target
       ? await api.patch(`/api/trays/${target.id}`, { ...body, version: forced ?? target.version })
       : await api.post('/api/trays', body);
     setTarget({ id: out.id, version: out.version });
     setStart({ text: pick(out), row: out });
     return out;
-  }, [target, start, units, pick, record, today]);
+  }, [target, start, units, pick, places, settings.time_zone]);
   const f = useRecordForm({ initial, submit });
   const v = f.values;
 
@@ -192,5 +195,3 @@ function TrayForm({ record, places, plants, animals, settings, defaults }) {
     </>
   );
 }
-
-const initialPlace = (record, fallback) => String(record?.space?.place_id ?? fallback ?? '');
