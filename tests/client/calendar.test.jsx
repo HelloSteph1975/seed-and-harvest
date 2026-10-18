@@ -25,6 +25,8 @@ function stub() {
     if (url === '/api/places') return json([HOME]);
     if (url.startsWith('/api/tasks?')) return json([tk(1, 'start_seeds', '2027-03-12'), tk(2, 'harvest', '2027-03-25', { end_on: '2027-04-20' })]);
     if (url.startsWith('/api/supplies?')) return json(SUPPLIES);
+    if (url.startsWith('/api/trays?')) return json([{ id: 40, status: 'growing', sown_on: '2027-03-01', harvest_on: '2027-03-11', next_sow_on: '2027-03-06',
+      plant: { id: 1, name: 'Pea shoots', starter_key: null, is_starter: 0 }, space: { id: 6, name: 'Rack' }, animal: null, safety: null }]);
     return json([]);
   }));
 }
@@ -102,5 +104,17 @@ describe('supplies', () => {
     await userEvent.selectOptions(screen.getByLabelText('How far ahead'), '2');
     await vi.waitFor(() => expect(urls).toContain('/api/supplies?place_id=1&from=2027-03-10&to=2027-03-23'));
     expect(where.search).toContain('weeks=2');
+  });
+});
+
+describe('calendar trays', () => {
+  it('the calendar shows tray cuttings and next sowings on their days', async () => {
+    at('2027-03-05');
+    stub();
+    mount('/calendar');
+    expect(within(await screen.findByRole('button', { name: /Thursday, March 11, 2027/ })).getByText('Cut Pea shoots')).toBeInTheDocument();
+    expect(within(screen.getByRole('button', { name: /Saturday, March 6, 2027/ })).getByText('Sow Pea shoots')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: /Thursday, March 11, 2027/ }));
+    expect(within(screen.getByRole('region', { name: 'Thursday, March 11, 2027' })).getByRole('link', { name: 'Cut Pea shoots' })).toHaveAttribute('href', '/microgreens/trays/40');
   });
 });

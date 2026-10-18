@@ -324,3 +324,10 @@ section + section { margin-top: 36px; }
   .sidebar, .no-print, .topbar { display: none !important; }
   .supply-list details > ul { display: block; }
 }
+
+/* Microgreens */
+.safety-avoid { border-left-color: var(--tomato); background: var(--tomato-wash); }
+.safety-tag.safety-avoid { color: var(--tomato); border-color: var(--tomato); }
+.ready { color: var(--accent-ink); font-weight: 600; }
+.button-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.cal-kind-tray .cal-dot { background: var(--soil); }

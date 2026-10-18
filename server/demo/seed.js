@@ -6,6 +6,9 @@ import { createPlant, createVariety } from '../services/plants.js';
 import { createPlanting } from '../services/plantings.js';
 import { updateTask } from '../services/tasks.js';
 import { addDays } from '../services/dates.js';
+import { createAnimal } from '../services/animals.js';
+import { createTray, sowAgain } from '../services/trays.js';
+import { updateSpace } from '../services/spaces.js';
 
 // Generic sample places for the demo folder only (never the owner's real places).
 const PLACES = [
@@ -31,7 +34,7 @@ export function seedDemo(ctx, { reset = false } = {}) {
   const db = ctx.db;
   transaction(db, () => {
     if (reset) {
-      db.exec(`DELETE FROM photos; DELETE FROM planting_log; DELETE FROM tasks; DELETE FROM plantings; DELETE FROM spaces; DELETE FROM places; DELETE FROM guide_steps; DELETE FROM guide_supplies;
+      db.exec(`DELETE FROM photos; DELETE FROM trays; DELETE FROM plant_animal_safety; DELETE FROM animals; DELETE FROM planting_log; DELETE FROM tasks; DELETE FROM plantings; DELETE FROM spaces; DELETE FROM places; DELETE FROM guide_steps; DELETE FROM guide_supplies;
         DELETE FROM plant_varieties; DELETE FROM plant_preserves; UPDATE guides SET basics_id = NULL; DELETE FROM guides; DELETE FROM plants;
         DELETE FROM starter_removed; DELETE FROM settings;`);
     }
@@ -45,6 +48,37 @@ export function seedDemo(ctx, { reset = false } = {}) {
   seedStarter(db, ctx.config?.contentDir ? { content: ctx.config.contentDir } : undefined);
   transaction(db, () => seedLibrarySamples(db));
   transaction(db, () => seedPlantings(ctx));
+  transaction(db, () => seedMicrogreens(db));
+}
+
+// Two generic animals, a pea shoot series for the goats with a tray ready today, a radish tray for
+// people, and season notes on the big greenhouse.
+function seedMicrogreens(db) {
+  if (db.prepare('SELECT 1 FROM animals').get()) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const goats = createAnimal(db, { name: 'The goats', kind: 'goat', sort_order: 0 });
+  createAnimal(db, { name: 'The hens', kind: 'chicken', sort_order: 1 });
+  const home = db.prepare("SELECT id FROM places WHERE name = 'Riverside Homestead' AND deleted_at IS NULL").get();
+  if (!home) return;
+  const space = name => db.prepare('SELECT * FROM spaces WHERE place_id = ? AND name = ? AND deleted_at IS NULL').get(home.id, name);
+  const plant = key => db.prepare('SELECT * FROM plants WHERE starter_key = ? AND deleted_at IS NULL').get(key);
+  const rack = space('Pantry rack');
+  const pea = plant('plant.micro-pea');
+  if (rack && pea) {
+    const first = createTray(db, { plant_id: pea.id, space_id: rack.id, animal_id: goats.id, sown_on: addDays(today, -(pea.days_min ?? 10)), repeat_days: 5 });
+    sowAgain(db, first.id, { sown_on: addDays(today, -5) });
+  }
+  const radish = plant('plant.micro-radish');
+  if (rack && radish) createTray(db, { plant_id: radish.id, space_id: rack.id, sown_on: addDays(today, -3), notes: 'For sandwiches.' });
+  const gh = space('Big greenhouse');
+  if (gh) {
+    updateSpace(db, gh.id, {
+      notes_spring: 'Seedlings on the benches until the last frost; open the vents on sunny days.',
+      notes_summer: 'Shade cloth on. Peppers and cucumbers along the south wall.',
+      notes_fall: 'Sow lettuce, spinach and kale in the beds for winter picking.',
+      notes_winter: 'Greens keep growing slowly. The fig comes in from the patio.',
+    }, gh.version);
+  }
 }
 
 // A few plantings at the demo's current place, dated around the day the demo was made, so Today

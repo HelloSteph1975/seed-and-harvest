@@ -59,6 +59,7 @@ test('deleting a space takes its plantings to the Trash and restore brings them 
   await expect(page.getByRole('link', { name: 'Test tomato' })).toBeVisible();
   await page.getByRole('button', { name: 'Delete' }).click();
   await page.getByRole('dialog').getByRole('button', { name: 'Delete' }).click();
+  await expect(page.getByText(/North bed is in the Trash/)).toBeVisible();
   await page.getByRole('link', { name: 'Trash' }).click();
   await page.locator('li', { hasText: 'North bed' }).getByRole('button', { name: 'Restore' }).click();
   await expect(page.getByText('The Trash is empty.')).toBeVisible();

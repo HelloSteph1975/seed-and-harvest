@@ -7,7 +7,7 @@ export const SUN = ['full', 'part', 'shade'];
 const SIZED = ['length_m', 'width_m'];
 export const KIND_FIELDS = {
   bed: SIZED,
-  greenhouse: [...SIZED, 'heated'],
+  greenhouse: [...SIZED, 'heated', 'notes_spring', 'notes_summer', 'notes_fall', 'notes_winter'],
   food_forest: SIZED,
   seed_starting: SIZED,
   container: ['pot_liters'],

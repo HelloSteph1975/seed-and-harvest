@@ -99,6 +99,26 @@ export const migrations = [
   CREATE INDEX idx_tasks_due ON tasks(due_on);
   CREATE INDEX idx_log_planting ON planting_log(planting_id);
   `,
+  // 9: the owner's animals, ratings for animals other than goats and chickens, microgreen trays, and
+  // greenhouse notes for each season.
+  `
+  CREATE TABLE animals (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL,
+    kind TEXT NOT NULL CHECK (kind IN ('goat', 'chicken', 'other')), notes TEXT, sort_order INTEGER NOT NULL DEFAULT 0, ${TS});
+  CREATE TABLE plant_animal_safety (plant_id INTEGER NOT NULL REFERENCES plants(id) ON DELETE CASCADE,
+    animal_id INTEGER NOT NULL REFERENCES animals(id) ON DELETE CASCADE,
+    safety TEXT NOT NULL CHECK (safety IN ('safe', 'small', 'avoid')), PRIMARY KEY (plant_id, animal_id));
+  CREATE TABLE trays (id INTEGER PRIMARY KEY AUTOINCREMENT, plant_id INTEGER NOT NULL REFERENCES plants(id),
+    space_id INTEGER NOT NULL REFERENCES spaces(id), animal_id INTEGER REFERENCES animals(id),
+    tray_count INTEGER NOT NULL DEFAULT 1, seed_g REAL, sown_on TEXT NOT NULL, harvest_on TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'growing' CHECK (status IN ('planned', 'growing', 'harvested', 'discarded')),
+    harvested_on TEXT, series_id INTEGER, repeat_days INTEGER, notes TEXT, ${TS});
+  CREATE INDEX idx_trays_space ON trays(space_id);
+  CREATE INDEX idx_trays_series ON trays(series_id);
+  ALTER TABLE spaces ADD COLUMN notes_spring TEXT;
+  ALTER TABLE spaces ADD COLUMN notes_summer TEXT;
+  ALTER TABLE spaces ADD COLUMN notes_fall TEXT;
+  ALTER TABLE spaces ADD COLUMN notes_winter TEXT;
+  `,
 ];
 
 export function migrate(db) {

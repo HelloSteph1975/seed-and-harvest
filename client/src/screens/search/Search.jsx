@@ -6,7 +6,7 @@ import { starterText } from '../../lib/starter.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
 const MIN = 2;
-const GROUPS = ['plants', 'guides', 'plantings', 'log', 'places', 'spaces'];
+const GROUPS = ['plants', 'guides', 'plantings', 'trays', 'log', 'animals', 'places', 'spaces'];
 
 export function Search() {
   const { t, tc } = useT();
@@ -26,6 +26,9 @@ export function Search() {
     plantings: x => [`/plantings/${x.id}`,
       `${tc(x.plant_is_starter ? x.plant_starter_key : null, 'name', x.plant_name)}${x.variety_name ? ` (${x.variety_name})` : ''}`,
       `${x.space_name} · ${t(`plantings.statusName.${x.status}`)}`],
+    trays: x => [`/microgreens/trays/${x.id}`, tc(x.plant_is_starter ? x.plant_starter_key : null, 'name', x.plant_name),
+      `${x.space_name} · ${t(`trays.status.${x.status}`)} · ${x.sown_on}`],
+    animals: a => ['/microgreens/animals', a.name, t(`animals.kind.${a.kind}`)],
     log: x => [`/plantings/${x.planting_id}`, x.note, `${t(`log.kind.${x.kind}`)} · ${tc(x.plant_is_starter ? x.plant_starter_key : null, 'name', x.plant_name)} · ${x.on_date}`],
   };
   const groups = result.data?.groups;

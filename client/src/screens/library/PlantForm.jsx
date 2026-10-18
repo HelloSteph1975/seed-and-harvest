@@ -37,6 +37,7 @@ const pickWith = units => p => ({
   frost_free_months: p?.frost_free_months ?? [],
   companions: p?.companions ?? [],
   avoid: p?.avoid ?? [],
+  animal_safety: Object.fromEntries((p?.animal_safety ?? []).map(x => [String(x.animal_id), x.safety])),
   // Each row keeps the weight it opened with, so an untouched row goes back exactly as stored.
   preserves: withKeys((p?.preserves ?? []).map(x => {
     const shown = toDisplay('weight', x.raw_kg, units);
@@ -87,6 +88,8 @@ function bodyOf(v, start, units) {
       bad[k] = { code: 'not_size' };
     }
   }
+  body.animal_safety = Object.entries(v.animal_safety).filter(([, s]) => s).map(([id, safety]) => ({ animal_id: Number(id), safety }))
+    .sort((a, b) => a.animal_id - b.animal_id);
   body.preserves = [];
   v.preserves.forEach((x, i) => {
     if (!x.form.trim() && !x.unit.trim() && !x.weight.trim()) return;
@@ -127,6 +130,7 @@ function PlantForm({ record, units, onCreated }) {
   const takeTheirs = () => { setTarget(s => ({ ...s, version: f.conflict.version })); setStart({ text: pick(f.conflict), row: f.conflict }); f.takeTheirs(pick); };
   const cancel = () => navigate(target ? `/library/plants/${target.id}` : '/library');
   const canSave = Boolean(v.name.trim()) && (!record || f.dirty);
+  const others = (useResource('/api/animals').data ?? []).filter(a => a.kind === 'other');
 
   const text = (k, label, opts = {}) => (
     <Field label={label} error={f.errors[k]} hint={opts.hint}>
@@ -215,6 +219,12 @@ function PlantForm({ record, units, onCreated }) {
               {size('seed_g_per_tray', t('plants.seedPerTray'))}
               {choice('safety_goats', t('plants.goatsLabel'), ['safe', 'small', 'avoid'].map(s => ({ value: s, label: t(`plants.safety.${s}`) })), t('spaces.sunUnknown'))}
               {choice('safety_chickens', t('plants.chickensLabel'), ['safe', 'small', 'avoid'].map(s => ({ value: s, label: t(`plants.safety.${s}`) })), t('spaces.sunUnknown'))}
+              {others.map(a => (
+                <Field key={a.id} label={t('plants.safeFor', { animal: a.name })}>
+                  <Select value={v.animal_safety[String(a.id)] ?? ''} onChange={e => f.set('animal_safety', { ...v.animal_safety, [String(a.id)]: e.target.value })}
+                    placeholder={t('spaces.sunUnknown')} options={['safe', 'small', 'avoid'].map(s => ({ value: s, label: t(`plants.safety.${s}`) }))} />
+                </Field>
+              ))}
             </>
           )}
 

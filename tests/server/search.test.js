@@ -75,4 +75,21 @@ describe('search', () => {
     expect(res.groups.plantings.items[0]).toMatchObject({ space_name: 'North bed', plant_starter_key: 'plant.test-tomato' });
     expect((await search('aphids')).body.groups.log.items.map(x => x.planting_id)).toEqual([p.id]);
   });
+
+  it('search finds a tray by its crop Spanish name and an animal by name', async () => {
+    const place = (await t.http().post('/api/places').send({ name: 'Springfield' })).body;
+    const rack = (await t.http().post('/api/spaces').send({ place_id: place.id, name: 'Rack', kind: 'microgreen_rack' })).body;
+    const pea = (await t.http().post('/api/plants').send({ name: 'Pea shoots', kind: 'microgreen', days_min: 10 })).body;
+    t.ctx.db.prepare("UPDATE plants SET starter_key = 'plant.micro-pea', is_starter = 1 WHERE id = ?").run(pea.id);
+    const tray = (await t.http().post('/api/trays').send({ plant_id: pea.id, space_id: rack.id, sown_on: '2027-03-01', notes: 'Extra thick sowing' })).body;
+    await t.http().post('/api/animals').send({ name: 'Nanny goats', kind: 'goat' });
+    const dir = path.join(t.dataDir, 'locales', 'es');
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'ui.json'), JSON.stringify({ _name: 'Español' }));
+    fs.writeFileSync(path.join(dir, 'content.json'), JSON.stringify({ 'plant.micro-pea.name': 'Brotes de chícharo' }));
+    await t.http().put('/api/settings').send({ language: 'es' });
+    expect((await search('chicharo')).body.groups.trays.items.map(x => x.id)).toEqual([tray.id]);
+    expect((await search('thick')).body.groups.trays.items.map(x => x.id)).toEqual([tray.id]);
+    expect((await search('nanny')).body.groups.animals.items.map(x => x.name)).toEqual(['Nanny goats']);
+  });
 });

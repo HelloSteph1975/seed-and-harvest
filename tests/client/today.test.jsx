@@ -6,9 +6,12 @@ import { Today } from '../../client/src/screens/today/Today.jsx';
 
 const json = b => new Response(JSON.stringify(b), { status: 200 });
 let taskCalls;
-function stub({ places, spaces = [], tasks = [] }) {
+let trayCalls;
+function stub({ places, spaces = [], tasks = [], due = { ready: [], sow: [] } }) {
   taskCalls = [];
-  vi.stubGlobal('fetch', vi.fn(async url => {
+  trayCalls = [];
+  vi.stubGlobal('fetch', vi.fn(async (url, opts = {}) => {
+    if (url.startsWith('/api/trays')) { trayCalls.push({ url, m: opts.method ?? 'GET', body: opts.body ? JSON.parse(opts.body) : null }); return json(url.startsWith('/api/trays/due') ? due : {}); }
     if (url === '/api/settings') return json({ language: 'en', time_zone: 'UTC', units: 'us' });
     if (url === '/api/places') return json(places);
     if (url.startsWith('/api/spaces?place_id=')) return json(spaces);
@@ -128,5 +131,41 @@ describe('Today', () => {
     await vi.waitFor(() => expect(taskCalls).toContain('/api/tasks?place_id=1&from=2027-03-10&to=2027-03-16&open=1'));
     await act(async () => { vi.setSystemTime(new Date('2027-03-11T00:00:30Z')); vi.advanceTimersByTime(60000); });
     await vi.waitFor(() => expect(taskCalls).toContain('/api/tasks?place_id=1&from=2027-03-11&to=2027-03-17&open=1'));
+  });
+
+  it('Today lists trays ready to cut and a series due to sow, with Cut today and Sow now', async () => {
+    at('2027-03-11T12:00:00Z');
+    const tray = { id: 40, plant_id: 1, space_id: 6, version: 3, tray_count: 1, status: 'growing', harvest_on: '2027-03-11', sown_on: '2027-03-01', next_sow_on: '2027-03-06',
+      plant: { id: 1, name: 'Pea shoots', starter_key: null, is_starter: 0, days_min: 10 }, space: { id: 6, name: 'Rack' }, animal: { id: 11, name: 'The goats', kind: 'goat' }, safety: 'safe' };
+    stub({ places: [HOME], due: { ready: [tray], sow: [{ tray, on: '2027-03-06', planned: false }] } });
+    mount();
+    const box = await screen.findByRole('region', { name: 'Microgreens' });
+    expect(within(box).getAllByText(/Pea shoots/).length).toBe(2);
+    await act(async () => { within(box).getByRole('button', { name: 'Cut today' }).click(); });
+    await vi.waitFor(() => expect(trayCalls.find(c => c.m === 'PATCH')).toBeDefined());
+    expect(trayCalls.find(c => c.m === 'PATCH')).toMatchObject({ url: '/api/trays/40', body: { version: 3, status: 'harvested', harvested_on: '2027-03-11' } });
+    await act(async () => { within(box).getByRole('button', { name: 'Sow now' }).click(); });
+    await vi.waitFor(() => expect(trayCalls.find(c => c.url === '/api/trays/40/sow-again')).toMatchObject({ body: { sown_on: '2027-03-11' } }));
+    expect(trayCalls[0].url).toBe('/api/trays/due?place_id=1&from=2027-03-11&to=2027-03-17');
+  });
+
+  it('a tray for goats with an avoid crop shows its warning on Today', async () => {
+    at('2027-03-11T12:00:00Z');
+    const tray = { id: 41, plant_id: 2, space_id: 6, version: 1, tray_count: 1, status: 'growing', harvest_on: '2027-03-10', sown_on: '2027-03-02', next_sow_on: null,
+      plant: { id: 2, name: 'Mustard', starter_key: null, is_starter: 0 }, space: { id: 6, name: 'Rack' }, animal: { id: 11, name: 'The goats', kind: 'goat' }, safety: 'avoid' };
+    stub({ places: [HOME], due: { ready: [tray], sow: [] } });
+    mount();
+    const box = await screen.findByRole('region', { name: 'Microgreens' });
+    expect(within(box).getByText('Not safe')).toBeInTheDocument();
+  });
+
+  it('a sowing due for the goats of an avoid crop shows its warning before Sow now', async () => {
+    at('2027-03-11T12:00:00Z');
+    const tray = { id: 42, plant_id: 2, space_id: 6, version: 1, tray_count: 1, status: 'harvested', harvest_on: '2027-03-09', sown_on: '2027-03-01', next_sow_on: '2027-03-11',
+      plant: { id: 2, name: 'Mustard', starter_key: null, is_starter: 0 }, space: { id: 6, name: 'Rack' }, animal: { id: 11, name: 'The goats', kind: 'goat' }, safety: 'avoid' };
+    stub({ places: [HOME], due: { ready: [], sow: [{ tray, on: '2027-03-11', planned: false }] } });
+    mount();
+    const box = await screen.findByRole('region', { name: 'Microgreens' });
+    expect(within(box).getByText('Not safe')).toBeInTheDocument();
   });
 });

@@ -3,7 +3,7 @@ import { formatDay, monthOf } from '../../lib/days.js';
 import { starterText } from '../../lib/starter.js';
 import { dayText, taskTitle } from '../../lib/tasks.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
-import { markClass } from './items.js';
+import { itemName, markClass } from './items.js';
 
 const LONG = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -15,7 +15,8 @@ export function ItemList({ items, today }) {
       {items.map(item => (
         <li key={item.key} className={`cal-item ${markClass(item)}`}>
           <span className="cal-dot" aria-hidden="true" />
-          {item.kind === 'frost' ? <span>{t(item.frost === 'last' ? 'calendar.lastFrost' : 'calendar.firstFrost')}</span> : (
+          {item.kind === 'cut' || item.kind === 'sow' ? <Link to={`/microgreens/trays/${item.tray.id}`}>{itemName(item, t, tc)}</Link>
+            : item.kind === 'frost' ? <span>{t(item.frost === 'last' ? 'calendar.lastFrost' : 'calendar.firstFrost')}</span> : (
             <>
               <span>{taskTitle(item.task, t)}</span>
               <Link to={`/plantings/${item.task.planting_id}`}>{starterText(tc, item.task.plant, 'name', item.task.plant.name)}{item.task.variety_name ? ` (${item.task.variety_name})` : ''}</Link>

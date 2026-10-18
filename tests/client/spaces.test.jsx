@@ -13,7 +13,8 @@ import { SpacePageRoute } from '../../client/src/screens/spaces/SpacePage.jsx';
 const json = (b, s = 200) => new Response(JSON.stringify(b), { status: s });
 const PLACES = [
   { id: 1, name: 'Later place', status: 'future', sort_order: 0, version: 1 },
-  { id: 2, name: 'Home', status: 'current', sort_order: 10, version: 1 },
+  { id: 2, name: 'Home', status: 'current', sort_order: 10, version: 1, hemisphere: 'north' },
+  { id: 3, name: 'Down south', status: 'future', sort_order: 20, version: 1, hemisphere: 'south' },
 ];
 let spaces;
 let calls;
@@ -24,6 +25,10 @@ function stub() {
     5: { id: 5, place_id: 2, name: 'Bed 1', kind: 'bed', length_m: 3.048, width_m: 1.2192, pot_liters: null, tray_count: null, heated: 0, sun: 'full', notes: null, sort_order: 0, version: 4 },
     6: { id: 6, place_id: 2, name: 'Big pot', kind: 'container', length_m: null, width_m: null, pot_liters: 18.927, tray_count: null, heated: 0, sun: null, notes: null, sort_order: 10, version: 1 },
     9: { id: 9, place_id: 1, name: 'Far bed', kind: 'bed', sort_order: 0, version: 1 },
+    7: { id: 7, place_id: 3, name: 'South greenhouse', kind: 'greenhouse', heated: 0, sort_order: 0, version: 1,
+      notes_spring: 'Spring note', notes_summer: 'Summer note', notes_fall: null, notes_winter: 'Winter note' },
+    8: { id: 8, place_id: 2, name: 'Bare greenhouse', kind: 'greenhouse', heated: 0, sort_order: 0, version: 1,
+      notes_spring: null, notes_summer: null, notes_fall: null, notes_winter: null },
   };
   calls = [];
   vi.stubGlobal('fetch', vi.fn(async (url, opts = {}) => {
@@ -215,5 +220,25 @@ describe('space page', () => {
     expect(await screen.findByRole('heading', { name: 'Bed 1' })).toBeInTheDocument();
     expect(screen.getByText('10 × 4 ft')).toBeInTheDocument();
     expect(await screen.findByText(/Drop photos here/)).toBeInTheDocument();
+  });
+});
+
+describe('greenhouse season notes', () => {
+  it('a southern greenhouse in July shows the winter note first', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2027-07-15T12:00:00Z'));
+    stub();
+    mount('/spaces/7');
+    const box = await screen.findByRole('region', { name: 'Through the seasons' });
+    const heads = [...box.querySelectorAll('h3')].map(h => h.textContent);
+    expect(heads).toEqual(['This season: Winter', 'Spring', 'Summer']);
+    expect(box.textContent).toContain('Winter note');
+    vi.useRealTimers();
+  });
+
+  it('a greenhouse with no season notes shows the hint', async () => {
+    stub();
+    mount('/spaces/8');
+    expect(await screen.findByText(/Add what grows in here in each season/)).toBeInTheDocument();
   });
 });

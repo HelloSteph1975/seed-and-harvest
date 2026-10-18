@@ -12,6 +12,7 @@ import { api, ApiError } from '../../lib/api.js';
 import { keepOrConvert, toDisplay, unitLabel, UnitError } from '../../lib/units.js';
 import { byStatus } from '../../lib/places.js';
 import { KIND_FIELDS, SPACE_KINDS, SUN } from '../../lib/spaces.js';
+import { SEASONS } from '../../lib/seasons.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
 // Sizes are edited as text in the chosen units; `start` keeps the text and metric value they opened
@@ -29,6 +30,10 @@ const pickWith = (units, placeId) => s => ({
   heated: s ? s.heated === 1 : false,
   sun: s?.sun ?? '',
   notes: s?.notes ?? '',
+  notes_spring: s?.notes_spring ?? '',
+  notes_summer: s?.notes_summer ?? '',
+  notes_fall: s?.notes_fall ?? '',
+  notes_winter: s?.notes_winter ?? '',
 });
 
 export function SpaceFormRoute() {
@@ -69,6 +74,7 @@ function SpaceForm({ record, places, units, presetPlace, onCreated }) {
   const submit = useCallback(async (v, { version: forced }) => {
     const keep = KIND_FIELDS[v.kind];
     const body = { place_id: Number(v.place_id), name: v.name, kind: v.kind, sun: v.sun || null, notes: v.notes, heated: v.heated };
+    if (keep.includes('notes_spring')) for (const s of SEASONS) body[`notes_${s}`] = v[`notes_${s}`];
     const bad = {};
     for (const [field, kind] of Object.entries(SIZES)) {
       if (!keep.includes(field)) continue;
@@ -141,6 +147,17 @@ function SpaceForm({ record, places, units, presetPlace, onCreated }) {
             </Field>
           )}
           {show.includes('heated') && <Checkbox label={t('spaces.heated')} checked={v.heated} onChange={e => f.set('heated', e.target.checked)} />}
+          {show.includes('notes_spring') && (
+            <fieldset className="season-notes">
+              <legend>{t('spaces.seasonNotes')}</legend>
+              <p className="field-hint">{t('spaces.seasonNotesHint')}</p>
+              {SEASONS.map(s => (
+                <Field key={s} label={t(`spaces.season.${s}`)} error={f.errors[`notes_${s}`]}>
+                  <TextArea value={v[`notes_${s}`]} onChange={e => f.set(`notes_${s}`, e.target.value)} rows={2} maxLength={2000} />
+                </Field>
+              ))}
+            </fieldset>
+          )}
           <Field label={t('spaces.sun')} error={f.errors.sun}>
             <Select value={v.sun} onChange={e => f.set('sun', e.target.value)} placeholder={t('spaces.sunUnknown')}
               options={SUN.map(s => ({ value: s, label: t(`spaces.sun.${s}`) }))} />

@@ -4,7 +4,7 @@ A garden, greenhouse and food forest keeper that runs on your own computer. It's
 
 Everything is kept in one file on your computer. There are no accounts.
 
-> Stages 1 to 3 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, the plant library with 89 starter plants and their guides, and plantings with their tasks, Today, the calendar and a supplies list. Greenhouses and microgreen trays, the food forest, and harvests come in later stages.
+> Stages 1 to 4 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, the plant library with 89 starter plants and their guides, plantings with their tasks, Today, the calendar and a supplies list, and microgreen trays with your animals. The food forest and harvests come in later stages.
 
 ## Places
 
@@ -31,6 +31,14 @@ A planting is a plant in one of your spaces: how many, how it starts (seeds indo
 The app works out each planting's tasks from the plant's timing: start seeds, pot up, harden off, move outside or plant, sow, thin, feed, check for pests, and the harvest window. Every task links to its guide and what you'll need. You can change a task's date, add your own, or delete one. Tick a task done and it goes in the planting's log, which also holds your own dated notes and photos. If you change a planting's start date, the tasks you haven't touched move with it.
 
 Today shows what's overdue, due today, harvest windows open now, and the rest of the week, grouped by space. The calendar shows the month or a list, with your frost dates marked. Supplies for the next few weeks gathers what the coming tasks need into one shopping list.
+
+## Microgreens, animals and greenhouses
+
+A microgreen tray records the crop, the rack, how many trays and how much seed, the day it was sown, the day it should be ready to cut, and who it's for: people or one of your animals. The form fills in the dates and seed from the crop and reminds you to soak the seed when the crop needs it. "Sow again" starts the next tray of the same crop; set it to repeat every few days and Today tells you when to sow the next one, and when trays are ready to cut.
+
+Add your animals under Microgreens. Goats and chickens use the library's safety ratings; for any other animal, rate each microgreen on its plant page. When you pick an animal for a tray, the form warns if the crop isn't safe for it, should only be given in small amounts, or hasn't been rated. Always check with your vet before a new feed.
+
+Each greenhouse can keep notes for spring, summer, fall and winter, and its page shows the current season first.
 
 ## Install
 

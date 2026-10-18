@@ -10,6 +10,8 @@ import { restoreGuide, purgeGuide } from './guides.js';
 import { restorePlanting, purgePlanting } from './plantings.js';
 import { restoreLogEntry, purgeLogEntry } from './plantingLog.js';
 import { restoreTask, purgeTask } from './tasks.js';
+import { restoreAnimal, purgeAnimal } from './animals.js';
+import { restoreTray, purgeTray } from './trays.js';
 
 function recordRemoved(db, row) {
   if (row.starter_key) db.prepare('INSERT OR IGNORE INTO starter_removed (starter_key) VALUES (?)').run(row.starter_key);
@@ -32,6 +34,9 @@ export const TRASH_TYPES = {
     parentOf: row => `planting:${row.planting_id}` },
   task: { repo: db => repos(db).tasks, title: row => row.title || null, meta: row => ({ task_kind: row.kind }), restore: restoreTask, purge: purgeTask,
     parentOf: row => `planting:${row.planting_id}` },
+  tray: { repo: db => repos(db).trays, title: (row, db) => plantOf(db, row.plant_id).name,
+    meta: (row, db) => { const p = plantOf(db, row.plant_id); return { starter_key: p.is_starter ? p.starter_key : null }; },
+    restore: restoreTray, purge: purgeTray, parentOf: row => `space:${row.space_id}` },
   planting: { repo: db => repos(db).plantings, title: (row, db) => plantOf(db, row.plant_id).name,
     meta: (row, db) => { const p = plantOf(db, row.plant_id); return { starter_key: p.is_starter ? p.starter_key : null }; },
     restore: restorePlanting, purge: purgePlanting, parentOf: row => `space:${row.space_id}` },
@@ -41,6 +46,7 @@ export const TRASH_TYPES = {
   plant: { repo: db => repos(db).plants, title: row => row.name, restore: restorePlant, purge: purgePlant },
   space: { repo: db => repos(db).spaces, title: row => row.name, restore: restoreSpace, purge: purgeSpace, parentOf: row => `place:${row.place_id}` },
   place: { repo: db => repos(db).places, title: row => row.name, restore: restorePlace, purge: purgePlace },
+  animal: { repo: db => repos(db).animals, title: row => row.name, restore: restoreAnimal, purge: purgeAnimal },
 };
 
 const plantOf = (db, id) => db.prepare('SELECT name, starter_key, is_starter FROM plants WHERE id = ?').get(id);

@@ -23,6 +23,10 @@ import { SpacePageRoute } from './screens/spaces/SpacePage.jsx';
 import { Plantings } from './screens/plantings/Plantings.jsx';
 import { Calendar } from './screens/calendar/Calendar.jsx';
 import { Supplies } from './screens/supplies/Supplies.jsx';
+import { Microgreens } from './screens/microgreens/Microgreens.jsx';
+import { TrayFormRoute } from './screens/microgreens/TrayForm.jsx';
+import { TrayPageRoute } from './screens/microgreens/TrayPage.jsx';
+import { Animals } from './screens/microgreens/Animals.jsx';
 import { PlantingFormRoute } from './screens/plantings/PlantingForm.jsx';
 import { PlantingPageRoute } from './screens/plantings/PlantingPage.jsx';
 
@@ -47,6 +51,11 @@ export const routes = [
       { path: '/', element: <Today /> },
       { path: 'calendar', element: <Calendar /> },
       { path: 'supplies', element: <Supplies /> },
+      { path: 'microgreens', element: <Microgreens /> },
+      { path: 'microgreens/animals', element: <Animals /> },
+      { path: 'microgreens/trays/new', element: <TrayFormRoute /> },
+      { path: 'microgreens/trays/:id', element: <TrayPageRoute /> },
+      { path: 'microgreens/trays/:id/edit', element: <TrayFormRoute /> },
       { path: 'plantings', element: <Plantings /> },
       { path: 'plantings/new', element: <PlantingFormRoute /> },
       { path: 'plantings/:id', element: <PlantingPageRoute /> },
