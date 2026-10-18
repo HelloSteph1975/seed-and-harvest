@@ -32,8 +32,10 @@ export function PhotoGallery({ ownerType, ownerId }) {
   const [drafts, setDrafts] = useState({});
   const versions = useRef({});
   const queues = useRef({});
-  // Photos whose caption draft hit a conflict: leaving the field won't save it until Keep mine.
-  const conflicted = useRef(new Set());
+  // Photos whose caption hit a conflict, with the text that was sent. Until Keep mine or Use theirs
+  // is chosen (or the caption is typed in again), leaving the field doesn't save it.
+  const [conflicts, setConflicts] = useState({});
+  const settle = id => setConflicts(c => { const { [id]: gone, ...rest } = c; return rest; });
   const fail = err => toast.show({ message: errorText(err, t), duration: 6000 });
 
   const latestDraft = useRef(drafts);
@@ -77,12 +79,8 @@ export function PhotoGallery({ ownerType, ownerId }) {
               const { [p.id]: gone, ...rest } = d;
               return rest;
             });
-            conflicted.current.add(p.id);
-            toast.show({
-              message: t('photos.conflict'),
-              action: { label: t('photos.keepMine'), onClick: () => { conflicted.current.delete(p.id); save(p, { caption: latestDraft.current[p.id] ?? sent }); } },
-              duration: 10000,
-            });
+            setConflicts(c => ({ ...c, [p.id]: sent }));
+            toast.show({ message: t('photos.conflict'), duration: 8000 });
           } else fail(err);
         } else fail(err);
       }
@@ -92,14 +90,14 @@ export function PhotoGallery({ ownerType, ownerId }) {
     return queues.current[p.id];
   };
   const saveCaption = p => {
-    if (conflicted.current.has(p.id)) return;
+    if (conflicts[p.id] !== undefined) return;
     if (drafts[p.id] !== undefined && drafts[p.id] !== (p.caption ?? '')) save(p, { caption: drafts[p.id] });
   };
   const remove = async p => {
     try {
       await list.act(() => api.del(`/api/photos/${p.id}`));
       dropDraft(p.id);
-      conflicted.current.delete(p.id);
+      settle(p.id);
       toast.show({ message: t('photos.deleted'), action: { label: t('common.undo'), onClick: () => list.act(() => api.post(`/api/photos/${p.id}/restore`)).catch(fail) }, duration: 8000 });
     } catch (err) { fail(err); }
   };
@@ -115,13 +113,21 @@ export function PhotoGallery({ ownerType, ownerId }) {
               <figcaption>
                 <input className="input caption-input" value={captionOf(p)} placeholder={t('photos.captionPlaceholder')}
                   aria-label={t('photos.caption', { n: i + 1 })} maxLength={300}
-                  onChange={e => { const v = e.target.value; conflicted.current.delete(p.id); setDrafts(d => ({ ...d, [p.id]: v })); }}
+                  onChange={e => { const v = e.target.value; settle(p.id); setDrafts(d => ({ ...d, [p.id]: v })); }}
                   onBlur={() => saveCaption(p)} />
                 {p.is_cover
                   ? <span className="tag">{t('photos.cover')}</span>
                   : <button type="button" className="icon-btn" aria-label={t('photos.makeCover')} onClick={() => save(p, { is_cover: true })}><Star size={16} /></button>}
                 <button type="button" className="icon-btn" aria-label={t('photos.delete')} onClick={() => remove(p)}><Trash2 size={16} /></button>
               </figcaption>
+              {conflicts[p.id] !== undefined && (
+                <div role="group" aria-label={t('photos.conflictLabel', { n: i + 1 })} className="caption-conflict">
+                  <span>{t('photos.conflictShort')}</span>
+                  <button type="button" className="btn btn-ghost btn-sm"
+                    onClick={() => { const text = latestDraft.current[p.id] ?? conflicts[p.id]; settle(p.id); save(p, { caption: text }); }}>{t('photos.keepMine')}</button>
+                  <button type="button" className="btn btn-ghost btn-sm" onClick={() => { settle(p.id); dropDraft(p.id); }}>{t('photos.useTheirs')}</button>
+                </div>
+              )}
             </figure>
           ))}
           <label className={`gallery-drop${over ? ' is-over' : ''}`}

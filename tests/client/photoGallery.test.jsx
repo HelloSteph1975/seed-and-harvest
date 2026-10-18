@@ -71,7 +71,7 @@ describe('PhotoGallery', () => {
     const caption = await screen.findByLabelText('Caption for photo 1');
     await userEvent.type(caption, 'Mine');
     fireEvent.blur(caption);
-    expect(await screen.findByText(/changed in another window/i)).toBeInTheDocument();
+    expect(await screen.findByRole('group', { name: /caption conflict/i })).toBeInTheDocument();
     await vi.waitFor(() => expect(screen.getByLabelText('Caption for photo 1')).toHaveValue('From the other window'));
     fireEvent.focus(screen.getByLabelText('Caption for photo 1'));
     fireEvent.blur(screen.getByLabelText('Caption for photo 1'));
@@ -100,7 +100,7 @@ describe('PhotoGallery', () => {
     await userEvent.type(caption, ' and more');
     photo = { ...photo, caption: 'Theirs', version: 2 };
     release();
-    expect(await screen.findByText(/changed in another window/i)).toBeInTheDocument();
+    expect(await screen.findByRole('group', { name: /caption conflict/i })).toBeInTheDocument();
     expect(screen.getByLabelText('Caption for photo 1')).toHaveValue('Mine and more');
     fireEvent.blur(screen.getByLabelText('Caption for photo 1'));
     expect(patches).toHaveLength(1);
@@ -121,5 +121,20 @@ describe('PhotoGallery', () => {
     fireEvent.blur(screen.getByLabelText('Caption for photo 1'));
     await vi.waitFor(() => expect(patches).toHaveLength(2));
     expect(patches[1]).toMatchObject({ caption: 'From the other window!', version: 2 });
+  });
+
+  it('the Keep mine or Use theirs choice stays beside the caption until it is made', async () => {
+    stub();
+    conflictOnce = { caption: 'From the other window' };
+    mount();
+    const caption = await screen.findByLabelText('Caption for photo 1');
+    await userEvent.type(caption, 'Mine');
+    fireEvent.blur(caption);
+    const figure = await vi.waitFor(() => screen.getByRole('group', { name: /caption conflict/i }));
+    expect(figure).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Use theirs' }));
+    expect(screen.queryByRole('group', { name: /caption conflict/i })).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Caption for photo 1')).toHaveValue('From the other window');
+    expect(patches).toHaveLength(1);
   });
 });

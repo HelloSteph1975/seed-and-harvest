@@ -225,3 +225,4 @@ section + section { margin-top: 36px; }
 .card { border: 1px solid var(--page-edge); border-radius: var(--radius); background: var(--page-deep); padding: 14px 18px; margin: 0 0 16px; }
 .card h2 { margin-top: 0; }
 .frost-line { font-size: 1.15rem; }
+.caption-conflict { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px; border-top: 1px solid var(--page-edge); font-size: .9rem; }

@@ -236,6 +236,9 @@
   "today.addFrost": "Add them",
   "today.spaceCount": "{n} growing spaces",
   "today.spaceCount.one": "{n} growing space",
-  "photos.conflict": "That caption was changed in another window, so this one shows theirs now.",
-  "photos.keepMine": "Keep mine"
+  "photos.conflict": "That caption was changed in another window. Choose which one to keep.",
+  "photos.keepMine": "Keep mine",
+  "photos.conflictShort": "Changed in another window.",
+  "photos.conflictLabel": "Caption conflict for photo {n}",
+  "photos.useTheirs": "Use theirs"
 }
