@@ -176,10 +176,12 @@ export function updatePlanting(db, id, body, version) {
     }
     if (!row) throw notFound();
     if (['start_on', 'how_started', 'plant_id'].some(k => data[k] !== undefined && data[k] !== existing[k])) redoTasks(db, row, plant ?? livePlantRow(db, row.plant_id));
-    // An edit that puts it at another place (a correction, not a move) or in or out of a pot works its care out again.
+    // An edit that puts it at another place (a correction, not a move), changes the plant, or takes it in or out of a pot
+    // works its care out again.
     const placeOf = spaceId => one(db, 'SELECT place_id FROM spaces WHERE id = ?', spaceId)?.place_id;
     const otherPlace = data.space_id !== undefined && placeOf(data.space_id) !== placeOf(existing.space_id);
-    if (otherPlace || (data.in_container !== undefined && data.in_container !== existing.in_container)) {
+    const otherPlant = data.plant_id !== undefined && data.plant_id !== existing.plant_id;
+    if (otherPlace || otherPlant || (data.in_container !== undefined && data.in_container !== existing.in_container)) {
       const today = placeToday(db, id);
       redoCare(db, id, today, today);
     }

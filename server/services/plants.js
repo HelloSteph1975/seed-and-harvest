@@ -123,7 +123,7 @@ export const fold = s => String(s ?? '').normalize('NFD').replace(/\p{M}/gu, '')
 
 export function listPlants(db, { kind, q } = {}) {
   if (kind !== undefined && !PLANT_KINDS.includes(kind)) throw new HttpError(400, 'Unknown kind of plant', undefined, { code: 'not_one_of' });
-  const rows = db.prepare(`SELECT p.id, p.name, p.latin_name, p.kind, p.summary, p.container_ok, p.zone_min, p.zone_max, p.perennial, p.years_min, p.days_min,
+  const rows = db.prepare(`SELECT p.id, p.name, p.latin_name, p.kind, p.summary, p.container_ok, p.zone_min, p.zone_max, p.perennial, p.years_min, p.years_max, p.days_min,
     p.starter_key, p.is_starter, ${cover} AS cover FROM plants p WHERE p.deleted_at IS NULL ${kind ? 'AND p.kind = ?' : ''}
     ORDER BY p.name COLLATE NOCASE, p.id`).all(...(kind ? [kind] : []));
   const words = fold(q ?? '').trim();

@@ -97,4 +97,18 @@ describe('review fixes', () => {
     expect(calls).toBe(2);
     expect(careKeys(q.id).length).toBeGreaterThan(0);
   });
+
+  it('changing the plant works its care out again: an annual keeps none', async () => {
+    const s = await setup();
+    const kale = await post('/api/plants', { name: 'Kale', kind: 'vegetable' });
+    const today = new Date().toISOString().slice(0, 10);
+    await t.http().patch(`/api/plantings/${s.p.id}`).send({ version: s.p.version, plant_id: kale.id, how_started: 'start' }).expect(200);
+    expect(careKeys(s.p.id).filter(k => k.due_on >= today)).toEqual([]);
+  });
+
+  it('the plant list carries the top of the years-to-fruit range', async () => {
+    await post('/api/plants', { name: 'Apple', kind: 'fruit_tree', perennial: true, years_min: 2, years_max: 4 });
+    const apple = (await t.http().get('/api/plants')).body.find(p => p.name === 'Apple');
+    expect(apple).toMatchObject({ years_min: 2, years_max: 4 });
+  });
 });
