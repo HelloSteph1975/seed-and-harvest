@@ -53,7 +53,7 @@ function problems(dir) {
 }
 
 // Low-acid crops with canned preserving amounts: their guides must say pressure canner.
-const LOW_ACID = ['plant.potato', 'plant.sweet-potato', 'plant.carrot', 'plant.sweet-corn', 'plant.winter-squash', 'plant.pumpkin', 'plant.green-bean'];
+const LOW_ACID = ['plant.potato', 'plant.dry-beans', 'plant.sweet-potato', 'plant.carrot', 'plant.sweet-corn', 'plant.winter-squash', 'plant.pumpkin', 'plant.green-bean'];
 
 describe('starter content files', () => {
   it('low-acid crops that list canned amounts tell you to use a pressure canner', () => {
@@ -74,6 +74,48 @@ describe('starter content files', () => {
     expect(guides.find(g => g.starter_key === 'guide.garlic.sow_outdoors').summary).toMatch(/around your first fall frost/i);
     const bed = guides.find(g => g.starter_key === 'guide.basics.raised-beds').supplies.find(x => /topsoil/i.test(x.name));
     expect(bed.amount).toMatch(/0\.9 m³/);
+  });
+  it('every microgreen has its tray figures, both animal safety fields and a microgreens guide', () => {
+    const plants = readFolder(CONTENT_DIR, 'plants').filter(p => p.kind === 'microgreen');
+    const guides = readFolder(CONTENT_DIR, 'guides');
+    expect(plants.length).toBeGreaterThanOrEqual(15);
+    const bad = plants.filter(p => !(p.seed_g_per_tray > 0) || !p.days || !p.safety_goats || !p.safety_chickens
+      || !guides.some(g => g.plant === p.starter_key && g.stage === 'microgreens' && g.basics === 'guide.basics.microgreens'));
+    expect(bad.map(p => p.starter_key)).toEqual([]);
+  });
+  it('cabbage-family, beet, amaranth and buckwheat microgreens are never marked safe for goats', () => {
+    const risky = readFolder(CONTENT_DIR, 'plants').filter(p => p.kind === 'microgreen' && ['Cabbage', 'Amaranth', 'Buckwheat'].includes(p.family));
+    expect(risky.length).toBeGreaterThanOrEqual(8);
+    expect(risky.filter(p => p.safety_goats === 'safe').map(p => p.starter_key)).toEqual([]);
+  });
+  it('every fruit tree, shrub and vine is perennial with zones, years to fruit, a pot size when it suits a pot, and a buying or pot guide', () => {
+    const fruit = readFolder(CONTENT_DIR, 'plants').filter(p => ['fruit_tree', 'shrub', 'vine'].includes(p.kind));
+    const guides = readFolder(CONTENT_DIR, 'guides');
+    expect(fruit.length).toBeGreaterThanOrEqual(25);
+    const bad = fruit.filter(p => !p.perennial || !p.zones || !p.years || (p.container_ok && !(p.container_liters > 0))
+      || guides.filter(g => g.plant === p.starter_key).length < 2
+      || !guides.some(g => g.plant === p.starter_key && ['guide.basics.buy-plant', 'guide.basics.container-fruit'].includes(g.basics)));
+    expect(bad.map(p => p.starter_key)).toEqual([]);
+  });
+  it('fruit plants whose leaves harm goats say so', () => {
+    const plants = readFolder(CONTENT_DIR, 'plants');
+    const missing = ['plant.peach', 'plant.plum', 'plant.apricot', 'plant.avocado', 'plant.elderberry']
+      .filter(k => !/goat/i.test(plants.find(p => p.starter_key === k)?.notes ?? ''));
+    expect(missing).toEqual([]);
+  });
+  it('microgreens fed to animals say to start slowly, use untreated seed, and skip potting mix when the whole mat is fed', () => {
+    const plants = readFolder(CONTENT_DIR, 'plants').filter(p => p.kind === 'microgreen' && p.safety_goats === 'safe');
+    const guides = readFolder(CONTENT_DIR, 'guides');
+    expect(plants.filter(p => !/start with a little/i.test(p.notes)).map(p => p.starter_key)).toEqual([]);
+    const text = g => [...g.steps, ...(g.supplies ?? []).map(x => `${x.name} ${x.amount ?? ''}`)].join(' ');
+    const mine = plants.map(p => guides.find(g => g.plant === p.starter_key));
+    expect(mine.filter(g => !/untreated/i.test(text(g))).map(g => g.starter_key)).toEqual([]);
+    expect(mine.filter(g => /whole mat/i.test(text(g)) && !/without (potting )?mix|doesn.t need potting mix/i.test(text(g))).map(g => g.starter_key)).toEqual([]);
+  });
+  it('fruits that need added acid to can say so in their guides', () => {
+    const guides = readFolder(CONTENT_DIR, 'guides');
+    const missing = ['plant.pear', 'plant.fig'].filter(k => !guides.some(g => g.plant === k && g.steps.some(s => /lemon juice/i.test(s))));
+    expect(missing).toEqual([]);
   });
   it('the test fixtures are well formed', () => expect(problems(BASE_CONTENT)).toEqual([]));
   it('the real starter content is well formed', () => expect(problems(CONTENT_DIR)).toEqual([]));

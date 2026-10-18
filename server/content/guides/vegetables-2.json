@@ -1,0 +1,520 @@
+[
+  {
+    "starter_key": "guide.swiss-chard.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing chard",
+    "summary": "Around the last frost, and again in late summer.",
+    "stage": "sow_outdoors",
+    "plant": "plant.swiss-chard",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow seeds 1 cm (1/2 in) deep, 5 cm (2 in) apart, in rows 45 cm (18 in) apart.",
+      "Each seed sends up a little cluster. Thin to one plant every 30 cm (12 in); eat the thinnings in salads.",
+      "Mulch to keep the soil cool and moist through summer."
+    ],
+    "supplies": [
+      {
+        "name": "Chard seed",
+        "amount": "about 7 g (1/4 oz) per 3 m (10 ft) of row"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.swiss-chard.harvest",
+    "content_version": 1,
+    "title": "Picking and freezing chard",
+    "summary": "Outer stalks every week or two.",
+    "stage": "harvest",
+    "plant": "plant.swiss-chard",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut the outer stalks near the base when they are 20 to 30 cm (8 to 12 in) long, and leave the center to keep growing.",
+      "Stalks and leaves cook at different speeds: chop the stalks and start them a few minutes earlier.",
+      "To freeze, blanch leaves for 2 minutes, cool in ice water, squeeze dry and pack in bags."
+    ],
+    "supplies": [
+      {
+        "name": "Sharp knife"
+      },
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.collards.transplant",
+    "content_version": 1,
+    "title": "Planting collards",
+    "summary": "A few weeks before the last frost, and again in late summer.",
+    "stage": "transplant",
+    "plant": "plant.collards",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Set transplants 45 cm (18 in) apart, a little deeper than they grew.",
+      "Cover with row cover to keep cabbage moths and harlequin bugs off.",
+      "Side-dress with compost when plants are knee high."
+    ],
+    "supplies": [
+      {
+        "name": "Row cover"
+      },
+      {
+        "name": "Compost"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.collards.harvest",
+    "content_version": 1,
+    "title": "Picking and freezing collards",
+    "summary": "From the bottom up, for months.",
+    "stage": "harvest",
+    "plant": "plant.collards",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick the lowest leaves when they are as big as your hand or larger, leaving the top eight to ten leaves.",
+      "Leaves picked after a frost taste sweeter.",
+      "To freeze, cut out thick ribs, blanch the leaves for 3 minutes, cool in ice water, squeeze dry and bag."
+    ],
+    "supplies": [
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.arugula.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing arugula",
+    "summary": "Early spring and fall, every few weeks.",
+    "stage": "sow_outdoors",
+    "plant": "plant.arugula",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow seeds 6 mm (1/4 in) deep, about 2.5 cm (1 in) apart, in short rows or a wide band.",
+      "Thin to 15 cm (6 in) apart for full plants, or leave them close and cut them young.",
+      "Sow again every two to three weeks while the weather is cool."
+    ],
+    "supplies": [
+      {
+        "name": "Arugula seed",
+        "amount": "a small packet sows several rows"
+      },
+      {
+        "name": "Row cover"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.arugula.harvest",
+    "content_version": 1,
+    "title": "Cutting arugula",
+    "summary": "Young leaves taste best.",
+    "stage": "harvest",
+    "plant": "plant.arugula",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut leaves when they are 8 to 10 cm (3 to 4 in) long, about 2.5 cm (1 in) above the soil. They regrow once or twice.",
+      "Harvest in the cool of the morning, and pull the plants when they send up flower stalks and turn bitter.",
+      "Keep washed, dried leaves in a covered box in the fridge for up to a week."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.bok-choy.transplant",
+    "content_version": 1,
+    "title": "Planting bok choy",
+    "summary": "A few weeks before the last frost, or in late summer.",
+    "stage": "transplant",
+    "plant": "plant.bok-choy",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Set plants 20 cm (8 in) apart for baby heads, 30 cm (12 in) for full size.",
+      "Water deeply and keep the soil evenly moist; dry spells make it bolt.",
+      "Give it afternoon shade where springs turn hot quickly."
+    ],
+    "supplies": [
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.bok-choy.harvest",
+    "content_version": 1,
+    "title": "Harvesting bok choy",
+    "summary": "Whole heads, or leaves as you need them.",
+    "stage": "harvest",
+    "plant": "plant.bok-choy",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut the whole plant at the base when it is full size, or pick outer leaves a few at a time.",
+      "Harvest before you see a flower stalk forming in the center.",
+      "Rinse well between the stems, where soil hides, and keep it in the fridge for about a week."
+    ],
+    "supplies": [
+      {
+        "name": "Sharp knife"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.turnip.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing turnips",
+    "summary": "Early spring, and late summer for a sweet fall crop.",
+    "stage": "sow_outdoors",
+    "plant": "plant.turnip",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow seeds 1 cm (1/2 in) deep, 2.5 cm (1 in) apart, in rows 30 cm (12 in) apart.",
+      "Thin to 10 cm (4 in) apart when the seedlings are a few centimeters tall; cook the thinnings as greens.",
+      "Keep the soil evenly moist so the roots stay mild and tender."
+    ],
+    "supplies": [
+      {
+        "name": "Turnip seed",
+        "amount": "about 3 g (1/8 oz) per 3 m (10 ft) of row"
+      },
+      {
+        "name": "Row cover"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.turnip.harvest",
+    "content_version": 1,
+    "title": "Harvesting and storing turnips",
+    "summary": "Roots small and sweet, greens young.",
+    "stage": "harvest",
+    "plant": "plant.turnip",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pull roots at 5 to 8 cm (2 to 3 in) across; bigger ones get woody.",
+      "Cut a few leaves from each plant as greens, but leave most so the root keeps growing.",
+      "Twist off the tops, leave the roots unwashed, and store them in damp sand or a perforated bag in a cool root cellar for two to four months."
+    ],
+    "supplies": [
+      {
+        "name": "Garden fork"
+      },
+      {
+        "name": "Bin of damp sand"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.leek.transplant",
+    "content_version": 1,
+    "title": "Planting leeks",
+    "summary": "Around the last frost, in deep holes.",
+    "stage": "transplant",
+    "plant": "plant.leek",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "When seedlings are pencil thick, make holes 15 cm (6 in) deep and 15 cm (6 in) apart with a dibber or stick.",
+      "Drop one seedling into each hole and fill the hole with water; don't pack soil in. It fills in by itself.",
+      "As the leeks grow, pull soil up around the stems a few times to blanch them white."
+    ],
+    "supplies": [
+      {
+        "name": "Dibber or thick stick"
+      },
+      {
+        "name": "Compost"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.leek.harvest",
+    "content_version": 1,
+    "title": "Harvesting and freezing leeks",
+    "summary": "From late summer into winter.",
+    "stage": "harvest",
+    "plant": "plant.leek",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Loosen the soil with a fork and lift the leek; pulling can snap it.",
+      "Trim the roots and the dark tops, slit the stem lengthwise and rinse out the soil between the layers.",
+      "Slice and freeze raw in bags for soups; no blanching needed."
+    ],
+    "supplies": [
+      {
+        "name": "Garden fork"
+      },
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.green-onion.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing green onions",
+    "summary": "From early spring, every few weeks.",
+    "stage": "sow_outdoors",
+    "plant": "plant.green-onion",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow seeds 6 mm (1/4 in) deep, in a band about 8 cm (3 in) wide.",
+      "Thin lightly to about 2.5 to 5 cm (1 to 2 in) apart; bunching onions grow fine close together.",
+      "Keep weeded: thin onion leaves can't compete with weeds."
+    ],
+    "supplies": [
+      {
+        "name": "Bunching onion seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.green-onion.harvest",
+    "content_version": 1,
+    "title": "Cutting green onions",
+    "summary": "Cut and they come again.",
+    "stage": "harvest",
+    "plant": "plant.green-onion",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut leaves 2.5 cm (1 in) above the base when they are pencil thick, and they regrow in a few weeks.",
+      "Or pull whole plants, leaving a few clumps to keep growing and dividing.",
+      "Chop extras and freeze them flat in a bag for cooking."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cauliflower.transplant",
+    "content_version": 1,
+    "title": "Planting cauliflower",
+    "summary": "A couple of weeks before the last frost, or in midsummer for fall.",
+    "stage": "transplant",
+    "plant": "plant.cauliflower",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant young, unstunted transplants 50 cm (20 in) apart. A plant that sat too long in a small pot often makes a tiny head.",
+      "Water deeply every week and feed with compost or a nitrogen-rich fertilizer a month after planting.",
+      "Cover with row cover against cabbage moths."
+    ],
+    "supplies": [
+      {
+        "name": "Compost"
+      },
+      {
+        "name": "Row cover"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cauliflower.harvest",
+    "content_version": 1,
+    "title": "Harvesting and pickling cauliflower",
+    "summary": "When the head is tight and firm.",
+    "stage": "harvest",
+    "plant": "plant.cauliflower",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "When the head is about the size of a fist, tie the outer leaves over it with string if your kind needs blanching.",
+      "Cut the head with a few leaves attached when it is 15 to 20 cm (6 to 8 in) across and still tight. Loose, grainy heads are past their best.",
+      "Freeze blanched florets (3 minutes), or pickle them in vinegar with a tested recipe in a water bath."
+    ],
+    "supplies": [
+      {
+        "name": "Sharp knife"
+      },
+      {
+        "name": "String"
+      },
+      {
+        "name": "Canning jars",
+        "amount": "for pickles"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cantaloupe.transplant",
+    "content_version": 1,
+    "title": "Planting melons",
+    "summary": "Two to three weeks after the last frost, in warm soil.",
+    "stage": "transplant",
+    "plant": "plant.cantaloupe",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Wait until the soil is at least 21 °C (70 °F). Black plastic or a few warm days help.",
+      "Plant two or three seedlings per hill, hills 90 cm (3 ft) apart, or one per large pot with a trellis.",
+      "Water at the base, not on the leaves, and ease off watering as the fruit nears ripeness for sweeter melons."
+    ],
+    "supplies": [
+      {
+        "name": "Black plastic or mulch"
+      },
+      {
+        "name": "Trellis and slings",
+        "amount": "for pots or tight spaces"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cantaloupe.harvest",
+    "content_version": 1,
+    "title": "Picking cantaloupe",
+    "summary": "When it slips off the vine.",
+    "stage": "harvest",
+    "plant": "plant.cantaloupe",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Watch for the skin turning from green to tan under the netting and a sweet smell at the stem end.",
+      "A ripe melon separates from the stem with a light push of your thumb (\"full slip\").",
+      "Eat within a few days, or cut into cubes and freeze on a tray, then bag."
+    ],
+    "supplies": [
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.watermelon.transplant",
+    "content_version": 1,
+    "title": "Planting watermelon",
+    "summary": "Two to three weeks after the last frost.",
+    "stage": "transplant",
+    "plant": "plant.watermelon",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Wait for warm soil, at least 21 °C (70 °F). Seedlings sulk in cold ground.",
+      "Plant one or two per hill, hills 1.2 m (4 ft) apart, with room for vines to run 2 to 3 m (6 to 10 ft).",
+      "Set a board or tile under each young melon to keep it off wet soil."
+    ],
+    "supplies": [
+      {
+        "name": "Mulch"
+      },
+      {
+        "name": "Boards or tiles"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.watermelon.harvest",
+    "content_version": 1,
+    "title": "Knowing when a watermelon is ripe",
+    "summary": "Look at the tendril, the belly and the shine.",
+    "stage": "harvest",
+    "plant": "plant.watermelon",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Check the curly tendril where the melon's stem meets the vine: when it turns brown and dry, the melon is close.",
+      "The pale spot where the melon rests turns from white to creamy yellow, and the rind turns dull.",
+      "Cut, don't pull, the stem. Whole melons keep about two weeks in a cool place."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.dry-beans.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing dry beans",
+    "summary": "After the last frost, in warm soil.",
+    "stage": "sow_outdoors",
+    "plant": "plant.dry-beans",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Wait until the soil is at least 16 °C (60 °F).",
+      "Sow 2.5 cm (1 in) deep, 8 to 10 cm (3 to 4 in) apart, in rows 45 cm (18 in) apart.",
+      "Water until they flower, then water less. They need dry weather at the end to finish."
+    ],
+    "supplies": [
+      {
+        "name": "Pinto or black bean seed",
+        "amount": "about 30 g (1 oz) per 3 m (10 ft) of row"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.dry-beans.harvest",
+    "content_version": 1,
+    "title": "Harvesting and storing dry beans",
+    "summary": "When the pods are dry and rattle.",
+    "stage": "harvest",
+    "plant": "plant.dry-beans",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Leave the pods on the plant until they are tan, papery and the beans rattle inside.",
+      "If rain is coming, pull whole plants and hang them in a dry, airy shed to finish.",
+      "Shell the beans by hand, or put the pods in a pillowcase and stomp on it, then pour from bowl to bowl in a breeze to blow off the chaff.",
+      "Spread the beans out for another week to dry. Freeze the jar for three days to kill any weevils, then store airtight in a cool, dark place.",
+      "Beans are low in acid: to can cooked beans, use only a pressure canner and a tested recipe, never a water bath."
+    ],
+    "supplies": [
+      {
+        "name": "Pillowcase or sack"
+      },
+      {
+        "name": "Two big bowls"
+      },
+      {
+        "name": "Glass jars with lids",
+        "amount": "about one quart per 3 m (10 ft) of row"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.tomatillo.transplant",
+    "content_version": 1,
+    "title": "Planting tomatillos",
+    "summary": "One to three weeks after the last frost.",
+    "stage": "transplant",
+    "plant": "plant.tomatillo",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant at least two plants so they can pollinate each other, 90 cm (3 ft) apart.",
+      "Bury the stem a little deeper than it grew, like a tomato.",
+      "Give them a cage or stakes; the branches sprawl and break under fruit."
+    ],
+    "supplies": [
+      {
+        "name": "Tomato cages or stakes"
+      },
+      {
+        "name": "Compost"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.tomatillo.harvest",
+    "content_version": 1,
+    "title": "Picking tomatillos and making salsa verde",
+    "summary": "When the fruit fills its husk.",
+    "stage": "harvest",
+    "plant": "plant.tomatillo",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick when the fruit is firm and green and fills or splits the husk. Fallen fruit is usually ripe too.",
+      "Keep them in their husks in the fridge for two to three weeks.",
+      "For canned salsa verde, follow a tested recipe that adds lime juice or vinegar, and process it in a water bath for the time the recipe gives."
+    ],
+    "supplies": [
+      {
+        "name": "Canning jars",
+        "amount": "pints"
+      },
+      {
+        "name": "Lime juice or vinegar",
+        "amount": "as the tested recipe says"
+      }
+    ]
+  }
+]

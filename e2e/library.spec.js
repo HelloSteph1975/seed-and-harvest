@@ -71,3 +71,19 @@ test('a new guide with reordered steps survives a restart', async ({ page }) => 
   const steps = page.getByRole('list', { name: 'Steps' }).getByRole('listitem');
   await expect(steps).toHaveText(['Pull any weeds first.', 'Water the bed well.']);
 });
+
+test('a microgreen page and a fruit tree page read naturally', async ({ page, request }) => {
+  await request.post('/api/places', { data: { name: 'Home', last_frost: '03-20', first_frost: '11-10', zone: '7b' } });
+  const micro = await (await request.post('/api/plants', { data: { name: 'Test pea shoots', kind: 'microgreen', days_min: 10, days_max: 14,
+    seed_g_per_tray: 280, safety_goats: 'safe', safety_chickens: 'safe' } })).json();
+  const tree = await (await request.post('/api/plants', { data: { name: 'Test fig', kind: 'fruit_tree', perennial: true, zone_min: 8, zone_max: 11,
+    transplant_min: 0, transplant_max: 4, years_min: 1, years_max: 2 } })).json();
+  await page.goto(`/library/plants/${micro.id}`);
+  const box = page.getByRole('region', { name: /When to plant/ });
+  await expect(box).toContainText('Grow indoors any time of year. Ready in 10 to 14 days.');
+  await expect(page.getByText('For goats')).toBeVisible();
+  await page.goto(`/library/plants/${tree.id}`);
+  await expect(box).toContainText('Plant');
+  await expect(box).not.toContainText('Move outside');
+  await expect(box).toContainText('probably too cold');
+});

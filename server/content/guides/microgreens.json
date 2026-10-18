@@ -1,0 +1,363 @@
+[
+  {
+    "starter_key": "guide.micro-pea.microgreens",
+    "content_version": 1,
+    "title": "Growing pea shoots",
+    "summary": "Ten to fourteen days from seed to shoots.",
+    "stage": "microgreens",
+    "plant": "plant.micro-pea",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Soak 280 g (10 oz) of untreated pea seed for 8 to 12 hours, then drain and rinse.",
+      "Spread the seed in one thick layer on the mix; they can touch.",
+      "Keep covered for three days, then give light. Harvest at 10 to 15 cm (4 to 6 in) tall, cutting above the lowest leaves."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "280 g (10 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-sunflower.microgreens",
+    "content_version": 1,
+    "title": "Growing sunflower microgreens",
+    "summary": "About ten days, harvested before true leaves.",
+    "stage": "microgreens",
+    "plant": "plant.micro-sunflower",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Soak 200 g (7 oz) of untreated black oil sunflower seed sold for sprouting for 8 to 12 hours, then rinse.",
+      "Spread evenly, cover and weigh down lightly for three to four days so the roots push in and the hulls loosen.",
+      "Uncover, give light, and brush off any hulls. Cut when the first two leaves are open and before true leaves appear."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "200 g (7 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-radish.microgreens",
+    "content_version": 1,
+    "title": "Growing radish microgreens",
+    "summary": "Ready in about a week.",
+    "stage": "microgreens",
+    "plant": "plant.micro-radish",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 30 g (1 oz) of seed evenly on damp mix; no soaking needed.",
+      "Cover for two to three days, then give light.",
+      "Cut at 5 to 8 cm (2 to 3 in) tall when the leaves have opened."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "30 g (1 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-broccoli.microgreens",
+    "content_version": 1,
+    "title": "Growing broccoli microgreens",
+    "summary": "Eight to twelve days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-broccoli",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 25 g (about 1 oz) of seed evenly on damp mix.",
+      "Cover for three days, then give light and a gentle fan.",
+      "Cut when the first leaves are fully open and green."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "25 g (about 1 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-kale.microgreens",
+    "content_version": 1,
+    "title": "Growing kale microgreens",
+    "summary": "Eight to twelve days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-kale",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 25 g (about 1 oz) of seed evenly on damp mix.",
+      "Cover for three days, then give light.",
+      "Cut when the first leaves have opened, at about 5 cm (2 in) tall."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "25 g (about 1 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-mustard.microgreens",
+    "content_version": 1,
+    "title": "Growing mustard microgreens",
+    "summary": "Eight to twelve days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-mustard",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 20 g (3/4 oz) of fine seed as evenly as you can.",
+      "Cover for two to three days, then give light.",
+      "Cut at 5 cm (2 in) tall. The longer they grow, the hotter they taste."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "20 g (3/4 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-arugula.microgreens",
+    "content_version": 1,
+    "title": "Growing arugula microgreens",
+    "summary": "Eight to twelve days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-arugula",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 15 g (1/2 oz) of seed evenly and mist well.",
+      "Cover for three days, keeping the mix damp, then give light.",
+      "Cut when the leaves are open and about 5 cm (2 in) tall."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "15 g (1/2 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-red-cabbage.microgreens",
+    "content_version": 1,
+    "title": "Growing red cabbage microgreens",
+    "summary": "Eight to twelve days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-red-cabbage",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 25 g (about 1 oz) of seed evenly on damp mix.",
+      "Cover for three days, then give strong light for the deepest color.",
+      "Cut when the first leaves are open."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "25 g (about 1 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-beet.microgreens",
+    "content_version": 1,
+    "title": "Growing beet microgreens",
+    "summary": "Twelve to eighteen days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-beet",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Soak 40 g (1 1/2 oz) of seed for about 8 hours, then drain.",
+      "Sow evenly, cover with a thin layer of mix, and keep under a blackout cover for four to five days.",
+      "Give light and cut when the red stems are 5 to 8 cm (2 to 3 in) tall, picking off any seed caps."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "40 g (1 1/2 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-amaranth.microgreens",
+    "content_version": 1,
+    "title": "Growing amaranth microgreens",
+    "summary": "Ten to fourteen days, in a warm spot.",
+    "stage": "microgreens",
+    "plant": "plant.micro-amaranth",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 10 g (1/3 oz) of the tiny seed evenly; mix it with a little fine sand to spread it.",
+      "Keep it warm, around 24 °C (75 °F), and covered for three days.",
+      "Water gently from below and cut at about 5 cm (2 in)."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "10 g (1/3 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-basil.microgreens",
+    "content_version": 1,
+    "title": "Growing basil microgreens",
+    "summary": "Two to three weeks, in a warm spot.",
+    "stage": "microgreens",
+    "plant": "plant.micro-basil",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 10 g (1/3 oz) of dry seed on damp mix and mist; don't soak it.",
+      "Keep warm and covered for four to five days.",
+      "Give light and cut when the first true leaves show, at 5 to 8 cm (2 to 3 in)."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "10 g (1/3 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-buckwheat.microgreens",
+    "content_version": 1,
+    "title": "Growing buckwheat microgreens",
+    "summary": "Eight to twelve days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-buckwheat",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Soak 150 g (5 oz) of unhulled buckwheat for about 8 hours, then rinse.",
+      "Spread evenly, cover for three days, then give light.",
+      "Cut at 8 to 10 cm (3 to 4 in), before the leaves get tough. For people only."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "150 g (5 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-wheatgrass.microgreens",
+    "content_version": 1,
+    "title": "Growing wheatgrass",
+    "summary": "Eight to twelve days.",
+    "stage": "microgreens",
+    "plant": "plant.micro-wheatgrass",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Soak 250 g (9 oz) of untreated wheat berries sold for sprouting for 8 to 12 hours, rinse, and let them sprout in a jar for another day if you like.",
+      "Spread in one layer, cover for two days, then give light.",
+      "Cut at 15 to 20 cm (6 to 8 in) for juicing. For animals, cut it above the soil, or grow it without potting mix like barley fodder and feed them the whole mat."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "250 g (9 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-barley-fodder.microgreens",
+    "content_version": 1,
+    "title": "Growing barley fodder for animals",
+    "summary": "Six to eight days from seed to a feed mat.",
+    "stage": "microgreens",
+    "plant": "plant.micro-barley-fodder",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Soak 450 g (1 lb) of whole, untreated feed barley for about 12 hours, then rinse well.",
+      "Spread it 1 to 2 cm (1/2 to 3/4 in) deep in the tray. Fodder doesn't need potting mix.",
+      "Rinse or water two or three times a day with clean water and let it drain fully.",
+      "Start a new tray every day for a steady supply. Feed the whole mat when the grass is 10 to 15 cm (4 to 6 in) tall, and throw out any tray that smells sour or shows mold."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "450 g (1 lb) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.micro-cress.microgreens",
+    "content_version": 1,
+    "title": "Growing garden cress",
+    "summary": "Ready in about a week.",
+    "stage": "microgreens",
+    "plant": "plant.micro-cress",
+    "basics": "guide.basics.microgreens",
+    "steps": [
+      "Sow 25 g (about 1 oz) of dry seed on damp mix and mist; don't soak it.",
+      "Cover for two days, then give light.",
+      "Cut at 5 cm (2 in) tall."
+    ],
+    "supplies": [
+      {
+        "name": "Seed",
+        "amount": "25 g (about 1 oz) per tray"
+      },
+      {
+        "name": "Shallow tray with holes",
+        "amount": "25 x 50 cm (10 x 20 in)"
+      }
+    ]
+  }
+]
