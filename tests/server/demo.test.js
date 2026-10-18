@@ -44,4 +44,18 @@ describe('demo seed', () => {
     const tomato = t.ctx.db.prepare("SELECT id FROM plants WHERE starter_key = 'plant.tomato'").get();
     expect(t.ctx.db.prepare('SELECT name FROM plant_varieties WHERE plant_id = ?').all(tomato.id).map(v => v.name)).toEqual(['Roma']);
   });
+
+  it('the demo has plantings with overdue, open and done tasks', async () => {
+    t = makeTestContext({ contentDir: CONTENT_DIR });
+    seedDemo(t.ctx);
+    seedDemo(t.ctx);
+    const home = (await t.http().get('/api/places')).body.find(p => p.name === 'Riverside Homestead');
+    const plantings = (await t.http().get(`/api/plantings?place_id=${home.id}`)).body;
+    expect(plantings.length).toBe(3);
+    const today = new Date().toISOString().slice(0, 10);
+    const tasks = (await t.http().get(`/api/tasks?place_id=${home.id}&from=${today}&to=${today}&open=1`)).body;
+    expect(tasks.some(x => !x.done_on && (x.end_on ?? x.due_on) < today)).toBe(true);
+    expect(tasks.some(x => x.kind === 'harvest' && x.due_on <= today && x.end_on >= today)).toBe(true);
+    expect(t.ctx.db.prepare('SELECT COUNT(*) n FROM tasks WHERE done_on IS NOT NULL').get().n).toBeGreaterThan(0);
+  });
 });

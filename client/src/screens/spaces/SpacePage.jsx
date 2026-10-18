@@ -13,6 +13,7 @@ import { api } from '../../lib/api.js';
 import { errorText } from '../../lib/errors.js';
 import { sizeText } from '../../lib/spaces.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
+import { PlantingsOf } from '../plantings/PlantingsOf.jsx';
 
 export function SpacePageRoute() {
   const { id } = useParams();
@@ -65,6 +66,8 @@ function SpacePage({ id }) {
               {s.sun && <><dt>{t('spaces.sun')}</dt><dd>{t(`spaces.sun.${s.sun}`)}</dd></>}
             </dl>
             {s.notes && s.notes.split(/\n\s*\n/).map((para, i) => <p key={i}>{para}</p>)}
+            <PlantingsOf url={`/api/plantings?space_id=${s.id}`} title={t('plantings.inSpace')} empty={t('plantings.none')}
+              addTo={`/plantings/new?place=${s.place_id}&space=${s.id}`} addLabel={t('plantings.addHere')} showPlant />
             <PhotoGallery ownerType="space" ownerId={s.id} />
           </>
         )}

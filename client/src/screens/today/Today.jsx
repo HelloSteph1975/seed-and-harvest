@@ -7,6 +7,7 @@ import { nextFrostEvent } from '../../lib/frost.js';
 import { useToday } from '../../lib/useToday.js';
 import { frostDay, monthName, needsFrostDates } from '../../lib/places.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
+import { TaskList } from './TaskList.jsx';
 
 export function Today() {
   const { t } = useT();
@@ -51,6 +52,7 @@ function CurrentPlace({ place }) {
   }
   const n = spaces.data?.length;
   return (
+    <>
     <section className="card current-place">
       <h2>{place.name}</h2>
       {place.zone && <p><span className="tag">{t('places.zoneShort', { zone: place.zone })}</span></p>}
@@ -60,5 +62,7 @@ function CurrentPlace({ place }) {
         ? <p><Link to={`/spaces?place=${place.id}`}>{t('today.spaceCount', { n })}</Link></p>
         : <p className="muted">{t('places.noSpaces')} <Link to={`/spaces/new?place=${place.id}`}>{t('spaces.add')}</Link></p>)}
     </section>
+    <TaskList place={place} today={today} />
+    </>
   );
 }

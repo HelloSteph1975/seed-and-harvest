@@ -6,6 +6,7 @@ import { HttpError, notFound, notInTrash } from '../http.js';
 import { validate } from '../validate.js';
 import { addErrors, collector, invalid, monthList, textList } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
+import { livePlantingCount, purgePlantingsWhere } from './plantings.js';
 
 export const PLANT_KINDS = ['vegetable', 'herb', 'microgreen', 'fruit_tree', 'shrub', 'vine'];
 export const SAFETY = ['safe', 'small', 'avoid'];
@@ -152,6 +153,8 @@ export function deletePlant(ctx, id) {
   const { db } = ctx;
   transaction(db, () => {
     const stamp = new Date().toISOString();
+    const n = livePlantingCount(db, id);
+    if (n > 0) throw new HttpError(409, 'This plant has plantings. Delete those first.', undefined, { code: 'plant_in_use', vars: { n } });
     if (!repos(db).plants.remove(id, stamp)) throw notFound();
     db.prepare('UPDATE plant_varieties SET deleted_at = ?, version = version + 1 WHERE plant_id = ? AND deleted_at IS NULL').run(stamp, id);
     db.prepare('UPDATE guides SET deleted_at = ?, version = version + 1 WHERE plant_id = ? AND deleted_at IS NULL').run(stamp, id);
@@ -179,11 +182,14 @@ const forget = (db, key) => { if (key) db.prepare('INSERT OR IGNORE INTO starter
 // came from starter content (edited or not) is remembered, so new starter content never brings it back.
 export function purgePlant(ctx, row) {
   const { db } = ctx;
+  purgePlantingsWhere(ctx, 'plant_id', row.id);
   for (const g of db.prepare('SELECT id, starter_key FROM guides WHERE plant_id = ? AND deleted_at IS NOT NULL').all(row.id)) {
     forget(db, g.starter_key);
     db.prepare('UPDATE guides SET basics_id = NULL WHERE basics_id = ?').run(g.id);
+    db.prepare('UPDATE tasks SET guide_id = NULL WHERE guide_id = ?').run(g.id);
     db.prepare('DELETE FROM guides WHERE id = ?').run(g.id);
   }
+  db.prepare('UPDATE plantings SET variety_id = NULL WHERE variety_id IN (SELECT id FROM plant_varieties WHERE plant_id = ? AND deleted_at IS NOT NULL)').run(row.id);
   db.prepare('DELETE FROM plant_varieties WHERE plant_id = ? AND deleted_at IS NOT NULL').run(row.id);
   purgeOwnerPhotos(ctx, 'plant', row.id);
   forget(db, row.starter_key);
@@ -222,6 +228,11 @@ export function updateVariety(db, id, body, version) {
 
 export function deleteVariety(db, id) {
   transaction(db, () => { if (!repos(db).varieties.remove(id)) throw notFound(); });
+}
+
+export function purgeVariety(ctx, row) {
+  ctx.db.prepare('UPDATE plantings SET variety_id = NULL WHERE variety_id = ?').run(row.id);
+  repos(ctx.db).varieties.purge(row.id);
 }
 
 export function restoreVariety(ctx, id) {

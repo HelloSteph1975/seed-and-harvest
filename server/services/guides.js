@@ -150,5 +150,6 @@ export function purgeGuide(ctx, row) {
   const { db } = ctx;
   if (row.starter_key) db.prepare('INSERT OR IGNORE INTO starter_removed (starter_key) VALUES (?)').run(row.starter_key);
   db.prepare('UPDATE guides SET basics_id = NULL WHERE basics_id = ?').run(row.id);
+  db.prepare('UPDATE tasks SET guide_id = NULL WHERE guide_id = ?').run(row.id);
   repos(db).guides.purge(row.id);
 }

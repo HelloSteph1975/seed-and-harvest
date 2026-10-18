@@ -4,7 +4,7 @@ A garden, greenhouse and food forest keeper that runs on your own computer. It's
 
 Everything is kept in one file on your computer. There are no accounts.
 
-> Stages 1 and 2 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, Today, and the plant library with 89 starter plants (vegetables, herbs, microgreens, and fruit trees, shrubs and vines) and their guides. Plantings and tasks, greenhouses, the food forest, and harvests come in later stages.
+> Stages 1 to 3 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, the plant library with 89 starter plants and their guides, and plantings with their tasks, Today, the calendar and a supplies list. Greenhouses and microgreen trays, the food forest, and harvests come in later stages.
 
 ## Places
 
@@ -23,6 +23,14 @@ A starter library of food plants, written for this app: what each one needs, how
 Every plant has short step-by-step guides (starting seeds, planting out, sowing, harvest) with a list of what you'll need, and each one links to a basics guide that explains the job in full. You can edit anything, add your own plants, varieties and guides, and search across the whole garden from the side bar.
 
 Microgreens list soak time, seed per tray, days to harvest, and whether they are safe for goats and chickens (always ask your vet before making a new feed regular). Fruit trees, shrubs and vines start with dwarf and pot-friendly kinds, say how many years until fruit, and come with guides for buying a plant that already produces and for growing a fruit tree in a pot. Figures in the starter library are common rules of thumb; your seed packet and local gardeners know your conditions best.
+
+## Plantings, Today and the calendar
+
+A planting is a plant in one of your spaces: how many, how it starts (seeds indoors, seeds outdoors, a young plant from a nursery, or a plant that already produces) and the date you start. The form suggests that date from the place's frost dates or planting months and shows the tasks it will make before you save.
+
+The app works out each planting's tasks from the plant's timing: start seeds, pot up, harden off, move outside or plant, sow, thin, feed, check for pests, and the harvest window. Every task links to its guide and what you'll need. You can change a task's date, add your own, or delete one. Tick a task done and it goes in the planting's log, which also holds your own dated notes and photos. If you change a planting's start date, the tasks you haven't touched move with it.
+
+Today shows what's overdue, due today, harvest windows open now, and the rest of the week, grouped by space. The calendar shows the month or a list, with your frost dates marked. Supplies for the next few weeks gathers what the coming tasks need into one shopping list.
 
 ## Install
 

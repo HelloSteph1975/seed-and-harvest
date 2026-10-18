@@ -77,6 +77,28 @@ export const migrations = [
   CREATE TABLE guide_supplies (guide_id INTEGER NOT NULL REFERENCES guides(id) ON DELETE CASCADE, position INTEGER NOT NULL,
     name TEXT NOT NULL, amount TEXT, PRIMARY KEY (guide_id, position));
   `,
+  // 8: plantings (a plant in a space), their tasks (worked out by the rules or added by the owner) and a dated log.
+  `
+  CREATE TABLE plantings (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    space_id INTEGER NOT NULL REFERENCES spaces(id), plant_id INTEGER NOT NULL REFERENCES plants(id),
+    variety_id INTEGER REFERENCES plant_varieties(id), count INTEGER, row_m REAL,
+    how_started TEXT NOT NULL CHECK (how_started IN ('seed_indoors', 'seed_outdoors', 'start', 'mature')),
+    start_on TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'planned' CHECK (status IN ('planned', 'started', 'growing', 'harvesting', 'done')),
+    notes TEXT, ${TS});
+  CREATE TABLE tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, planting_id INTEGER NOT NULL REFERENCES plantings(id),
+    kind TEXT NOT NULL CHECK (kind IN ('start_seeds', 'pot_up', 'harden_off', 'transplant', 'plant', 'sow', 'thin', 'feed', 'pests', 'harvest', 'other')),
+    title TEXT, due_on TEXT NOT NULL, end_on TEXT, done_on TEXT, guide_id INTEGER REFERENCES guides(id), notes TEXT,
+    auto INTEGER NOT NULL DEFAULT 0, edited INTEGER NOT NULL DEFAULT 0, ${TS});
+  CREATE TABLE planting_log (id INTEGER PRIMARY KEY AUTOINCREMENT, planting_id INTEGER NOT NULL REFERENCES plantings(id),
+    on_date TEXT NOT NULL,
+    kind TEXT NOT NULL CHECK (kind IN ('sowed', 'transplanted', 'planted', 'thinned', 'fed', 'pruned', 'watered', 'problem', 'harvested', 'note')),
+    note TEXT, task_id INTEGER REFERENCES tasks(id), ${TS});
+  CREATE INDEX idx_plantings_space ON plantings(space_id);
+  CREATE INDEX idx_tasks_planting ON tasks(planting_id);
+  CREATE INDEX idx_tasks_due ON tasks(due_on);
+  CREATE INDEX idx_log_planting ON planting_log(planting_id);
+  `,
 ];
 
 export function migrate(db) {
