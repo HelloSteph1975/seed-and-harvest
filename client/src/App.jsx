@@ -8,6 +8,12 @@ import { NotFound } from './screens/NotFound.jsx';
 import { Settings } from './screens/Settings.jsx';
 import { Trash } from './screens/Trash.jsx';
 import { Today } from './screens/today/Today.jsx';
+import { Search } from './screens/search/Search.jsx';
+import { Library } from './screens/library/Library.jsx';
+import { PlantPageRoute } from './screens/library/PlantPage.jsx';
+import { PlantFormRoute } from './screens/library/PlantForm.jsx';
+import { GuidePageRoute } from './screens/library/GuidePage.jsx';
+import { GuideFormRoute } from './screens/library/GuideForm.jsx';
 import { Places } from './screens/places/Places.jsx';
 import { PlaceFormRoute } from './screens/places/PlaceForm.jsx';
 import { PlacePageRoute } from './screens/places/PlacePage.jsx';
@@ -42,6 +48,14 @@ export const routes = [
       { path: 'places/new', element: <PlaceFormRoute /> },
       { path: 'places/:id', element: <PlacePageRoute /> },
       { path: 'places/:id/edit', element: <PlaceFormRoute /> },
+      { path: 'search', element: <Search /> },
+      { path: 'library', element: <Library /> },
+      { path: 'library/plants/new', element: <PlantFormRoute /> },
+      { path: 'library/plants/:id', element: <PlantPageRoute /> },
+      { path: 'library/plants/:id/edit', element: <PlantFormRoute /> },
+      { path: 'library/guides/new', element: <GuideFormRoute /> },
+      { path: 'library/guides/:id', element: <GuidePageRoute /> },
+      { path: 'library/guides/:id/edit', element: <GuideFormRoute /> },
       { path: 'trash', element: <Trash /> },
       { path: 'settings', element: <Settings /> },
       { path: '*', element: <NotFound /> },

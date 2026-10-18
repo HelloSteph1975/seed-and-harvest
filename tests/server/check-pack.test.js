@@ -15,12 +15,10 @@ beforeEach(() => {
   root = path.join(tmp, 'app');
   dataDir = path.join(tmp, 'data');
   write(path.join(root, 'client/src/i18n/en.json'), { 'nav.today': 'Today', 'nav.settings': 'Settings', 'nav.books': 'Books' });
-  write(path.join(root, 'server/content/traditions.json'), [{ starter_key: 'tradition.wiccan', name: 'Wiccan', description: 'd' }]);
-  write(path.join(root, 'server/content/categories.json'), [{ starter_key: 'category.days', name: 'Days' }]);
-  write(path.join(root, 'server/content/correspondences/days.json'), [{ starter_key: 'corr.days.monday', name: 'Monday', summary: 's', body: 'b', keywords: ['moon'] }]);
-  write(path.join(root, 'server/content/links.json'), []);
-  write(path.join(root, 'server/content/spell-kinds.json'), [{ starter_key: 'spell-kind.spell', name: 'Spell' }]);
-  write(path.join(root, 'server/content/journal-kinds.json'), [{ starter_key: 'journal-kind.dream', name: 'Dream' }]);
+  write(path.join(root, 'server/content/plants/veg.json'), [{ starter_key: 'plant.pea', name: 'Pea', summary: 's', kind: 'vegetable',
+    preserves: [{ form: 'Pint, frozen', unit: 'pint', raw_kg: 0.5 }] }]);
+  write(path.join(root, 'server/content/guides/basics.json'), [{ starter_key: 'guide.basics.sow', title: 'Sowing', stage: 'sow_outdoors',
+    steps: ['Rake.', 'Sow.'], supplies: [{ name: 'Rake' }, { name: 'Seed', amount: '1 packet' }] }]);
 });
 afterEach(() => fs.rmSync(tmp, { recursive: true, force: true }));
 
@@ -28,16 +26,16 @@ describe('checkPack', () => {
   it('reports the exact missing and extra keys', () => {
     write(path.join(dataDir, 'locales/es/ui.json'), { _name: 'Español', 'nav.today': 'Hoy', 'nav.gone': 'x' });
     write(path.join(dataDir, 'locales/es/content.json'), {
-      'tradition.wiccan.name': 'Wicca',
-      'category.days.name': 'Días',
-      'corr.days.monday.name': 'Lunes',
-      'corr.days.monday.keywords': 'luna, plata',
-      'corr.days.tuesday.name': 'Martes',
+      'plant.pea.name': 'Chícharo',
+      'guide.basics.sow.title': 'Sembrar',
+      'guide.basics.sow.step.1': 'Rastrilla.',
+      'guide.basics.sow.supply.1.name': 'Rastrillo',
+      'plant.bean.name': 'Frijol',
     });
     expect(checkPack({ dataDir, code: 'es', root })).toEqual({
       missingUi: ['nav.settings', 'nav.books'],
-      missingContent: ['tradition.wiccan.description', 'spell-kind.spell.name', 'journal-kind.dream.name', 'corr.days.monday.summary', 'corr.days.monday.body'],
-      extra: ['nav.gone', 'corr.days.tuesday.name'],
+      missingContent: ['plant.pea.summary', 'plant.pea.preserve.1', 'guide.basics.sow.step.2', 'guide.basics.sow.supply.2.name', 'guide.basics.sow.supply.2.amount'],
+      extra: ['nav.gone', 'plant.bean.name'],
       bad: [],
     });
   });
@@ -49,8 +47,8 @@ describe('checkPack', () => {
   });
   it('flags empty and non-text values', () => {
     write(path.join(dataDir, 'locales/es/ui.json'), { _name: 'Español', 'nav.today': '  ', 'nav.settings': 5, 'nav.books': 'Libros' });
-    write(path.join(dataDir, 'locales/es/content.json'), { 'tradition.wiccan.name': 'Wicca', 'corr.days.monday.keywords': ['luna'], 'category.days.name': null });
-    expect(checkPack({ dataDir, code: 'es', root }).bad).toEqual(['nav.today', 'nav.settings', 'corr.days.monday.keywords', 'category.days.name']);
+    write(path.join(dataDir, 'locales/es/content.json'), { 'plant.pea.name': 'Chícharo', 'plant.pea.summary': ['s'], 'guide.basics.sow.title': null });
+    expect(checkPack({ dataDir, code: 'es', root }).bad).toEqual(['nav.today', 'nav.settings', 'plant.pea.summary', 'guide.basics.sow.title']);
   });
   it('says which file is not valid JSON', () => {
     fs.mkdirSync(path.join(dataDir, 'locales/es'), { recursive: true });

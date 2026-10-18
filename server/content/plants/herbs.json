@@ -1,0 +1,49 @@
+[
+  {
+    "starter_key": "plant.basil", "content_version": 1, "name": "Basil", "latin_name": "Ocimum basilicum", "kind": "herb", "family": "Mint",
+    "summary": "The summer herb for pesto, tomatoes and salads. Loves heat, hates cold.",
+    "sun": "full", "water": "medium", "spacing_cm": 25, "container_liters": 4, "container_ok": true,
+    "start_indoors": [6, 8], "transplant": [1, 2], "frost_free_months": [2, 3, 4, 5, 6, 7, 8, 9], "days": [50, 70],
+    "yield_kg": 0.5, "yield_per": "plant", "companions": ["plant.tomato", "plant.sweet-pepper"], "avoid": [],
+    "problems": "Turns black after nights below about 10 °C (50 °F). Downy mildew causes yellowing with gray fuzz under leaves; resistant varieties help.",
+    "greenhouse_notes": "Grows year round in a warm greenhouse or a sunny window.",
+    "notes": "Pinch off flower buds and the tips of stems to keep plants bushy and leafy. Freeze pesto in ice cube trays for winter."
+  },
+  {
+    "starter_key": "plant.cilantro", "content_version": 1, "name": "Cilantro", "latin_name": "Coriandrum sativum", "kind": "herb", "family": "Carrot",
+    "summary": "Fresh leaves for salsa and tacos, and coriander seed once it flowers. A cool-weather herb.",
+    "sun": "part", "water": "medium", "spacing_cm": 15, "container_liters": 8, "container_ok": true,
+    "sow": [-2, 2], "fall_sow": [8, 10], "frost_free_months": [10, 11, 12, 1, 2], "days": [45, 70],
+    "yield_kg": 0.2, "yield_per": "plant", "companions": ["plant.tomato", "plant.sweet-pepper"], "avoid": [],
+    "problems": "Bolts quickly in heat and long days. Sow a little every two to three weeks in cool weather.",
+    "notes": "Let some plants flower: the seeds are coriander, and the flowers feed helpful insects. Fallen seed often comes up on its own in fall."
+  },
+  {
+    "starter_key": "plant.dill", "content_version": 1, "name": "Dill", "latin_name": "Anethum graveolens", "kind": "herb", "family": "Carrot",
+    "summary": "Feathery leaves and seed heads for pickles. Feeds swallowtail caterpillars and helpful insects.",
+    "sun": "full", "water": "medium", "spacing_cm": 25, "container_liters": 11, "container_ok": true,
+    "sow": [-1, 2], "frost_free_months": [10, 11, 12, 1, 2, 3], "days": [40, 60],
+    "yield_kg": 0.2, "yield_per": "plant", "companions": ["plant.cucumber", "plant.cabbage", "plant.lettuce"], "avoid": ["plant.carrot"],
+    "problems": "Doesn't transplant well; sow it where it will grow. Bolts in heat.",
+    "notes": "Time a sowing to flower when your cucumbers are ready, so seed heads are fresh for pickling."
+  },
+  {
+    "starter_key": "plant.parsley", "content_version": 1, "name": "Parsley", "latin_name": "Petroselinum crispum", "kind": "herb", "family": "Carrot",
+    "summary": "Flat-leaf or curly, it keeps going for months and through light frosts.",
+    "sun": "part", "water": "medium", "spacing_cm": 20, "container_liters": 8, "container_ok": true,
+    "start_indoors": [8, 10], "transplant": [-2, 1], "sow": [-3, 0], "frost_free_months": [9, 10, 11, 12, 1, 2, 3], "days": [70, 90],
+    "yield_kg": 0.4, "yield_per": "plant", "companions": ["plant.tomato", "plant.carrot"], "avoid": [],
+    "problems": "Seeds are very slow to sprout; soak them overnight first. Swallowtail caterpillars may share it with you.",
+    "notes": "A biennial: it leafs up the first year and flowers the second. Cut outer stems at the base and leave the center growing."
+  },
+  {
+    "starter_key": "plant.oregano", "content_version": 1, "name": "Oregano", "latin_name": "Origanum vulgare", "kind": "herb", "family": "Mint",
+    "summary": "A tough perennial for sauces and drying. Comes back every year with little care.",
+    "sun": "full", "water": "low", "spacing_cm": 30, "container_liters": 8, "container_ok": true,
+    "zones": [5, 10], "perennial": true,
+    "start_indoors": [6, 10], "transplant": [0, 2], "frost_free_months": [2, 3, 4, 5, 6, 7, 8, 9], "days": [80, 90],
+    "yield_kg": 0.3, "yield_per": "plant", "companions": ["plant.tomato", "plant.sweet-pepper"], "avoid": [],
+    "problems": "Rots in wet, heavy soil; it likes it lean and well drained. Flavor fades if it's overwatered or fed too much.",
+    "notes": "Buying a small plant or a division from a friend is faster than seed. Cut stems just before flowering for the strongest flavor, and dry them in bundles."
+  }
+]

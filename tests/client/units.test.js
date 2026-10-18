@@ -41,4 +41,32 @@ describe('units', () => {
     expect(keepOrConvert('length', '3.3', '3.3', 1, 'us')).toBe(1);
     expect(keepOrConvert('length', '12', '10', 3.048, 'us')).toBeCloseTo(3.6576, 9);
   });
+  it('feet convert exactly', () => {
+    expect(toMetric('length', '10', 'us')).toBe(3.048);
+    expect(toDisplay('length', 3.048, 'us')).toBe('10');
+  });
+  it('shows spacing in inches, whole above 3 in', () => {
+    expect(toDisplay('spacing', 45.72, 'us')).toBe('18');
+    expect(toDisplay('spacing', 5, 'us')).toBe('2');
+    expect(toDisplay('spacing', 2.54, 'us')).toBe('1');
+    expect(toDisplay('spacing', 1.27, 'us')).toBe('0.5');
+    expect(toDisplay('spacing', 46, 'metric')).toBe('46');
+    expect(toMetric('spacing', '18', 'us')).toBeCloseTo(45.72, 9);
+    expect(unitLabel('spacing', 'us')).toBe('in');
+    expect(unitLabel('spacing', 'metric')).toBe('cm');
+  });
+  it('shows weights in pounds and seed in ounces', () => {
+    expect(toDisplay('weight', 4.5359237, 'us')).toBe('10');
+    expect(toDisplay('weight', 4.5, 'metric')).toBe('4.5');
+    expect(toDisplay('seed', 3, 'us')).toBe('0.1');
+    expect(toDisplay('seed', 1, 'us')).toBe('0.1');
+    expect(toDisplay('seed', 200, 'us')).toBe('7.1');
+    expect(unitLabel('weight', 'us')).toBe('lb');
+    expect(unitLabel('seed', 'us')).toBe('oz');
+    expect(unitLabel('seed', 'metric')).toBe('g');
+  });
+  it('an untouched small value saves back exactly', () => {
+    expect(keepOrConvert('spacing', '18', '18', 46, 'us')).toBe(46);
+    expect(keepOrConvert('seed', '0.1', '0.1', 3, 'us')).toBe(3);
+  });
 });

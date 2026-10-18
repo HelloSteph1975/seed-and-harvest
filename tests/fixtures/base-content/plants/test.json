@@ -1,0 +1,9 @@
+[
+  { "starter_key": "plant.test-tomato", "content_version": 1, "name": "Test tomato", "latin_name": "Solanum lycopersicum", "kind": "vegetable",
+    "family": "Nightshade", "summary": "A fixture tomato.", "sun": "full", "water": "medium", "spacing_cm": 60, "container_liters": 38, "container_ok": true,
+    "start_indoors": [6, 8], "transplant": [1, 2], "frost_free_months": [2, 3, 9], "days": [60, 85], "yield_kg": 4.5, "yield_per": "plant",
+    "companions": ["plant.test-basil"], "avoid": [], "preserves": [{ "form": "Quart of sauce", "unit": "quart", "raw_kg": 4.5 }],
+    "problems": "Fixture problems.", "notes": "Fixture notes." },
+  { "starter_key": "plant.test-basil", "content_version": 1, "name": "Test basil", "kind": "herb", "summary": "A fixture basil.",
+    "sun": "full", "spacing_cm": 25, "container_ok": true, "transplant": [1, 3], "days": [50, 70] }
+]

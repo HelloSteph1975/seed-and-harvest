@@ -1,0 +1,305 @@
+[
+  {
+    "starter_key": "guide.basics.start-indoors",
+    "content_version": 1,
+    "title": "Starting seeds indoors",
+    "summary": "Give slow or warmth-loving plants a head start inside, weeks before it's safe to plant them out.",
+    "stage": "start_indoors",
+    "steps": [
+      "Count back from your last frost date by the number of weeks the plant's page gives. That's your sowing day.",
+      "Fill clean trays or small pots with seed-starting mix (not garden soil). Water it until it's evenly damp, like a wrung-out sponge.",
+      "Sow at the depth the plant's guide or seed packet gives. A good rule is about two to three times the seed's width. Press the mix down gently and label every row.",
+      "Cover the tray with a clear lid or plastic to hold in moisture, and keep it warm. Most warm-season seeds sprout fastest at 21 to 27 °C (70 to 80 °F); a heat mat helps.",
+      "As soon as the first sprouts show, take off the cover and put the seedlings under bright light: a grow light 5 to 10 cm (2 to 4 in) above them for 14 to 16 hours a day, or your sunniest window.",
+      "Water from below by setting the tray in a shallow dish for a few minutes, so the stems stay dry. Let the top of the mix dry slightly between waterings.",
+      "When seedlings have two sets of true leaves, keep the strongest one in each cell and snip the rest at soil level. Move them to bigger pots if they outgrow their cells before planting day."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots with drainage holes"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Clear lid or plastic cover"
+      },
+      {
+        "name": "Grow light or a bright south-facing window"
+      },
+      {
+        "name": "Heat mat",
+        "amount": "optional, for peppers, tomatoes and eggplant"
+      },
+      {
+        "name": "Plant labels and a marker"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.harden-off",
+    "content_version": 1,
+    "title": "Hardening off seedlings",
+    "summary": "Get indoor seedlings used to sun, wind and cool nights over a week or two, so moving outside doesn't shock them.",
+    "stage": "transplant",
+    "steps": [
+      "Start about 7 to 10 days before you plan to plant out, on a mild day with little wind.",
+      "On day one, set the seedlings outside in shade for an hour or two, then bring them back in.",
+      "Each day, leave them out a little longer and give them a little more sun. By the end of the week they should handle a full day outside.",
+      "Water less often than you did indoors, but never let them wilt badly.",
+      "Bring them in if a frost or a cold, windy night is coming. Warm-season plants dislike nights below about 10 °C (50 °F).",
+      "Once they can stay out day and night without wilting, they're ready to plant."
+    ],
+    "supplies": [
+      {
+        "name": "A tray or box to carry seedlings in and out"
+      },
+      {
+        "name": "Shade cloth or a shady porch",
+        "amount": "for the first days"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.transplant",
+    "content_version": 1,
+    "title": "Moving plants into the garden",
+    "summary": "Plant hardened-off seedlings or bought starts so they settle in fast.",
+    "stage": "transplant",
+    "steps": [
+      "Check the plant's dates and the weather. Plant on a cloudy day or in the late afternoon, when the sun is gentler.",
+      "Water the seedlings an hour before you move them, so the root ball holds together.",
+      "Dig each hole a little wider than the root ball, at the spacing the plant's page gives. Mix a handful of compost into the bottom.",
+      "Ease the plant out by pushing up from the bottom of the pot rather than pulling the stem. If roots circle the pot, loosen them gently with your fingers.",
+      "Set it at the same depth it grew in the pot (tomatoes are the exception: bury them deeper). Fill in around it and firm the soil with your hands.",
+      "Water slowly and deeply right away, then mulch around the plant, leaving a little gap at the stem.",
+      "Keep the soil evenly moist for the first week or two while new roots grow. Shade cloth for a few hot afternoons helps."
+    ],
+    "supplies": [
+      {
+        "name": "Trowel"
+      },
+      {
+        "name": "Compost",
+        "amount": "a handful per plant"
+      },
+      {
+        "name": "Watering can or hose with a gentle spray"
+      },
+      {
+        "name": "Mulch such as straw or shredded leaves"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.sow-outdoors",
+    "content_version": 1,
+    "title": "Sowing seeds outdoors",
+    "summary": "Sow straight into the bed for root crops, beans, peas, squash and other plants that don't like being moved.",
+    "stage": "sow_outdoors",
+    "steps": [
+      "Wait for the date on the plant's page. Cool-season crops can go in before the last frost; warm-season crops need warm soil.",
+      "Loosen the soil and rake it smooth, breaking up clods and pulling out weeds and stones.",
+      "Make a shallow furrow with the edge of a hoe or your finger at the depth the plant's guide gives. Space rows as the page says.",
+      "Drop seeds along the furrow at the spacing given. Small seeds can be mixed with a little sand to spread them more evenly.",
+      "Cover lightly with fine soil and press it down with the flat of your hand or the back of a rake, so the seeds touch the soil.",
+      "Water gently with a fine spray. Keep the top of the soil moist every day until the seedlings come up; a light board or row cover laid over slow seeds like carrots helps (lift it as soon as they sprout).",
+      "When seedlings are a few centimeters tall, thin them to the final spacing by snipping the extras at soil level."
+    ],
+    "supplies": [
+      {
+        "name": "Garden rake"
+      },
+      {
+        "name": "Hoe or a stick for furrows"
+      },
+      {
+        "name": "Seeds"
+      },
+      {
+        "name": "Watering can with a fine rose"
+      },
+      {
+        "name": "Row cover or a board",
+        "amount": "optional"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.soil-compost",
+    "content_version": 1,
+    "title": "Building good soil with compost",
+    "summary": "Healthy soil feeds plants for you. Compost is the easiest way to get there.",
+    "stage": "general",
+    "steps": [
+      "Squeeze a handful of damp soil. Sticky clay that holds a hard shape and sand that won't hold together both get better with organic matter.",
+      "Spread 5 to 8 cm (2 to 3 in) of finished compost over beds each spring and fall, and mix it into the top few centimeters.",
+      "To make your own, pile up 'greens' (kitchen scraps, fresh grass, plant trimmings, goat or chicken manure) and 'browns' (dry leaves, straw, shredded cardboard), roughly one part greens to two or three parts browns.",
+      "Keep the pile as damp as a wrung-out sponge and turn it every week or two to let air in. It's ready when it's dark, crumbly and smells like the woods, usually in two to six months.",
+      "Leave out meat, dairy, oils and pet waste. Age fresh manure in the pile before it goes near food plants.",
+      "Keep soil covered with mulch or a cover crop between plantings, so rain doesn't crust it and weeds don't move in."
+    ],
+    "supplies": [
+      {
+        "name": "Compost bin or a corner for a pile"
+      },
+      {
+        "name": "Garden fork"
+      },
+      {
+        "name": "Dry browns",
+        "amount": "leaves, straw or cardboard"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.watering",
+    "content_version": 1,
+    "title": "Watering well",
+    "summary": "Deep, steady watering grows strong roots and fewer problems.",
+    "stage": "care",
+    "steps": [
+      "Most vegetables want about 2.5 cm (1 in) of water a week from rain or watering, more in hot, dry or windy weather.",
+      "Water deeply and less often, rather than a little every day. Deep water draws roots down where the soil stays moist.",
+      "Water the soil, not the leaves. Wet leaves, especially in the evening, invite disease. Drip lines or soaker hoses are ideal.",
+      "Water in the morning when you can, so any splashed leaves dry during the day.",
+      "Check before you water: push a finger into the soil. If it's dry at the second knuckle, water.",
+      "Mulch keeps moisture in and cuts watering a lot. Containers dry out much faster than beds and may need water daily in summer."
+    ],
+    "supplies": [
+      {
+        "name": "Drip line or soaker hose",
+        "amount": "ideal"
+      },
+      {
+        "name": "Watering can or hose with a gentle spray"
+      },
+      {
+        "name": "Rain gauge",
+        "amount": "optional"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.raised-beds",
+    "content_version": 2,
+    "title": "Making a raised bed",
+    "summary": "A raised bed warms early, drains well and keeps your soil loose because nobody walks on it.",
+    "stage": "general",
+    "steps": [
+      "Pick a spot with at least 6 to 8 hours of sun and water close by.",
+      "Keep the bed no wider than 1.2 m (4 ft), so you can reach the middle from either side. Length can be anything.",
+      "Build sides 20 to 30 cm (8 to 12 in) tall from untreated wood, stone, metal or blocks. Leave paths wide enough for a wheelbarrow.",
+      "Lay cardboard on the ground inside to smother grass and weeds, overlapping the edges.",
+      "Fill with a mix of about 60% topsoil and 40% compost. Water it well and let it settle for a few days, then top it up.",
+      "Add compost every season and keep the surface mulched."
+    ],
+    "supplies": [
+      {
+        "name": "Untreated boards, stone or blocks for the sides"
+      },
+      {
+        "name": "Plain cardboard"
+      },
+      {
+        "name": "Topsoil and compost",
+        "amount": "about 0.9 m³ (32 cu ft) per 1.2 × 2.4 m (4 × 8 ft) bed, 30 cm (1 ft) deep"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.containers",
+    "content_version": 1,
+    "title": "Growing in containers",
+    "summary": "Pots let you grow on a patio, move plants to shelter, and take them with you when you move.",
+    "stage": "container",
+    "steps": [
+      "Choose the pot size the plant's page gives. Bigger pots hold more water and give steadier results.",
+      "Every pot needs drainage holes. Raise it slightly on feet or bricks so water can run out.",
+      "Fill with a good potting mix, never garden soil, which packs down in pots. Mix in some compost for food crops.",
+      "Plant at the right depth and water until it runs out the bottom.",
+      "Check daily in warm weather; pots can dry out in a single hot afternoon. Water when the top few centimeters are dry.",
+      "Feed with a balanced organic fertilizer every two to four weeks during the growing season, because watering washes nutrients out of pots.",
+      "Group pots together and move them into shade during heat waves, or into a greenhouse or garage before frost."
+    ],
+    "supplies": [
+      {
+        "name": "Pots with drainage holes"
+      },
+      {
+        "name": "Potting mix"
+      },
+      {
+        "name": "Compost"
+      },
+      {
+        "name": "Organic fertilizer"
+      },
+      {
+        "name": "Pot feet or bricks"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.greenhouse",
+    "content_version": 1,
+    "title": "Running a greenhouse through the seasons",
+    "summary": "A greenhouse stretches your seasons on both ends. The main jobs are managing heat, air and water.",
+    "stage": "greenhouse",
+    "steps": [
+      "Keep a thermometer that records the high and low. On a sunny day a closed greenhouse can pass 40 °C (104 °F) even in winter.",
+      "Open vents or doors on any sunny day above about 15 °C (60 °F) outside. Air moving through keeps temperatures down and helps prevent mold.",
+      "In summer, add shade cloth (30 to 50%) over the roof and keep vents open. Damp down the floor on very hot days.",
+      "In winter, close up in the afternoon to trap heat. Dark water barrels soak up heat by day and release it at night. Row cover over plants inside adds a few more degrees.",
+      "Water in the morning so plants and floor dry by evening. Pots inside dry out fast.",
+      "Use spring and fall for starting seedlings and growing salad greens; use summer for heat lovers like tomatoes, peppers and cucumbers if it doesn't get too hot.",
+      "Clean out old plants between seasons and check for pests under leaves each week, since bugs love the shelter as much as plants do."
+    ],
+    "supplies": [
+      {
+        "name": "Max-min thermometer"
+      },
+      {
+        "name": "Shade cloth",
+        "amount": "30 to 50%"
+      },
+      {
+        "name": "Row cover"
+      },
+      {
+        "name": "Water barrels",
+        "amount": "optional, for winter warmth"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.harvest-store",
+    "content_version": 1,
+    "title": "Harvesting and storing",
+    "summary": "Pick at the right time and store each crop the way it likes, and the pantry stays full longer.",
+    "stage": "harvest",
+    "steps": [
+      "Harvest in the cool of the morning, after dew dries, for the best flavor and the longest keeping.",
+      "Pick often. Many plants (beans, zucchini, cucumbers, herbs) make more when you keep picking.",
+      "Use clean, sharp scissors or pruners for stems so you don't tear the plant.",
+      "Cool leafy greens and tender crops right away: rinse, shake dry and refrigerate.",
+      "Cure crops meant to keep: onions, garlic, potatoes, sweet potatoes, winter squash and pumpkins each have their own short drying or curing step on their plant's page.",
+      "Store keepers somewhere dark and dry at the temperature each crop prefers, and check them every few weeks, using up any that start to soften.",
+      "Can, freeze, dry or ferment the extras at their peak. Follow tested recipes for canning, such as those from a university extension service, to keep food safe."
+    ],
+    "supplies": [
+      {
+        "name": "Harvest basket or bucket"
+      },
+      {
+        "name": "Scissors or pruners"
+      },
+      {
+        "name": "Crates or mesh bags for storage"
+      }
+    ]
+  }
+]

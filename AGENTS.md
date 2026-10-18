@@ -48,7 +48,7 @@ Run `npm run setup`, then `npm start`, and open http://localhost:4215. There are
 The app's screens are English. To add another language, make a folder `locales\<code>` inside the data folder (for example `locales\es` for Spanish). The folder name must be a language code: two or three lowercase letters, optionally followed by a dash and a two-letter uppercase region (`es`, `pt-BR`). A folder named like `Spanish` or `es-mx` is skipped. Put two files in it:
 
 - `ui.json` holds every key from `client/src/i18n/en.json`, translated, plus a non-empty `"_name"` with the language's own name (like `"Español"`). A pack without `"_name"` is skipped.
-- `content.json` will translate starter entries by key (`<starter_key>.<field>`) once the plant library arrives. For now it can be `{}`.
+- `content.json` translates the starter library by key. Plants: `<starter_key>.name`, `.summary`, `.problems`, `.notes`, `.greenhouse_notes` (when the plant has them) and `.preserve.<n>` for each preserving amount. Guides: `<starter_key>.title`, `.summary`, `.step.<n>` for each step and `.supply.<n>.name` / `.supply.<n>.amount` for each supply (n counts from 1). The starter keys are in `server/content/plants/*.json` and `server/content/guides/*.json`.
 
 To see what is still untranslated, run `npm run check-pack -- <code>` (for example `npm run check-pack -- es`); it lists missing and unused keys.
 

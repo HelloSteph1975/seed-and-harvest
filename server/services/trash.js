@@ -5,6 +5,8 @@ import { backupNow, rotateQuietly } from './backup.js';
 import { restorePlace, purgePlace } from './places.js';
 import { restoreSpace, purgeSpace } from './spaces.js';
 import { restorePhoto, purgePhoto } from './photos.js';
+import { restorePlant, purgePlant, restoreVariety } from './plants.js';
+import { restoreGuide, purgeGuide } from './guides.js';
 
 function recordRemoved(db, row) {
   if (row.starter_key) db.prepare('INSERT OR IGNORE INTO starter_removed (starter_key) VALUES (?)').run(row.starter_key);
@@ -23,6 +25,10 @@ function purgeRow(db, repo, row) {
 export const TRASH_TYPES = {
   photo: { repo: db => repos(db).photos, title: row => row.caption || row.filename, restore: restorePhoto, purge: purgePhoto,
     parentOf: row => `${row.owner_type}:${row.owner_id}` },
+  variety: { repo: db => repos(db).varieties, title: row => row.name, restore: restoreVariety, parentOf: row => `plant:${row.plant_id}` },
+  guide: { repo: db => repos(db).guides, title: row => row.title, restore: restoreGuide, purge: purgeGuide,
+    parentOf: row => (row.plant_id == null ? null : `plant:${row.plant_id}`) },
+  plant: { repo: db => repos(db).plants, title: row => row.name, restore: restorePlant, purge: purgePlant },
   space: { repo: db => repos(db).spaces, title: row => row.name, restore: restoreSpace, purge: purgeSpace, parentOf: row => `place:${row.place_id}` },
   place: { repo: db => repos(db).places, title: row => row.name, restore: restorePlace, purge: purgePlace },
 };
