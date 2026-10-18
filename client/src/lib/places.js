@@ -2,11 +2,11 @@
 const RANK = { current: 0, future: 1, past: 2 };
 export const byStatus = list => [...list].sort((a, b) => RANK[a.status] - RANK[b.status] || a.sort_order - b.sort_order || a.id - b.id);
 
-// "March 18" from "03-18", in the screen language.
+// "March 18" from "03-18", in the screen language. A leap year, so 02-29 stays February 29.
 export function frostDay(md, language) {
   if (!md) return '';
   const [m, d] = md.split('-').map(Number);
-  return new Date(Date.UTC(2001, m - 1, d)).toLocaleDateString(language, { month: 'long', day: 'numeric', timeZone: 'UTC' });
+  return new Date(Date.UTC(2024, m - 1, d)).toLocaleDateString(language, { month: 'long', day: 'numeric', timeZone: 'UTC' });
 }
 
 export const monthName = (n, language, style = 'long') => new Date(Date.UTC(2001, n - 1, 1)).toLocaleDateString(language, { month: style, timeZone: 'UTC' });

@@ -3,7 +3,8 @@ import { PageHeader } from '../../components/PageHeader.jsx';
 import { LoadState } from '../../components/LoadState.jsx';
 import { useSettings } from '../../components/SettingsProvider.jsx';
 import { useResource } from '../../lib/useResource.js';
-import { nextFrostEvent, todayIn } from '../../lib/frost.js';
+import { nextFrostEvent } from '../../lib/frost.js';
+import { useToday } from '../../lib/useToday.js';
 import { frostDay, monthName, needsFrostDates } from '../../lib/places.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
@@ -37,7 +38,7 @@ function CurrentPlace({ place }) {
   const { t, language } = useT();
   const { settings } = useSettings();
   const spaces = useResource(`/api/spaces?place_id=${place.id}`);
-  const today = todayIn(place.time_zone || settings?.time_zone);
+  const today = useToday(place.time_zone || settings?.time_zone);
   const next = nextFrostEvent(place, today);
   let frostLine = null;
   if (place.frost_free) {

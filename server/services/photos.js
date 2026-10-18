@@ -5,6 +5,7 @@ import { transaction } from '../db/connection.js';
 import { NOW } from '../db/migrations.js';
 import { repos } from '../db/repos.js';
 import { HttpError, notFound, notInTrash } from '../http.js';
+import { listBackups } from './backup.js';
 
 const EXT = { 'image/jpeg': '.jpg', 'image/png': '.png', 'image/webp': '.webp', 'image/gif': '.gif' };
 export const ALLOWED_TYPES = Object.keys(EXT);
@@ -14,8 +15,11 @@ export const PHOTO_NAME = /^\d+-[0-9a-f]{8}\.(jpg|png|webp|gif)$/i;
 // Kinds of record a photo can belong to, and their tables. Later stages add more.
 export const PHOTO_OWNERS = { space: 'spaces' };
 
+// Live photos sit in photos\. Photos in the Trash sit in photos\_trash\. Photos removed for good
+// wait in photos\_removed\ until no kept backup could still bring their rows back.
 const live = (dataDir, f) => path.join(dataDir, 'photos', f);
 const trashed = (dataDir, f) => path.join(dataDir, 'photos', '_trash', f);
+const removed = (dataDir, f) => path.join(dataDir, 'photos', '_removed', f);
 
 export function savePhotoFile(dataDir, buffer, mimetype) {
   const filename = `${Date.now()}-${crypto.randomBytes(4).toString('hex')}${EXT[mimetype]}`;
@@ -26,11 +30,13 @@ export function savePhotoFile(dataDir, buffer, mimetype) {
 
 // Best effort: a file another program holds open stays where it is, and the save still goes
 // through. untrashLivePhotos puts back any live photo whose file ended up in the trash folder.
-function move(from, to) {
+function move(from, to, { stamp = false } = {}) {
   try {
     if (!fs.existsSync(from)) return;
     fs.mkdirSync(path.dirname(to), { recursive: true });
     fs.renameSync(from, to);
+    // A removed file's age counts from its removal, so the clean-up knows when backups stop needing it.
+    if (stamp) { const now = new Date(); fs.utimesSync(to, now, now); }
   } catch (err) {
     console.error(`Could not move photo file ${path.basename(from)}:`, err.message);
   }
@@ -38,12 +44,28 @@ function move(from, to) {
 const trashFile = (dataDir, f) => move(live(dataDir, f), trashed(dataDir, f));
 const untrashFile = (dataDir, f) => move(trashed(dataDir, f), live(dataDir, f));
 
-// After a backup restore, live photo rows may point at files that were trashed since the backup.
-// Bring those back; best effort.
+// Live photo rows may point at files in the trash or removed folders: after a backup restore, or
+// after a file move that failed. Bring those files back; best effort.
 export function untrashLivePhotos(db, dataDir) {
   for (const { filename } of db.prepare('SELECT filename FROM photos WHERE deleted_at IS NULL').all()) {
     if (!PHOTO_NAME.test(filename) || fs.existsSync(live(dataDir, filename))) continue;
-    try { untrashFile(dataDir, filename); } catch { /* leave it in the trash */ }
+    if (fs.existsSync(trashed(dataDir, filename))) untrashFile(dataDir, filename);
+    else move(removed(dataDir, filename), live(dataDir, filename));
+  }
+}
+
+// At start: a removed photo file older than every kept backup can't come back with any of them,
+// so it goes to the Recycle Bin. With no backups, nothing is thrown away.
+export function cleanRemovedPhotos(ctx) {
+  const dataDir = ctx.config.dataDir;
+  const backups = listBackups(dataDir);
+  const dir = path.join(dataDir, 'photos', '_removed');
+  if (!backups.length || !fs.existsSync(dir)) return;
+  const oldest = Math.min(...backups.map(b => Date.parse(b.modified)));
+  for (const name of fs.readdirSync(dir)) {
+    if (!PHOTO_NAME.test(name)) continue;
+    const file = path.join(dir, name);
+    if (fs.statSync(file).mtimeMs < oldest) ctx.recycle(file, { dataDir });
   }
 }
 
@@ -141,12 +163,13 @@ export function cascadeRestorePhotos(ctx, ownerType, ownerId, stamp) {
   for (const p of rows) untrashFile(ctx.config.dataDir, p.filename);
 }
 
-// Deletes a photo in the Trash for good; its file goes to the Recycle Bin.
+// Deletes a photo in the Trash for good. Its file moves to photos\_removed (from the trash folder,
+// or from photos\ if an earlier move failed), where a backup restore can still find it.
 export function purgePhoto(ctx, row) {
   repos(ctx.db).photos.purge(row.id);
-  const file = trashed(ctx.config.dataDir, row.filename);
-  if (fs.existsSync(file)) {
-    try { ctx.recycle(file, { dataDir: ctx.config.dataDir }); } catch (err) { console.error('Could not recycle a photo file:', err.message); }
+  const dataDir = ctx.config.dataDir;
+  for (const from of [trashed(dataDir, row.filename), live(dataDir, row.filename)]) {
+    move(from, removed(dataDir, row.filename), { stamp: true });
   }
 }
 

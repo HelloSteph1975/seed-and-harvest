@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import { makeTestContext } from './helpers.js';
+import { cleanRemovedPhotos } from '../../server/services/photos.js';
 
 // A 1x1 PNG.
 const PNG = Buffer.from('89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d49444154789c6360000002000154a24f5f0000000049454e44ae426082', 'hex');
@@ -22,6 +23,7 @@ const upload = (buf = PNG, type = 'image/png', ownerId = space.id) => t.http().p
   .attach('file', buf, { filename: 'p.png', contentType: type });
 const live = name => path.join(t.dataDir, 'photos', name);
 const trashed = name => path.join(t.dataDir, 'photos', '_trash', name);
+const removed = name => path.join(t.dataDir, 'photos', '_removed', name);
 
 describe('photos', () => {
   it('uploads a photo for a space and serves it', async () => {
@@ -73,12 +75,55 @@ describe('photos', () => {
     expect(fs.existsSync(live(photo.filename))).toBe(true);
   });
 
-  it('emptying the Trash sends the photo file to the Recycle Bin', async () => {
+  it('emptying the Trash keeps the photo file aside while a backup may still need it', async () => {
     const { body: photo } = await upload();
     await t.http().delete(`/api/spaces/${space.id}`);
     await t.http().post('/api/trash/empty');
-    expect(recycled).toEqual([photo.filename]);
+    expect(recycled).toEqual([]);
+    expect(fs.existsSync(removed(photo.filename))).toBe(true);
     expect(t.ctx.db.prepare('SELECT count(*) n FROM photos').get().n).toBe(0);
+  });
+
+  it('restoring a backup brings back a photo whose file was removed for good', async () => {
+    const { body: photo } = await upload();
+    const { body: backup } = await t.http().post('/api/backups');
+    await t.http().delete(`/api/photos/${photo.id}`);
+    await t.http().post('/api/trash/empty');
+    expect(fs.existsSync(live(photo.filename))).toBe(false);
+    const res = await t.http().post('/api/backups/restore').send({ name: backup.name });
+    expect(res.status).toBe(200);
+    expect(fs.existsSync(live(photo.filename))).toBe(true);
+  });
+
+  it('removed photo files older than every kept backup go to the Recycle Bin at start', async () => {
+    const { body: a } = await upload();
+    const { body: b } = await upload();
+    await t.http().delete(`/api/photos/${a.id}`);
+    await t.http().delete(`/api/photos/${b.id}`);
+    await t.http().post('/api/trash/empty');
+    // a was removed long ago, before the oldest backup; b just now.
+    const old = new Date('2020-01-01T00:00:00Z');
+    fs.utimesSync(removed(a.filename), old, old);
+    cleanRemovedPhotos(t.ctx);
+    expect(recycled).toEqual([a.filename]);
+    expect(fs.existsSync(removed(b.filename))).toBe(true);
+  });
+
+  it('a photo whose file never left the photos folder is still cleaned up when the Trash is emptied', async () => {
+    const { body: photo } = await upload();
+    const real = fs.renameSync;
+    const spy = vi.spyOn(fs, 'renameSync').mockImplementation((from, to) => {
+      if (String(from).endsWith(photo.filename)) { const e = new Error('busy'); e.code = 'EBUSY'; throw e; }
+      return real(from, to);
+    });
+    const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
+    await t.http().delete(`/api/photos/${photo.id}`);
+    spy.mockRestore();
+    logged.mockRestore();
+    expect(fs.existsSync(live(photo.filename))).toBe(true);
+    await t.http().post('/api/trash/empty');
+    expect(fs.existsSync(live(photo.filename))).toBe(false);
+    expect(fs.existsSync(removed(photo.filename))).toBe(true);
   });
 
   it('a photo deleted on its own can be restored, unless its space is in the Trash', async () => {

@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Button } from '../../components/Button.jsx';
 import { api } from '../../lib/api.js';
@@ -6,31 +6,35 @@ import { errorText } from '../../lib/errors.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
 // Type a town, press Look up, pick one result: `onPick` gets the place's location and climate
-// estimate to fill into the form. Nothing is saved here.
+// estimate to fill into the form. Nothing is saved here. One request at a time: while one runs,
+// Look up and Enter wait, and a reply from a request that was replaced is ignored.
 export function ClimateLookup({ onPick, disabled }) {
   const { t } = useT();
   const id = useId();
   const [q, setQ] = useState('');
   const [state, setState] = useState({ busy: false, results: null, error: null });
+  const latest = useRef(0);
 
-  const search = async () => {
-    if (!q.trim()) return;
+  const run = async (request, onReply) => {
+    const mine = ++latest.current;
     setState({ busy: true, results: null, error: null });
     try {
-      setState({ busy: false, results: await api.get(`/api/climate/search?q=${encodeURIComponent(q.trim())}`), error: null });
+      const reply = await request();
+      if (mine === latest.current) onReply(reply);
     } catch (err) {
-      setState({ busy: false, results: null, error: errorText(err, t) });
+      if (mine === latest.current) setState({ busy: false, results: null, error: errorText(err, t) });
     }
   };
-  const pick = async r => {
-    setState({ busy: true, results: null, error: null });
-    try {
-      const est = await api.get(`/api/climate/estimate?latitude=${r.latitude}&longitude=${r.longitude}`);
+  const search = () => {
+    if (!q.trim() || state.busy) return;
+    run(() => api.get(`/api/climate/search?q=${encodeURIComponent(q.trim())}`), results => setState({ busy: false, results, error: null }));
+  };
+  const pick = r => {
+    if (state.busy) return;
+    run(() => api.get(`/api/climate/estimate?latitude=${r.latitude}&longitude=${r.longitude}`), est => {
       onPick({ ...est, location: r.label, latitude: r.latitude, longitude: r.longitude, time_zone: r.time_zone });
       setState({ busy: false, results: null, error: null });
-    } catch (err) {
-      setState({ busy: false, results: null, error: errorText(err, t) });
-    }
+    });
   };
 
   return (

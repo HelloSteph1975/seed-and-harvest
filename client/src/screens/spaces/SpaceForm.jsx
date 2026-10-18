@@ -38,17 +38,17 @@ export function SpaceFormRoute() {
 
 function SpaceFormLoader({ id }) {
   const { t, ready: languageReady } = useT();
-  const { settings } = useSettings();
+  const { settings, error: settingsError, reload: reloadSettings } = useSettings();
   const [params] = useSearchParams();
   const space = useResource(id ? `/api/spaces/${id}` : null);
   const places = useResource('/api/places');
   const ready = (!id || space.data) && places.data && settings && languageReady;
-  const error = space.error ?? places.error;
+  const error = space.error ?? places.error ?? settingsError;
   const [created, setCreated] = useState(false);
   return (
     <>
       <PageHeader title={id || created ? t('spaces.edit') : t('spaces.new')} />
-      <LoadState loading={!ready} error={ready ? null : error} onRetry={() => { if (id) space.reload(); places.reload(); }}>
+      <LoadState loading={!ready} error={ready ? null : error} onRetry={() => { if (id) space.reload(); places.reload(); if (settingsError) reloadSettings(); }}>
         {ready && <SpaceForm record={id ? space.data : null} places={byStatus(places.data)} units={settings.units}
           presetPlace={params.get('place')} onCreated={setCreated} />}
       </LoadState>

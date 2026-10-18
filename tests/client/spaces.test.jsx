@@ -186,6 +186,21 @@ describe('space form', () => {
     expect(calls.some(c => c.m === 'PATCH')).toBe(false);
   });
 
+  it('a failed settings load shows Try again instead of loading forever', async () => {
+    stub();
+    const ok = fetch.getMockImplementation();
+    let fail = true;
+    fetch.mockImplementation(async (url, opts) => {
+      if (url === '/api/settings' && fail) return new Response(JSON.stringify({ error: 'boom', code: 'server_error' }), { status: 500 });
+      return ok(url, opts);
+    });
+    mount('/spaces/5/edit');
+    const retry = await screen.findByRole('button', { name: 'Try again' });
+    fail = false;
+    await userEvent.click(retry);
+    expect(await screen.findByLabelText('Length (ft)')).toHaveValue('10');
+  });
+
   it('a new space starts in the place from the link', async () => {
     stub();
     mount('/spaces/new?place=1');

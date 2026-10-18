@@ -194,4 +194,30 @@ describe('place page', () => {
     mount('/places/1');
     expect(await screen.findByRole('link', { name: 'Bed 1' })).toHaveAttribute('href', '/spaces/7');
   });
+
+describe('climate lookup while busy', () => {
+  it('Enter does nothing while a lookup is running, and an old estimate never replaces a newer pick', async () => {
+    stub();
+    let releaseFirst;
+    let estimates = 0;
+    override = url => {
+      if (url.startsWith('/api/climate/estimate')) {
+        estimates += 1;
+        if (estimates === 1) return new Promise(r => { releaseFirst = () => r(json({ ...ESTIMATE, zone: '5a' })); });
+        return json({ ...ESTIMATE, zone: '9b' });
+      }
+      return null;
+    };
+    mount('/places/new');
+    await lookUp();
+    await userEvent.click(await screen.findByRole('button', { name: 'Springfield, Ohio, United States' }));
+    const searches = () => calls.filter(c => c.url.startsWith('/api/climate/search')).length;
+    const before = searches();
+    await userEvent.type(screen.getByLabelText('Town or city'), '{Enter}');
+    expect(searches()).toBe(before);
+    expect(screen.getByRole('button', { name: 'Look up' })).toBeDisabled();
+    releaseFirst();
+    expect(await screen.findByLabelText('Hardiness zone')).toHaveValue('5a');
+  });
+});
 });

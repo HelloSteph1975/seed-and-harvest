@@ -235,5 +235,7 @@
   "today.frostFreeRain": "Frost-free. Rainy season: {months}.",
   "today.addFrost": "Add them",
   "today.spaceCount": "{n} growing spaces",
-  "today.spaceCount.one": "{n} growing space"
+  "today.spaceCount.one": "{n} growing space",
+  "photos.conflict": "That caption was changed in another window, so this one shows theirs now.",
+  "photos.keepMine": "Keep mine"
 }

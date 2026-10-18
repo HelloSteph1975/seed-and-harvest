@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { SettingsProvider } from '../../client/src/components/SettingsProvider.jsx';
 import { Today } from '../../client/src/screens/today/Today.jsx';
@@ -57,5 +57,16 @@ describe('Today', () => {
     stub({ places: [{ id: 1, name: 'Home', status: 'current', frost_free: 0, wet_months: [], hemisphere: 'north', sort_order: 0 }] });
     mount();
     expect(await screen.findByText('Add both frost dates so the app can work out planting times.')).toBeInTheDocument();
+  });
+
+  it('moves on to the new day when the window is shown again after midnight', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2027-02-25T15:00:00Z'));
+    stub({ places: [{ id: 1, name: 'Home', status: 'current', zone: '8a', hemisphere: 'north', last_frost: '03-20', first_frost: '11-10', frost_free: 0, wet_months: [], time_zone: 'UTC', sort_order: 0 }] });
+    mount();
+    expect(await screen.findByText('Last spring frost in 23 days, around March 20.')).toBeInTheDocument();
+    vi.setSystemTime(new Date('2027-02-26T08:00:00Z'));
+    act(() => { document.dispatchEvent(new Event('visibilitychange')); });
+    expect(await screen.findByText('Last spring frost in 22 days, around March 20.')).toBeInTheDocument();
   });
 });
