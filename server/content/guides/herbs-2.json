@@ -1,0 +1,302 @@
+[
+  {
+    "starter_key": "guide.chives.transplant",
+    "content_version": 1,
+    "title": "Planting chives",
+    "summary": "A few weeks before the last frost.",
+    "stage": "transplant",
+    "plant": "plant.chives",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant a pot or division in a sunny spot or a 4 L (1 gal) pot.",
+      "Space clumps 25 cm (10 in) apart and water well.",
+      "Every three or four years in spring, dig the clump, split it into fist-sized pieces and replant."
+    ],
+    "supplies": [
+      {
+        "name": "Trowel"
+      },
+      {
+        "name": "Compost"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.chives.harvest",
+    "content_version": 1,
+    "title": "Cutting chives",
+    "summary": "Leaves all season, flowers in spring.",
+    "stage": "harvest",
+    "plant": "plant.chives",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut a handful of leaves 2.5 cm (1 in) above the soil; they regrow in a few weeks.",
+      "Cut the whole clump back after flowering for a fresh flush.",
+      "Chop and freeze in a bag, or in ice cube trays with a little water or oil. Dried chives lose most of their flavor."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.thyme.transplant",
+    "content_version": 1,
+    "title": "Planting thyme",
+    "summary": "Around the last frost.",
+    "stage": "transplant",
+    "plant": "plant.thyme",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant in sandy, well-drained soil or a pot with gritty mix, 30 cm (12 in) apart.",
+      "Water only until it settles in; after that, water when the soil is dry.",
+      "Trim the tips after flowering to keep it compact."
+    ],
+    "supplies": [
+      {
+        "name": "Gritty potting mix or sand"
+      },
+      {
+        "name": "Trowel"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.thyme.harvest",
+    "content_version": 1,
+    "title": "Harvesting and drying thyme",
+    "summary": "Sprigs any time, the most just before it flowers.",
+    "stage": "harvest",
+    "plant": "plant.thyme",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Snip the soft top 5 to 8 cm (2 to 3 in) of the stems; never cut into the bare woody part.",
+      "Tie small bundles and hang them upside down in a warm, dry, shady place for one to two weeks.",
+      "Strip the dry leaves into a jar and keep it out of the light."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "String"
+      },
+      {
+        "name": "Glass jars"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.rosemary.transplant",
+    "content_version": 1,
+    "title": "Planting rosemary",
+    "summary": "After the last frost, from a plant.",
+    "stage": "transplant",
+    "plant": "plant.rosemary",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant in full sun in well-drained soil, or in a 19 L (5 gal) pot with gritty mix.",
+      "Water deeply once a week until new growth starts, then only in long dry spells.",
+      "In places colder than its zones, keep it in a pot and move it to a bright, cool spot before hard freezes."
+    ],
+    "supplies": [
+      {
+        "name": "Gritty potting mix"
+      },
+      {
+        "name": "19 L (5 gal) pot"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.rosemary.harvest",
+    "content_version": 1,
+    "title": "Cutting and drying rosemary",
+    "summary": "Sprigs year-round once it is settled.",
+    "stage": "harvest",
+    "plant": "plant.rosemary",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut 10 to 15 cm (4 to 6 in) sprigs from the green tips, never more than a third of the plant at a time.",
+      "Hang bundles to dry, or freeze sprigs whole in a bag.",
+      "Soft tips root easily in moist mix if you want more plants."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.mint.container",
+    "content_version": 1,
+    "title": "Planting mint in a pot",
+    "summary": "Any time from early spring.",
+    "stage": "container",
+    "plant": "plant.mint",
+    "basics": "guide.basics.containers",
+    "steps": [
+      "Plant a rooted piece in an 11 L (3 gal) pot with ordinary potting mix.",
+      "To grow it in a bed, sink a bottomless pot or bucket 25 cm (10 in) deep with its rim above the soil, and plant inside it.",
+      "Keep it moist. Cut it back by half in midsummer for fresh leaves."
+    ],
+    "supplies": [
+      {
+        "name": "11 L (3 gal) pot"
+      },
+      {
+        "name": "Potting mix"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.mint.harvest",
+    "content_version": 1,
+    "title": "Picking and drying mint",
+    "summary": "Pick often to keep it leafy.",
+    "stage": "harvest",
+    "plant": "plant.mint",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pinch or cut stem tips just above a pair of leaves; two new stems grow from there.",
+      "Pick the most just before it flowers, in the morning after the dew dries.",
+      "Dry on screens or in bundles, then crumble the leaves into jars for tea."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Glass jars"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sage.transplant",
+    "content_version": 1,
+    "title": "Planting sage",
+    "summary": "Around the last frost.",
+    "stage": "transplant",
+    "plant": "plant.sage",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant in full sun and lean, well-drained soil, 45 cm (18 in) apart.",
+      "Water until it is growing well, then let the soil dry between waterings.",
+      "In spring, cut it back by about a third to keep it bushy."
+    ],
+    "supplies": [
+      {
+        "name": "Trowel"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sage.harvest",
+    "content_version": 1,
+    "title": "Harvesting and drying sage",
+    "summary": "Lightly the first year, more after that.",
+    "stage": "harvest",
+    "plant": "plant.sage",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick single leaves or cut stem tips as you need them.",
+      "For drying, cut stems before the plant flowers and lay the leaves flat on a screen in a shady, airy spot.",
+      "Store dry leaves whole in a jar and crumble them when you cook."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Drying screen"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.epazote.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing epazote",
+    "summary": "After the last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.epazote",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Scatter the tiny seeds on the surface and press them in; they need light to sprout.",
+      "Thin to 30 cm (12 in) apart.",
+      "Grow it in a pot or a corner where its self-sown seedlings won't become a nuisance."
+    ],
+    "supplies": [
+      {
+        "name": "Epazote seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.epazote.harvest",
+    "content_version": 1,
+    "title": "Harvesting epazote",
+    "summary": "A few leaves at a time.",
+    "stage": "harvest",
+    "plant": "plant.epazote",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick young leaves and tips as you need them, starting about six weeks after sowing.",
+      "Add one sprig or a few leaves to a pot of beans in the last 15 minutes of cooking. More is not better.",
+      "Dry leaves in bundles for winter, and cut off flower heads to stop it seeding everywhere."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.lemongrass.transplant",
+    "content_version": 1,
+    "title": "Planting lemongrass",
+    "summary": "Once nights stay warm.",
+    "stage": "transplant",
+    "plant": "plant.lemongrass",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Root grocery-store stalks in a glass of water, changing the water every few days, until roots are 2.5 cm (1 in) long.",
+      "Plant them 60 cm (2 ft) apart in rich soil, or in a 19 L (5 gal) pot.",
+      "Water often and feed monthly; it grows fast in heat."
+    ],
+    "supplies": [
+      {
+        "name": "Fresh lemongrass stalks",
+        "amount": "with the base intact"
+      },
+      {
+        "name": "19 L (5 gal) pot"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.lemongrass.harvest",
+    "content_version": 1,
+    "title": "Harvesting lemongrass",
+    "summary": "Stalks as thick as a pencil or more.",
+    "stage": "harvest",
+    "plant": "plant.lemongrass",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Wearing gloves, cut or twist off outer stalks at the base when they are 1 cm (1/2 in) thick or more.",
+      "Use the pale lower part for cooking; dry or steep the green leaves for tea.",
+      "Freeze chopped stalks in bags, and before frost, divide the clump and pot a piece to bring inside."
+    ],
+    "supplies": [
+      {
+        "name": "Gloves"
+      },
+      {
+        "name": "Sharp knife"
+      }
+    ]
+  }
+]

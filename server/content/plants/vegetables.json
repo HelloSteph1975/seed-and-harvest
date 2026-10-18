@@ -200,7 +200,7 @@
   },
   {
     "starter_key": "plant.potato",
-    "content_version": 1,
+    "content_version": 2,
     "name": "Potato",
     "latin_name": "Solanum tuberosum",
     "kind": "vegetable",
@@ -218,6 +218,7 @@
     "frost_free_months": [
       10,
       11,
+      12,
       1,
       2
     ],
@@ -673,7 +674,7 @@
   },
   {
     "starter_key": "plant.cabbage",
-    "content_version": 1,
+    "content_version": 2,
     "name": "Cabbage",
     "latin_name": "Brassica oleracea",
     "kind": "vegetable",
@@ -700,6 +701,7 @@
       9,
       10,
       11,
+      12,
       1
     ],
     "days": [

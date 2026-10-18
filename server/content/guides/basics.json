@@ -301,5 +301,133 @@
         "name": "Crates or mesh bags for storage"
       }
     ]
+  },
+  {
+    "starter_key": "guide.basics.microgreens",
+    "content_version": 1,
+    "title": "Growing microgreens start to finish",
+    "summary": "Tiny greens grown thick in a shallow tray and cut in one to three weeks. Good for the kitchen, and some kinds for animals too.",
+    "stage": "microgreens",
+    "steps": [
+      "Buy seed sold for sprouting or microgreens. It is untreated and tested for clean growing. Never use garden seed that has been coated with fungicide.",
+      "Wash the tray with hot soapy water. Start each batch in a clean tray to keep mold away.",
+      "If the plant page gives soak hours, soak the seed in cool water for that long, then drain it well.",
+      "Fill a 25 x 50 cm (10 x 20 in) tray with drainage holes with about 2.5 cm (1 in) of moist potting mix or coconut coir, and press it flat.",
+      "Scatter the seed thickly and evenly, using the amount on the plant page. Press it gently into the surface.",
+      "Mist the seed, then cover it with a second tray (blackout) for two to four days so the roots grab hold. Some growers set a light weight on top.",
+      "When the shoots are about 2.5 cm (1 in) tall and pale, uncover them and give them light: a grow light 5 to 10 cm (2 to 4 in) above, 12 to 16 hours a day, or a bright window.",
+      "Water from below: pour water into a solid tray under the growing tray and let the mix soak it up for 10 to 15 minutes, then pour off what is left. Wet leaves invite mold.",
+      "Keep air moving with a small fan, and keep the room around 18 to 24 °C (65 to 75 °F).",
+      "Harvest with clean scissors just above the soil when the plant page says, usually when the first leaves open. Rinse only what you will eat now.",
+      "Dry the greens on a towel and keep them in a covered box in the fridge for about a week.",
+      "Spent mix and roots go to the compost pile. Start a new tray every few days for a steady supply.",
+      "White fuzz on the roots near the soil is usually root hairs, which vanish when misted. Gray or colored fuzz on stems and seeds is mold: compost the whole tray and clean it.",
+      "For animals: feed only kinds the plant page marks safe or small amounts, start with a little, and check with your vet before making any new feed a regular part of their diet."
+    ],
+    "supplies": [
+      {
+        "name": "Microgreen or sprouting seed"
+      },
+      {
+        "name": "Shallow trays with holes",
+        "amount": "25 x 50 cm (10 x 20 in), two per batch"
+      },
+      {
+        "name": "Solid tray without holes",
+        "amount": "one per batch, for bottom watering"
+      },
+      {
+        "name": "Potting mix or coconut coir",
+        "amount": "about 2.5 cm (1 in) deep per tray"
+      },
+      {
+        "name": "Spray bottle"
+      },
+      {
+        "name": "Grow light",
+        "amount": "or a bright window"
+      },
+      {
+        "name": "Small fan"
+      },
+      {
+        "name": "Clean scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.buy-plant",
+    "content_version": 1,
+    "title": "Buying a fruit tree, shrub or vine that already produces",
+    "summary": "A plant that is already a few years old fruits much sooner than a young one. How to pick a good one and get it home and planted.",
+    "stage": "transplant",
+    "steps": [
+      "Decide first where it will live: in the ground or in a pot you can move. The plant page says which plants do well in pots and how big a pot they need.",
+      "Check the plant page for your place: its winters must fit the plant's zones, and many fruit trees need enough winter cold (chill hours) to bloom. Ask the nursery for kinds suited to your area.",
+      "Ask whether the plant needs a partner for pollination. Many apples, pears, plums and blueberries fruit far better with a second kind nearby.",
+      "For a tree in a pot, ask for a dwarf rootstock or a naturally small kind. The label or the nursery can tell you the rootstock.",
+      "Look for a plant that has fruited before: older plants in 19 to 57 L (5 to 15 gal) pots, or plants with flower buds or old fruit stems. Expect to pay more for them.",
+      "Check the plant: healthy leaves with no spots or sticky pests, a straight trunk with no wounds, and a graft union (the knob near the base) that is solid.",
+      "Slide it out of the pot if the nursery allows. White or tan roots are good. A thick mat of circling roots means it has been in the pot too long.",
+      "Bare-root plants (sold without soil in late winter) cost less and settle in well. Keep their roots damp and plant them within a day or two, or soak them in a bucket of water for a few hours first.",
+      "Bring it home in a covered vehicle or wrap the top: wind on the highway dries out leaves fast.",
+      "Water it well and keep it in light shade for a few days before planting, then follow the planting guide for the ground or for a pot.",
+      "A bought plant often drops some leaves or fruit in its first weeks while it adjusts. Keep the soil evenly moist and don't fertilize heavily until it puts out new growth.",
+      "Save the label and write the variety and rootstock in the plant's notes so you know what you have."
+    ],
+    "supplies": [
+      {
+        "name": "The plant"
+      },
+      {
+        "name": "Bucket of water",
+        "amount": "for bare-root plants"
+      },
+      {
+        "name": "Old sheet or tarp",
+        "amount": "to cover it on the drive home"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basics.container-fruit",
+    "content_version": 1,
+    "title": "Planting and caring for a fruit tree in a pot",
+    "summary": "Dwarf trees, shrubs and many vines fruit well in big pots, and you can take them with you when you move.",
+    "stage": "container",
+    "steps": [
+      "Choose a pot at least as big as the plant page gives, and only one or two sizes bigger than the pot the plant came in. Wide is steadier in wind than tall.",
+      "Make sure the pot has several drainage holes. Set it on pot feet or a wheeled caddy before you fill it, because a full pot is very heavy to move.",
+      "Use a coarse potting mix made for shrubs or trees, not garden soil. Blueberries need an acid mix, and citrus likes a fast-draining one.",
+      "Put a layer of mix in the bottom so the top of the root ball sits about 5 cm (2 in) below the rim.",
+      "Loosen circling roots with your fingers, set the plant in, and fill around it. Keep the graft union (the knob near the base) above the mix.",
+      "Water slowly until it runs out the bottom, let it drain, and water again. Add mix if it settles.",
+      "Cover the mix with 2.5 to 5 cm (1 to 2 in) of mulch, kept a hand's width from the trunk.",
+      "Water when the top 5 cm (2 in) of mix is dry. In summer heat that can be every day. A pot that dries out completely can drop its fruit.",
+      "Feed in spring and early summer with a slow-release fertilizer for fruit or citrus. Stop feeding by late summer so new growth can harden before winter.",
+      "Prune lightly each year to keep the plant small and open, following the plant's own guide.",
+      "In cold places, move the pot to an unheated garage, shed or greenhouse before hard freezes. Roots in a pot freeze much sooner than roots in the ground. Tender plants like citrus come inside to a bright, cool spot.",
+      "Every two or three years, repot into a slightly bigger pot, or slide the plant out, trim about 5 cm (2 in) off the outer roots, and return it with fresh mix."
+    ],
+    "supplies": [
+      {
+        "name": "Large pot with drainage holes",
+        "amount": "see the plant page for size"
+      },
+      {
+        "name": "Pot feet or a wheeled plant caddy"
+      },
+      {
+        "name": "Coarse potting mix",
+        "amount": "for trees and shrubs"
+      },
+      {
+        "name": "Slow-release fruit fertilizer"
+      },
+      {
+        "name": "Mulch",
+        "amount": "such as shredded bark"
+      }
+    ]
   }
 ]

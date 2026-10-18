@@ -1,0 +1,1134 @@
+[
+  {
+    "starter_key": "plant.apple",
+    "content_version": 1,
+    "name": "Apple (dwarf)",
+    "latin_name": "Malus domestica",
+    "kind": "fruit_tree",
+    "family": "Rose",
+    "summary": "A dwarf apple stays about 2.5 to 3 m (8 to 10 ft) tall, fruits young and can live in a big pot.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      4,
+      8
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      2,
+      4
+    ],
+    "yield_kg": 15,
+    "yield_per": "plant",
+    "companions": [
+      "plant.chives",
+      "plant.garlic"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of applesauce",
+        "unit": "quart",
+        "raw_kg": 1.4
+      },
+      {
+        "form": "Pint of apple butter",
+        "unit": "pint",
+        "raw_kg": 1.1
+      }
+    ],
+    "problems": "Most apples need a second kind that blooms at the same time nearby for pollination. Fire blight, cedar apple rust and codling moth are common; pick resistant kinds where you can.",
+    "notes": "Apples need winter cold to bloom, measured in chill hours. In mild-winter places choose low-chill kinds; ask your nursery or extension office which do well locally. Thin the young fruit to one every 15 cm (6 in) for bigger apples and a crop every year. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.peach",
+    "content_version": 1,
+    "name": "Peach (dwarf)",
+    "latin_name": "Prunus persica",
+    "kind": "fruit_tree",
+    "family": "Rose",
+    "summary": "Juicy summer fruit on a small tree. Most peaches pollinate themselves, so one tree is enough.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      5,
+      8
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      2,
+      4
+    ],
+    "yield_kg": 12,
+    "yield_per": "plant",
+    "companions": [
+      "plant.garlic",
+      "plant.chives"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned peaches",
+        "unit": "quart",
+        "raw_kg": 1.1
+      },
+      {
+        "form": "Pint of peach jam",
+        "unit": "pint",
+        "raw_kg": 0.7
+      }
+    ],
+    "problems": "Late spring frosts kill the blossoms. Peach leaf curl puckers spring leaves; a dormant spray in late winter prevents it. Borers and brown rot also show up.",
+    "notes": "Match the chill hours to your place; low-chill peaches suit mild winters. Thin fruits to a hand's width apart when they are marble sized. Wilted leaves from pruned or storm-broken branches are poisonous to goats and other livestock. Keep cut branches and fallen leaves out of their reach; fresh leaves on the tree are less risky but still best kept away. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.pear",
+    "content_version": 1,
+    "name": "Pear (dwarf)",
+    "latin_name": "Pyrus communis",
+    "kind": "fruit_tree",
+    "family": "Rose",
+    "summary": "Long-lived and less fussy than apples. Picked firm and ripened on the counter.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      4,
+      8
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      3,
+      5
+    ],
+    "yield_kg": 12,
+    "yield_per": "plant",
+    "companions": [
+      "plant.chives",
+      "plant.garlic"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned pears",
+        "unit": "quart",
+        "raw_kg": 1.1
+      }
+    ],
+    "problems": "Needs a second kind for pollination. Fire blight blackens shoot tips; cut them out well below the damage and choose resistant kinds.",
+    "notes": "Asian pears ripen on the tree; European pears are picked when they lift easily, then ripen indoors in a few days. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.plum",
+    "content_version": 1,
+    "name": "Plum",
+    "latin_name": "Prunus domestica and P. salicina",
+    "kind": "fruit_tree",
+    "family": "Rose",
+    "summary": "Heavy crops of plums for eating, jam and drying. Grafted on a dwarf rootstock it fits a small yard or a pot.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 360,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      4,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      3,
+      5
+    ],
+    "yield_kg": 12,
+    "yield_per": "plant",
+    "companions": [
+      "plant.garlic",
+      "plant.chives"
+    ],
+    "preserves": [
+      {
+        "form": "Pint of plum jam",
+        "unit": "pint",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Japanese plums usually need a second Japanese kind to pollinate; many European plums fruit alone. Black knot, plum curculio and late frosts are the usual troubles.",
+    "notes": "Japanese plums suit warmer, low-chill places; European plums suit colder ones. Wilted leaves from pruned or storm-broken branches are poisonous to goats and other livestock. Keep cut branches and fallen leaves out of their reach; fresh leaves on the tree are less risky but still best kept away. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.apricot",
+    "content_version": 1,
+    "name": "Apricot",
+    "latin_name": "Prunus armeniaca",
+    "kind": "fruit_tree",
+    "family": "Rose",
+    "summary": "Sweet early-summer fruit, wonderful dried. Blooms very early, so it does best where spring frosts are rare or on a slope.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 360,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      5,
+      8
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      3,
+      4
+    ],
+    "yield_kg": 12,
+    "yield_per": "plant",
+    "companions": [
+      "plant.garlic"
+    ],
+    "preserves": [
+      {
+        "form": "Pint of apricot jam",
+        "unit": "pint",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Early blossoms are often lost to frost. Brown rot in humid weather.",
+    "notes": "Most apricots pollinate themselves. A pot can be wheeled under cover on frosty spring nights to save the flowers. Wilted leaves from pruned or storm-broken branches are poisonous to goats and other livestock. Keep cut branches and fallen leaves out of their reach; fresh leaves on the tree are less risky but still best kept away. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.persimmon",
+    "content_version": 1,
+    "name": "Asian persimmon",
+    "latin_name": "Diospyros kaki",
+    "kind": "fruit_tree",
+    "family": "Ebony",
+    "summary": "A tidy tree with glowing orange fall fruit and few pests. Fuyu types are eaten crisp; Hachiya types are eaten soft.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 450,
+    "container_liters": 76,
+    "container_ok": true,
+    "zones": [
+      7,
+      10
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      3,
+      5
+    ],
+    "yield_kg": 15,
+    "yield_per": "plant",
+    "problems": "Young trees often drop fruit in their first years. Astringent kinds are mouth-puckering until fully soft.",
+    "notes": "Needs little winter chill and pollinates itself. Let Hachiya types ripen until jelly-soft on the counter. Don't let goats gorge on fallen fruit. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.fig",
+    "content_version": 1,
+    "name": "Fig",
+    "latin_name": "Ficus carica",
+    "kind": "fruit_tree",
+    "family": "Mulberry",
+    "summary": "Easy, self-fertile and quick to fruit, often the year after planting. Thrives in heat and in a pot.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      7,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      0,
+      4
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "years": [
+      1,
+      2
+    ],
+    "yield_kg": 10,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of fig preserves",
+        "unit": "pint",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Hard freezes kill it to the ground, though it usually regrows from the roots. Birds and beetles find ripe figs fast.",
+    "greenhouse_notes": "In cold places a potted fig spends winter dormant in an unheated garage or greenhouse.",
+    "notes": "Pick figs when they droop on their necks and feel soft; they don't ripen after picking. The milky sap can irritate skin, so wear gloves. Figs are low in acid: canned preserves need added lemon juice and a tested recipe. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.pomegranate",
+    "content_version": 1,
+    "name": "Pomegranate",
+    "latin_name": "Punica granatum",
+    "kind": "fruit_tree",
+    "family": "Loosestrife",
+    "summary": "A drought-tolerant shrubby tree with red flowers and fall fruit. Loves hot, dry summers.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      7,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      0,
+      4
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "years": [
+      2,
+      3
+    ],
+    "yield_kg": 8,
+    "yield_per": "plant",
+    "problems": "Uneven watering splits the fruit. Cold-hardiness varies a lot by kind; the hardiest survive brief cold near -12 °C (10 °F).",
+    "notes": "It pollinates itself. Fruit is ripe when it sounds metallic when tapped and the skin color deepens. Whole fruits keep for weeks in the fridge. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.meyer-lemon",
+    "content_version": 1,
+    "name": "Meyer lemon",
+    "latin_name": "Citrus × meyeri",
+    "kind": "fruit_tree",
+    "family": "Citrus",
+    "summary": "A sweet, thin-skinned lemon that blooms and fruits in a pot and comes inside for winter in cold places.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      9,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      6
+    ],
+    "frost_free_months": [
+      2,
+      3,
+      4,
+      9,
+      10
+    ],
+    "years": [
+      1,
+      3
+    ],
+    "yield_kg": 7,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of lemon marmalade",
+        "unit": "pint",
+        "raw_kg": 0.5
+      }
+    ],
+    "problems": "Frost damages it; protect it below about 0 °C (32 °F). Yellow leaves usually mean overwatering or hunger for nitrogen. Scale and mites indoors.",
+    "greenhouse_notes": "Winters well in a bright, cool greenhouse or sunny window kept above 4 °C (40 °F).",
+    "notes": "Buy a grafted tree; seedlings take many years. Lemons ripen slowly over months and hang well on the tree. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.satsuma",
+    "content_version": 1,
+    "name": "Satsuma mandarin",
+    "latin_name": "Citrus unshiu",
+    "kind": "fruit_tree",
+    "family": "Citrus",
+    "summary": "The most cold-hardy sweet citrus, with easy-peel, seedless fruit in late fall.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 360,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      8,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      6
+    ],
+    "frost_free_months": [
+      2,
+      3,
+      4,
+      9,
+      10
+    ],
+    "years": [
+      2,
+      3
+    ],
+    "yield_kg": 10,
+    "yield_per": "plant",
+    "problems": "A mature tree in the ground handles brief cold to about -7 °C (20 °F); young and potted trees much less. Scale and leaf miners.",
+    "greenhouse_notes": "Potted trees winter well in a cool, bright greenhouse.",
+    "notes": "Pick when the fruit is colored and tastes sweet; satsumas get puffy and dry if left too long. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.avocado",
+    "content_version": 1,
+    "name": "Avocado",
+    "latin_name": "Persea americana",
+    "kind": "fruit_tree",
+    "family": "Laurel",
+    "summary": "Rich, buttery fruit from a big evergreen tree. Compact kinds can fruit in a large pot in frost-free places or a warm greenhouse.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 600,
+    "container_liters": 76,
+    "container_ok": true,
+    "zones": [
+      9,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      6
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "years": [
+      3,
+      4
+    ],
+    "yield_kg": 20,
+    "yield_per": "plant",
+    "problems": "Frost kills young trees; Mexican types handle a little more cold than others. Roots rot in soggy soil, so drainage matters most.",
+    "notes": "Leaves, bark, pits and fruit skins are poisonous to goats, chickens and many other animals. Plant it well away from where they can reach it. Buy a grafted tree; one grown from a pit can take a decade to fruit. Fruit ripens off the tree. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.guava",
+    "content_version": 1,
+    "name": "Guava",
+    "latin_name": "Psidium guajava",
+    "kind": "fruit_tree",
+    "family": "Myrtle",
+    "summary": "Fragrant tropical fruit for eating fresh, juice and paste. Fruits young and does well in a pot.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 450,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      9,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      6
+    ],
+    "frost_free_months": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "years": [
+      2,
+      4
+    ],
+    "yield_kg": 10,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of guava jelly",
+        "unit": "pint",
+        "raw_kg": 0.7
+      }
+    ],
+    "problems": "Frost damages it. Fruit flies lay eggs in ripening fruit where they are common; bag the fruit.",
+    "notes": "Pollinates itself. Pick when the skin turns from green to yellow and the fruit smells sweet. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.blueberry",
+    "content_version": 1,
+    "name": "Blueberry",
+    "latin_name": "Vaccinium spp.",
+    "kind": "shrub",
+    "family": "Heath",
+    "summary": "Handsome shrubs with sweet berries, fall color, and a must-have for acid soil. In alkaline soil they thrive in pots.",
+    "sun": "full",
+    "water": "high",
+    "spacing_cm": 150,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      4,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      2,
+      3
+    ],
+    "yield_kg": 3,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of blueberry jam",
+        "unit": "pint",
+        "raw_kg": 0.6
+      },
+      {
+        "form": "Quart bag of frozen berries",
+        "unit": "quart",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Needs acid soil (pH 4.5 to 5.5); in alkaline soil or water the leaves turn yellow. Birds take ripe berries; use netting.",
+    "notes": "Plant two or more kinds of the same type for bigger crops. Northern highbush suits cold winters; southern highbush and rabbiteye suit mild ones. Pinch off flowers the first spring so the roots settle. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.blackberry",
+    "content_version": 1,
+    "name": "Thornless blackberry",
+    "latin_name": "Rubus spp.",
+    "kind": "shrub",
+    "family": "Rose",
+    "summary": "Big, sweet berries on canes without thorns. Productive, tough and happy in heat.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 90,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      5,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      1,
+      2
+    ],
+    "yield_kg": 4,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of blackberry jam",
+        "unit": "pint",
+        "raw_kg": 0.6
+      },
+      {
+        "form": "Quart bag of frozen berries",
+        "unit": "quart",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Canes sprawl without a trellis. Orange rust and cane borers; cut out sick canes.",
+    "notes": "Most kinds fruit on canes that grew the year before: after harvest, cut those canes to the ground and keep the new ones. They pollinate themselves. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.raspberry",
+    "content_version": 1,
+    "name": "Raspberry",
+    "latin_name": "Rubus idaeus",
+    "kind": "shrub",
+    "family": "Rose",
+    "summary": "Delicate, sweet berries. Fall-bearing kinds are the easiest: mow them down each winter and they fruit on new canes.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 60,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      4,
+      8
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      1,
+      2
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of raspberry jam",
+        "unit": "pint",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Struggles in long, hot summers; give afternoon shade in hot places. Spreads by root suckers.",
+    "notes": "Pick every day or two at peak; ripe berries pull off easily and leave the core behind. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.elderberry",
+    "content_version": 1,
+    "name": "Elderberry",
+    "latin_name": "Sambucus canadensis and S. nigra",
+    "kind": "shrub",
+    "family": "Moschatel",
+    "summary": "A fast, tough native shrub with flat clusters of dark berries for jam, pie and syrup. Takes wet spots well.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 180,
+    "container_ok": false,
+    "zones": [
+      3,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      1,
+      2
+    ],
+    "yield_kg": 5,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of elderberry jelly",
+        "unit": "pint",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Birds love the berries. Raw berries, stems, leaves and roots can make people sick; berries must be cooked before eating.",
+    "notes": "Plant two kinds for heavier crops. Strip berries from the stems before cooking, and leave behind any green ones. Leaves and stems are toxic to goats and other livestock, so plant it outside their pasture. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.strawberry",
+    "content_version": 1,
+    "name": "Strawberry",
+    "latin_name": "Fragaria × ananassa",
+    "kind": "shrub",
+    "family": "Rose",
+    "summary": "Low perennial plants that fruit the first or second year. Easy in beds, pots and hanging baskets.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 30,
+    "container_liters": 11,
+    "container_ok": true,
+    "zones": [
+      4,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -4,
+      0
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1
+    ],
+    "years": [
+      1,
+      1
+    ],
+    "yield_kg": 0.5,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of strawberry jam",
+        "unit": "pint",
+        "raw_kg": 0.6
+      },
+      {
+        "form": "Quart bag of frozen berries",
+        "unit": "quart",
+        "raw_kg": 0.6
+      }
+    ],
+    "problems": "Slugs, birds and gray mold on ripe fruit; mulch with straw to keep berries off the soil. Plants produce less after three years.",
+    "notes": "June-bearing kinds give one big crop; everbearing and day-neutral kinds give smaller crops all season. In hot places, plant in fall for a spring crop. Replace plants every three years with rooted runners.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.feijoa",
+    "content_version": 1,
+    "name": "Pineapple guava (feijoa)",
+    "latin_name": "Acca sellowiana",
+    "kind": "shrub",
+    "family": "Myrtle",
+    "summary": "An evergreen shrub with tangy, aromatic fruit and edible flower petals. Drought tolerant and nearly pest free.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      8,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      0,
+      4
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "years": [
+      3,
+      4
+    ],
+    "yield_kg": 5,
+    "yield_per": "plant",
+    "problems": "Some kinds need a second plant to pollinate. Needs some summer heat to ripen fruit well.",
+    "notes": "Ripe fruit drops on its own; gather it from the ground every day. The sweet flower petals can be picked without hurting the crop. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.goji",
+    "content_version": 1,
+    "name": "Goji berry",
+    "latin_name": "Lycium barbarum",
+    "kind": "shrub",
+    "family": "Nightshade",
+    "summary": "A sprawling, tough shrub with small red berries. Handles drought, wind and alkaline soil.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 120,
+    "container_liters": 38,
+    "container_ok": true,
+    "zones": [
+      5,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      2,
+      3
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "plant",
+    "problems": "Spreads by suckers. Powdery mildew in humid weather.",
+    "notes": "Pick berries when fully red and soft, and dry them like raisins. They pollinate themselves. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.grape",
+    "content_version": 1,
+    "name": "Grape",
+    "latin_name": "Vitis vinifera and hybrids",
+    "kind": "vine",
+    "family": "Grape",
+    "summary": "Table, juice and raisin grapes on an arbor or fence. Long-lived and productive once trained.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 240,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      5,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      2,
+      3
+    ],
+    "yield_kg": 7,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Quart of grape juice",
+        "unit": "quart",
+        "raw_kg": 1.6
+      },
+      {
+        "form": "Pint of grape jelly",
+        "unit": "pint",
+        "raw_kg": 0.9
+      }
+    ],
+    "problems": "Black rot and mildew in humid weather. In hot southern places, Pierce's disease kills many European kinds; choose resistant hybrids there.",
+    "notes": "Most grapes pollinate themselves. They fruit on this year's shoots from last year's wood, so prune hard each winter. Taste to tell when they are ripe; grapes don't sweeten after picking. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.muscadine",
+    "content_version": 1,
+    "name": "Muscadine grape",
+    "latin_name": "Vitis rotundifolia",
+    "kind": "vine",
+    "family": "Grape",
+    "summary": "A thick-skinned grape native to the hot, humid South. Shrugs off the diseases that ruin other grapes there.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 500,
+    "container_ok": false,
+    "zones": [
+      7,
+      10
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      2,
+      3
+    ],
+    "yield_kg": 12,
+    "yield_per": "plant",
+    "preserves": [
+      {
+        "form": "Pint of muscadine jelly",
+        "unit": "pint",
+        "raw_kg": 0.9
+      }
+    ],
+    "problems": "Many kinds have only female flowers and need a self-fertile kind nearby to pollinate them.",
+    "notes": "Ripe muscadines drop or pull off one at a time over several weeks. Train on a single wire or arbor. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.passion-fruit",
+    "content_version": 1,
+    "name": "Passion fruit",
+    "latin_name": "Passiflora edulis",
+    "kind": "vine",
+    "family": "Passionflower",
+    "summary": "A fast evergreen vine with showy flowers and tangy fruit. Fruits within a year or two in warm places.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      9,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      6
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "years": [
+      1,
+      2
+    ],
+    "yield_kg": 5,
+    "yield_per": "plant",
+    "problems": "Frost kills the top; purple kinds are a little hardier than yellow ones. Root rot in soggy soil.",
+    "greenhouse_notes": "Fruits in a large pot in a warm greenhouse; hand-pollinate if bees can't reach it.",
+    "notes": "Fruit is ripe when it drops from the vine or wrinkles slightly. Wrinkled fruit is sweeter. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.hardy-kiwi",
+    "content_version": 1,
+    "name": "Hardy kiwi",
+    "latin_name": "Actinidia arguta",
+    "kind": "vine",
+    "family": "Kiwifruit",
+    "summary": "Grape-sized, smooth-skinned kiwis you eat whole. A very vigorous vine that takes cold winters.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 450,
+    "container_ok": false,
+    "zones": [
+      4,
+      8
+    ],
+    "perennial": true,
+    "transplant": [
+      -6,
+      0
+    ],
+    "frost_free_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "years": [
+      3,
+      5
+    ],
+    "yield_kg": 15,
+    "yield_per": "plant",
+    "problems": "Most kinds need a male plant for every several females. Late spring frosts can burn new shoots.",
+    "notes": "Give it a sturdy arbor or T-bar trellis. Pick firm fruit in late summer when the seeds have turned black and let it soften indoors. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.chayote",
+    "content_version": 1,
+    "name": "Chayote",
+    "latin_name": "Sechium edule",
+    "kind": "vine",
+    "family": "Squash",
+    "summary": "A vigorous vine that gives dozens of mild, crisp squash in fall. A staple across Mexico and Central America.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 300,
+    "container_ok": false,
+    "zones": [
+      8,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      6
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "years": [
+      1,
+      1
+    ],
+    "yield_kg": 10,
+    "yield_per": "plant",
+    "problems": "Needs a long, warm season; it flowers as days shorten in late summer, so frost can end it first in short-season places. Frost kills the top.",
+    "notes": "Plant the whole fruit; it sprouts from one end. Where winters are mild, the root comes back each year if mulched. The young shoots and the root are edible too.",
+    "companions": [],
+    "avoid": []
+  },
+  {
+    "starter_key": "plant.dragon-fruit",
+    "content_version": 1,
+    "name": "Dragon fruit",
+    "latin_name": "Selenicereus undatus",
+    "kind": "vine",
+    "family": "Cactus",
+    "summary": "A climbing cactus with huge night-blooming flowers and bright pink fruit. Needs a post to climb and no frost.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 300,
+    "container_liters": 57,
+    "container_ok": true,
+    "zones": [
+      10,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      6
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "years": [
+      1,
+      3
+    ],
+    "yield_kg": 5,
+    "yield_per": "plant",
+    "problems": "Frost kills it; bring pots inside below about 4 °C (40 °F). Some kinds need hand-pollination at night with a brush.",
+    "greenhouse_notes": "Grows well in a warm greenhouse in a large pot with a post.",
+    "notes": "Start from rooted cuttings for fruit in a year or two. Fruit is ripe a month or so after flowering, when the skin is fully colored and the wings start to wither. A plant bought already a few years old, or one that has fruited at the nursery, often fruits the first or second year after planting.",
+    "companions": [],
+    "avoid": []
+  }
+]

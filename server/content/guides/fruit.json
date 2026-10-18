@@ -1,0 +1,1092 @@
+[
+  {
+    "starter_key": "guide.apple.transplant",
+    "content_version": 1,
+    "title": "Planting a dwarf apple",
+    "summary": "In late winter while it is dormant, or from a pot until spring.",
+    "stage": "transplant",
+    "plant": "plant.apple",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Choose a dwarf rootstock and two kinds that bloom together, or one self-fertile kind.",
+      "In the ground, dig a hole twice as wide as the roots and no deeper, in full sun with good drainage. Keep the graft union 5 to 8 cm (2 to 3 in) above the soil.",
+      "In a pot, use at least 57 L (15 gal) and follow the basics guide for fruit trees in pots.",
+      "Water deeply, mulch, and stake dwarf trees; their roots are small."
+    ],
+    "supplies": [
+      {
+        "name": "Two apple trees",
+        "amount": "that bloom together"
+      },
+      {
+        "name": "Stake and soft tie"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.apple.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting apples",
+    "summary": "Prune in winter, thin in spring, pick in late summer and fall.",
+    "stage": "care",
+    "plant": "plant.apple",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Each winter, remove dead, crossing and upright shoots to keep the center open to light.",
+      "When fruits are marble sized, thin to one per cluster, about 15 cm (6 in) apart.",
+      "An apple is ripe when it lifts and twists off easily and the seeds are brown.",
+      "Store the best apples in a cold, humid place; turn bruised ones into sauce right away."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Picking bag"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.peach.transplant",
+    "content_version": 1,
+    "title": "Planting a dwarf peach",
+    "summary": "In late winter, in the sunniest spot you have.",
+    "stage": "transplant",
+    "plant": "plant.peach",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Pick a low-chill or high-chill kind to match your winters.",
+      "Plant with the graft union above the soil in well-drained ground, or in a 57 L (15 gal) pot.",
+      "Avoid low spots where cold air settles on spring nights; the blossoms are tender.",
+      "Water deeply and mulch, keeping the mulch off the trunk."
+    ],
+    "supplies": [
+      {
+        "name": "Peach tree"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.peach.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting peaches",
+    "summary": "Open the center, thin hard, pick when the green is gone.",
+    "stage": "care",
+    "plant": "plant.peach",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Prune in late winter to an open vase shape with three or four main branches.",
+      "Spray a copper or lime-sulfur dormant spray in late winter if leaf curl has been a problem, following the label.",
+      "Thin fruits to 15 to 20 cm (6 to 8 in) apart when small.",
+      "Pick when the background color has no green and the fruit gives slightly. Rake up leaves and pruned twigs where goats can reach."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Dormant spray"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pear.transplant",
+    "content_version": 1,
+    "title": "Planting a dwarf pear",
+    "summary": "In late winter while dormant.",
+    "stage": "transplant",
+    "plant": "plant.pear",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Plant two kinds that bloom at the same time.",
+      "Plant in full sun with the graft union above the soil, or in a 57 L (15 gal) pot.",
+      "Water deeply and mulch."
+    ],
+    "supplies": [
+      {
+        "name": "Two pear trees"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pear.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting pears",
+    "summary": "Light pruning, early picking.",
+    "stage": "care",
+    "plant": "plant.pear",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Prune lightly in winter; heavy pruning encourages fire blight.",
+      "Cut out blackened, hooked shoot tips well below the damage, cleaning your pruners between cuts.",
+      "Pick European pears when they are full size and lift easily, then ripen them at room temperature for a few days.",
+      "To can pears, add lemon juice and follow a tested recipe; Asian pears are low enough in acid that the lemon juice is a must."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Rubbing alcohol for pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.plum.transplant",
+    "content_version": 1,
+    "title": "Planting a plum",
+    "summary": "In late winter while dormant.",
+    "stage": "transplant",
+    "plant": "plant.plum",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Check whether your kind needs a partner, and plant two if it does.",
+      "Plant in full sun with the graft union above the soil, or a dwarf tree in a 57 L (15 gal) pot.",
+      "Water deeply and mulch."
+    ],
+    "supplies": [
+      {
+        "name": "Plum tree",
+        "amount": "or two if needed"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.plum.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting plums",
+    "summary": "Thin the crop and keep cut branches from goats.",
+    "stage": "care",
+    "plant": "plant.plum",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Prune young trees in late winter to an open shape; older trees need only light thinning.",
+      "Thin fruits to 8 to 10 cm (3 to 4 in) apart so branches don't break.",
+      "Pick when the fruit is fully colored and slightly soft.",
+      "Gather pruned branches and fallen leaves right away where goats can reach them."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.apricot.transplant",
+    "content_version": 1,
+    "title": "Planting an apricot",
+    "summary": "In late winter, away from frost pockets.",
+    "stage": "transplant",
+    "plant": "plant.apricot",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Choose a kind that blooms late or suits your chill hours.",
+      "Plant on higher ground or a slope where cold air drains away, or in a 57 L (15 gal) pot you can move under cover.",
+      "Water deeply and mulch."
+    ],
+    "supplies": [
+      {
+        "name": "Apricot tree"
+      },
+      {
+        "name": "Mulch"
+      },
+      {
+        "name": "Frost cloth",
+        "amount": "for spring nights"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.apricot.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting apricots",
+    "summary": "Protect the blossoms, then pick soft and sweet.",
+    "stage": "care",
+    "plant": "plant.apricot",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cover small trees with frost cloth on frosty nights while they bloom.",
+      "Prune lightly after harvest or in late winter.",
+      "Pick when the fruit is fully orange and gives slightly. Halve and dry extras on screens or in a dehydrator.",
+      "Keep pruned branches and fallen leaves away from goats."
+    ],
+    "supplies": [
+      {
+        "name": "Frost cloth"
+      },
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.persimmon.transplant",
+    "content_version": 1,
+    "title": "Planting a persimmon",
+    "summary": "In late winter while dormant.",
+    "stage": "transplant",
+    "plant": "plant.persimmon",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Persimmons have a long taproot; plant a young tree and don't disturb the roots.",
+      "Plant in full sun, or in a 76 L (20 gal) pot for a dwarf kind.",
+      "Water deeply and mulch. Young trees may drop fruit for a year or two; that is normal."
+    ],
+    "supplies": [
+      {
+        "name": "Persimmon tree"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.persimmon.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting persimmons",
+    "summary": "Little pruning, a fall harvest.",
+    "stage": "care",
+    "plant": "plant.persimmon",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Prune only to remove dead or crossing branches.",
+      "Cut fruit with a bit of stem attached when it is fully orange.",
+      "Eat Fuyu types crisp; let Hachiya types soften on the counter until jelly-soft."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.fig.container",
+    "content_version": 1,
+    "title": "Planting a fig",
+    "summary": "In spring around the last frost.",
+    "stage": "container",
+    "plant": "plant.fig",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Plant against a warm south or west wall in cooler places, or in a 57 L (15 gal) pot.",
+      "Set it slightly deeper than it grew; figs root along buried stems.",
+      "Water deeply every week the first summer."
+    ],
+    "supplies": [
+      {
+        "name": "Fig tree"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.fig.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting figs",
+    "summary": "Pick ripe, protect from hard frost.",
+    "stage": "care",
+    "plant": "plant.fig",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Prune in late winter only to shape and remove dead wood.",
+      "Pick figs when they droop and feel soft, wearing gloves against the sap.",
+      "Eat within a few days, dry them, or make preserves with lemon juice using a tested recipe.",
+      "Before hard freezes, move potted figs into an unheated garage or greenhouse, or wrap in-ground trees."
+    ],
+    "supplies": [
+      {
+        "name": "Gloves"
+      },
+      {
+        "name": "Frost cloth"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pomegranate.container",
+    "content_version": 1,
+    "title": "Planting a pomegranate",
+    "summary": "In spring after the worst cold.",
+    "stage": "container",
+    "plant": "plant.pomegranate",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Plant in full sun and well-drained soil, or in a 57 L (15 gal) pot.",
+      "Water deeply until it is growing well, then water every week or two in summer.",
+      "Train it as a shrub with several stems or a small tree with one."
+    ],
+    "supplies": [
+      {
+        "name": "Pomegranate plant"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pomegranate.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting pomegranates",
+    "summary": "Steady water, fall harvest.",
+    "stage": "care",
+    "plant": "plant.pomegranate",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Water evenly while fruit is growing; a sudden soaking after drought splits the fruit.",
+      "Remove suckers from the base and thin crowded branches in late winter.",
+      "Cut ripe fruit off with pruners when it is deeply colored and sounds metallic when tapped."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.meyer-lemon.container",
+    "content_version": 1,
+    "title": "Planting a Meyer lemon in a pot",
+    "summary": "In spring once frost is past.",
+    "stage": "container",
+    "plant": "plant.meyer-lemon",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Choose a grafted tree and a 57 L (15 gal) pot with fast-draining citrus mix.",
+      "Keep the graft union well above the mix, and don't bury the trunk.",
+      "Water deeply, then let the top few centimeters dry before watering again."
+    ],
+    "supplies": [
+      {
+        "name": "Grafted Meyer lemon"
+      },
+      {
+        "name": "Citrus potting mix"
+      },
+      {
+        "name": "Pot on wheels"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.meyer-lemon.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting lemons",
+    "summary": "Feed in summer, bring inside for frost.",
+    "stage": "care",
+    "plant": "plant.meyer-lemon",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Feed with a citrus fertilizer from spring to late summer.",
+      "Move it inside to a bright, cool spot before nights fall to 0 °C (32 °F), and back out after the last frost, easing it into full sun over a week.",
+      "Pick lemons when fully yellow and slightly soft; they keep on the tree for weeks."
+    ],
+    "supplies": [
+      {
+        "name": "Citrus fertilizer"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.satsuma.container",
+    "content_version": 1,
+    "title": "Planting a satsuma",
+    "summary": "In spring after the last frost.",
+    "stage": "container",
+    "plant": "plant.satsuma",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "In the ground, plant in the warmest, most sheltered spot with the graft union above the soil.",
+      "In colder places, grow it in a 57 L (15 gal) pot on wheels.",
+      "Water deeply and mulch, keeping the mulch off the trunk."
+    ],
+    "supplies": [
+      {
+        "name": "Grafted satsuma"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.satsuma.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting satsumas",
+    "summary": "Feed, protect, pick when sweet.",
+    "stage": "care",
+    "plant": "plant.satsuma",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Feed with citrus fertilizer in late winter, late spring and midsummer.",
+      "Cover young trees with frost cloth, or move pots under cover, before hard freezes.",
+      "Clip fruit off with a short stem when colored and sweet."
+    ],
+    "supplies": [
+      {
+        "name": "Citrus fertilizer"
+      },
+      {
+        "name": "Frost cloth"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.avocado.container",
+    "content_version": 1,
+    "title": "Planting an avocado",
+    "summary": "In spring once nights are warm.",
+    "stage": "container",
+    "plant": "plant.avocado",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Choose a grafted tree. Compact kinds suit a 76 L (20 gal) pot.",
+      "Plant in very well-drained soil, slightly raised in a mound if your soil is heavy. Never let it sit in water.",
+      "Plant it outside any area where goats or chickens roam.",
+      "Shade the trunk of a young tree with whitewash or a wrap against sunburn."
+    ],
+    "supplies": [
+      {
+        "name": "Grafted avocado tree"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.avocado.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting avocados",
+    "summary": "Deep water, thick mulch, pick and ripen indoors.",
+    "stage": "care",
+    "plant": "plant.avocado",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Keep a thick layer of coarse mulch over the roots and water deeply but not often.",
+      "Protect from frost with cloth or move pots inside.",
+      "Pick a full-size fruit and let it soften on the counter for a week. If it ripens soft and tastes good, the rest are ready."
+    ],
+    "supplies": [
+      {
+        "name": "Coarse mulch"
+      },
+      {
+        "name": "Frost cloth"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.guava.container",
+    "content_version": 1,
+    "title": "Planting a guava",
+    "summary": "In warm weather.",
+    "stage": "container",
+    "plant": "plant.guava",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Plant in full sun, or in a 57 L (15 gal) pot in colder places.",
+      "Water well and mulch.",
+      "Prune to a few main branches to keep it small."
+    ],
+    "supplies": [
+      {
+        "name": "Guava plant"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.guava.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting guavas",
+    "summary": "Feed often, bag the fruit.",
+    "stage": "care",
+    "plant": "plant.guava",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Feed lightly every two months during the growing season.",
+      "Where fruit flies are common, slip small mesh bags over young fruit.",
+      "Pick when the skin turns yellowish and the fruit smells sweet; it softens in a day or two."
+    ],
+    "supplies": [
+      {
+        "name": "Mesh fruit bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.blueberry.container",
+    "content_version": 1,
+    "title": "Planting blueberries",
+    "summary": "In late winter or early spring.",
+    "stage": "container",
+    "plant": "plant.blueberry",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Test your soil. If it isn't acid (pH 4.5 to 5.5), grow them in pots of acid mix or in raised beds of peat and pine bark.",
+      "Plant two or more kinds of the same type, 1.5 m (5 ft) apart, at the same depth they grew.",
+      "Water with rainwater if your tap water is hard. Mulch with pine needles or bark."
+    ],
+    "supplies": [
+      {
+        "name": "Two or more blueberry bushes"
+      },
+      {
+        "name": "Acid potting mix",
+        "amount": "for pots"
+      },
+      {
+        "name": "Pine bark mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.blueberry.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting blueberries",
+    "summary": "Net the berries, prune old canes.",
+    "stage": "care",
+    "plant": "plant.blueberry",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Feed with a fertilizer for acid-loving plants in spring.",
+      "Net the bushes when berries start to color.",
+      "Pick berries a few days after they turn fully blue; they come off with a gentle roll of the thumb.",
+      "After the third year, cut out one or two of the oldest canes each winter."
+    ],
+    "supplies": [
+      {
+        "name": "Bird netting"
+      },
+      {
+        "name": "Acid plant fertilizer"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.blackberry.transplant",
+    "content_version": 1,
+    "title": "Planting thornless blackberries",
+    "summary": "In late winter or early spring.",
+    "stage": "transplant",
+    "plant": "plant.blackberry",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Put up a trellis first: two wires at about 0.9 and 1.5 m (3 and 5 ft) high.",
+      "Plant 90 cm (3 ft) apart along it, or one per 57 L (15 gal) pot with a cage.",
+      "Water deeply and mulch."
+    ],
+    "supplies": [
+      {
+        "name": "Blackberry plants"
+      },
+      {
+        "name": "Posts and wire",
+        "amount": "for the trellis"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.blackberry.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting blackberries",
+    "summary": "Tie new canes, cut old ones.",
+    "stage": "care",
+    "plant": "plant.blackberry",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Tie new canes to the trellis as they grow.",
+      "Pick when berries turn dull black and come off easily, every two or three days.",
+      "After harvest, cut the canes that fruited to the ground."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Twine"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.raspberry.transplant",
+    "content_version": 1,
+    "title": "Planting raspberries",
+    "summary": "In late winter or early spring.",
+    "stage": "transplant",
+    "plant": "plant.raspberry",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Choose fall-bearing kinds for the simplest care, and a spot with afternoon shade in hot places.",
+      "Plant 60 cm (2 ft) apart in rows or in a 57 L (15 gal) pot.",
+      "Cut canes to 15 cm (6 in) after planting and keep them mulched and moist."
+    ],
+    "supplies": [
+      {
+        "name": "Raspberry canes"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.raspberry.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting raspberries",
+    "summary": "Pick often, mow in winter.",
+    "stage": "care",
+    "plant": "plant.raspberry",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick every day or two at peak, when berries pull off easily.",
+      "For fall-bearing kinds, cut all canes to the ground in late winter.",
+      "Pull suckers that wander out of the row."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Shallow picking container"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.elderberry.transplant",
+    "content_version": 1,
+    "title": "Planting elderberries",
+    "summary": "In late winter or early spring.",
+    "stage": "transplant",
+    "plant": "plant.elderberry",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Plant two kinds 1.8 m (6 ft) apart in sun or part shade; damp ground is fine.",
+      "Plant outside pastures and pens where goats or other livestock could reach the leaves.",
+      "Water well the first year and mulch."
+    ],
+    "supplies": [
+      {
+        "name": "Two elderberry plants"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.elderberry.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting elderberries",
+    "summary": "Cut whole clusters, always cook.",
+    "stage": "care",
+    "plant": "plant.elderberry",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut whole clusters when nearly all berries are dark.",
+      "Freeze clusters, then rub the berries off; discard stems and green berries.",
+      "Cook berries before eating, in jam, pie or jelly.",
+      "Each winter, cut out canes older than three years."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.strawberry.transplant",
+    "content_version": 1,
+    "title": "Planting strawberries",
+    "summary": "In early spring, or in fall where winters are mild.",
+    "stage": "transplant",
+    "plant": "plant.strawberry",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Plant in full sun, 30 cm (12 in) apart, in rich soil or an 11 L (3 gal) pot for a few plants.",
+      "Set the crown exactly at soil level: buried crowns rot and exposed roots dry out.",
+      "Mulch with straw and water evenly."
+    ],
+    "supplies": [
+      {
+        "name": "Strawberry plants"
+      },
+      {
+        "name": "Straw mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.strawberry.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting strawberries",
+    "summary": "Pick every other day, renew every few years.",
+    "stage": "care",
+    "plant": "plant.strawberry",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pinch off the first flowers on June-bearing plants the first spring so the plants grow strong.",
+      "Pick berries when fully red, with the cap on, in the cool of the morning.",
+      "Root a few runners each summer into small pots to replace old plants."
+    ],
+    "supplies": [
+      {
+        "name": "Small pots for runners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.feijoa.container",
+    "content_version": 1,
+    "title": "Planting a pineapple guava",
+    "summary": "In spring.",
+    "stage": "container",
+    "plant": "plant.feijoa",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Plant in full sun or light shade, or in a 57 L (15 gal) pot.",
+      "Plant two if your kind needs a partner.",
+      "Water well until settled; after that it handles dry spells."
+    ],
+    "supplies": [
+      {
+        "name": "Feijoa plant"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.feijoa.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting feijoas",
+    "summary": "Little care; gather fallen fruit.",
+    "stage": "care",
+    "plant": "plant.feijoa",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Prune lightly after harvest to shape.",
+      "Gather fruit as it drops, every day, and let it soften for a day or two.",
+      "Scoop out the pulp with a spoon. Pick a few petals from the flowers for salads."
+    ],
+    "supplies": []
+  },
+  {
+    "starter_key": "guide.goji.transplant",
+    "content_version": 1,
+    "title": "Planting goji",
+    "summary": "In late winter or early spring.",
+    "stage": "transplant",
+    "plant": "plant.goji",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Plant in full sun, 1.2 m (4 ft) apart, or in a 38 L (10 gal) pot.",
+      "It tolerates poor and alkaline soil but needs good drainage.",
+      "Give it a fence or trellis to lean on."
+    ],
+    "supplies": [
+      {
+        "name": "Goji plant"
+      },
+      {
+        "name": "Trellis or fence"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.goji.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting goji",
+    "summary": "Prune hard, pick red and soft.",
+    "stage": "care",
+    "plant": "plant.goji",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "In late winter, prune to a few main stems and shorten side shoots.",
+      "Pull suckers that come up away from the plant.",
+      "Pick berries fully red and soft, and dry them on screens."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Drying screens"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.grape.transplant",
+    "content_version": 1,
+    "title": "Planting a grapevine",
+    "summary": "In late winter or early spring.",
+    "stage": "transplant",
+    "plant": "plant.grape",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Put up an arbor, fence or two-wire trellis first.",
+      "Plant 2.4 m (8 ft) apart, or in a 57 L (15 gal) pot with a sturdy frame.",
+      "After planting, cut the vine back to two or three buds and let one strong shoot grow up the support."
+    ],
+    "supplies": [
+      {
+        "name": "Grapevine"
+      },
+      {
+        "name": "Trellis or arbor"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.grape.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting grapes",
+    "summary": "Prune hard every winter, taste for ripeness.",
+    "stage": "care",
+    "plant": "plant.grape",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Each winter, remove most of last year's growth, leaving short spurs of two buds along the main arms.",
+      "Thin leaves around clusters in summer for air and sun.",
+      "Cut clusters when the grapes taste sweet; they don't sweeten after picking."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Bird netting"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.muscadine.transplant",
+    "content_version": 1,
+    "title": "Planting muscadines",
+    "summary": "In late winter or early spring.",
+    "stage": "transplant",
+    "plant": "plant.muscadine",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Put up a single wire about 1.5 m (5 ft) high, or an arbor.",
+      "Plant 5 m (16 ft) apart, with at least one self-fertile kind for every few female ones.",
+      "Water deeply and mulch."
+    ],
+    "supplies": [
+      {
+        "name": "Muscadine vines"
+      },
+      {
+        "name": "Posts and wire"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.muscadine.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting muscadines",
+    "summary": "Shorten the shoots in winter, pick over weeks.",
+    "stage": "care",
+    "plant": "plant.muscadine",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Each winter, cut the shoots along the arms back to short spurs of two or three buds.",
+      "Gather ripe grapes as they drop, or spread a sheet and shake the vine.",
+      "Make jelly or juice from extras."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      },
+      {
+        "name": "Old sheet"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.passion-fruit.container",
+    "content_version": 1,
+    "title": "Planting passion fruit",
+    "summary": "Once frost is past and nights are warm.",
+    "stage": "container",
+    "plant": "plant.passion-fruit",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Plant against a strong fence or trellis in full sun, or in a 57 L (15 gal) pot with a frame.",
+      "Water deeply and mulch.",
+      "Move pots under cover before frost."
+    ],
+    "supplies": [
+      {
+        "name": "Passion fruit vine"
+      },
+      {
+        "name": "Trellis"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.passion-fruit.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting passion fruit",
+    "summary": "Thin the vine, gather fallen fruit.",
+    "stage": "care",
+    "plant": "plant.passion-fruit",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Thin tangled growth after harvest.",
+      "Feed lightly every month in summer.",
+      "Gather fruit that drops; it is sweetest after it wrinkles a little."
+    ],
+    "supplies": []
+  },
+  {
+    "starter_key": "guide.hardy-kiwi.transplant",
+    "content_version": 1,
+    "title": "Planting hardy kiwi",
+    "summary": "In early spring.",
+    "stage": "transplant",
+    "plant": "plant.hardy-kiwi",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Build a strong arbor or T-bar trellis first; the vine gets heavy.",
+      "Plant one male for every several females, 4.5 m (15 ft) apart, unless your kind is self-fertile.",
+      "Protect new shoots from late frost with cloth."
+    ],
+    "supplies": [
+      {
+        "name": "Female and male kiwi vines"
+      },
+      {
+        "name": "Sturdy arbor"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.hardy-kiwi.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting hardy kiwi",
+    "summary": "Prune twice a year, pick firm.",
+    "stage": "care",
+    "plant": "plant.hardy-kiwi",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Prune in winter to a framework of arms, and trim long shoots in summer.",
+      "Pick firm fruit when the seeds inside have turned black.",
+      "Soften the fruit at room temperature for a few days, then eat skin and all."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.chayote.transplant",
+    "content_version": 1,
+    "title": "Planting chayote",
+    "summary": "After the last frost, from a sprouting fruit.",
+    "stage": "transplant",
+    "plant": "plant.chayote",
+    "basics": "guide.basics.buy-plant",
+    "steps": [
+      "Buy a firm chayote and leave it on the counter until a shoot appears from the wide end.",
+      "Plant the whole fruit on its side with the shoot end slightly up, half buried, next to a strong trellis.",
+      "Water well and mulch thickly."
+    ],
+    "supplies": [
+      {
+        "name": "Whole chayote fruit"
+      },
+      {
+        "name": "Strong trellis or fence"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.chayote.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting chayote",
+    "summary": "Lots of growth, a fall harvest.",
+    "stage": "care",
+    "plant": "plant.chayote",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Keep it watered through summer; the vine can grow many meters.",
+      "Pick fruits when they are 10 to 15 cm (4 to 6 in) long and still tender.",
+      "Where winters are mild, cut the vine down after frost and mulch the root heavily."
+    ],
+    "supplies": [
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.dragon-fruit.container",
+    "content_version": 1,
+    "title": "Planting dragon fruit",
+    "summary": "In warm weather.",
+    "stage": "container",
+    "plant": "plant.dragon-fruit",
+    "basics": "guide.basics.container-fruit",
+    "steps": [
+      "Set a sturdy post 1.5 to 1.8 m (5 to 6 ft) tall, with a frame or old tire on top for the stems to drape over.",
+      "Plant three rooted cuttings around the post, or one in a 57 L (15 gal) pot with its own post, in fast-draining cactus mix.",
+      "Tie the stems to the post as they grow, and water only when the mix is dry."
+    ],
+    "supplies": [
+      {
+        "name": "Rooted dragon fruit cuttings"
+      },
+      {
+        "name": "Post and frame"
+      },
+      {
+        "name": "Cactus mix"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.dragon-fruit.care",
+    "content_version": 1,
+    "title": "Caring for and harvesting dragon fruit",
+    "summary": "Hand-pollinate at night, pick colored fruit.",
+    "stage": "care",
+    "plant": "plant.dragon-fruit",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "When a flower opens at night, brush pollen from its center onto the same or another flower if your kind needs it.",
+      "Pick the fruit about a month later, when it is fully colored and gives slightly.",
+      "Move pots inside before nights drop near 4 °C (40 °F)."
+    ],
+    "supplies": [
+      {
+        "name": "Soft paintbrush"
+      }
+    ]
+  }
+]

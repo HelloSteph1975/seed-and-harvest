@@ -32,12 +32,12 @@ export class UnitError extends Error {}
 const sys = units => (units === 'metric' ? 'metric' : 'us');
 
 // One decimal, without a trailing ".0". Spacing of 3 inches or more shows whole inches; a little
-// seed in ounces never shows as 0.
+// seed or a light harvest never shows as 0.
 export function toDisplay(kind, metric, units) {
   if (metric === null || metric === undefined || Number.isNaN(metric)) return '';
   const raw = TO_DISPLAY[kind][sys(units)](metric);
   let v = kind === 'spacing' && sys(units) === 'us' && raw >= 3 ? Math.round(raw) : Math.round(raw * 10) / 10;
-  if (kind === 'seed' && metric > 0 && v === 0) v = 0.1;
+  if ((kind === 'seed' || kind === 'weight') && metric > 0 && v === 0) v = 0.1;
   return String(Object.is(v, -0) ? 0 : v);
 }
 

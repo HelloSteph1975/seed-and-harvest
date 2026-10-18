@@ -1,0 +1,325 @@
+[
+  {
+    "starter_key": "plant.chives",
+    "content_version": 1,
+    "name": "Chives",
+    "latin_name": "Allium schoenoprasum",
+    "kind": "herb",
+    "family": "Onion",
+    "summary": "Mild onion-flavored leaves and pretty purple flowers. A no-fuss perennial for a pot or a border.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 25,
+    "container_liters": 4,
+    "container_ok": true,
+    "zones": [
+      3,
+      9
+    ],
+    "perennial": true,
+    "start_indoors": [
+      6,
+      8
+    ],
+    "transplant": [
+      -4,
+      0
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "days": [
+      75,
+      90
+    ],
+    "yield_kg": 0.2,
+    "yield_per": "plant",
+    "companions": [
+      "plant.carrot",
+      "plant.tomato",
+      "plant.lettuce"
+    ],
+    "avoid": [
+      "plant.pea",
+      "plant.green-bean"
+    ],
+    "problems": "Very few. Clumps get crowded after a few years; dig and divide them in spring.",
+    "greenhouse_notes": "A pot brought into a cool greenhouse gives fresh leaves most of the winter.",
+    "notes": "Buying a pot or getting a division from a friend is quicker than seed. The flowers are edible."
+  },
+  {
+    "starter_key": "plant.thyme",
+    "content_version": 1,
+    "name": "Thyme",
+    "latin_name": "Thymus vulgaris",
+    "kind": "herb",
+    "family": "Mint",
+    "summary": "A small, woody herb for soups, beans and roasts. Loves sun and dry soil, and lives for years.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 30,
+    "container_liters": 8,
+    "container_ok": true,
+    "zones": [
+      5,
+      9
+    ],
+    "perennial": true,
+    "start_indoors": [
+      8,
+      10
+    ],
+    "transplant": [
+      0,
+      2
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "days": [
+      85,
+      95
+    ],
+    "yield_kg": 0.2,
+    "yield_per": "plant",
+    "companions": [
+      "plant.cabbage",
+      "plant.tomato",
+      "plant.eggplant"
+    ],
+    "avoid": [],
+    "problems": "Rots in wet or heavy soil. Plants get woody and sparse after three or four years; start new ones from cuttings.",
+    "notes": "Seed is tiny and slow, so most people buy a plant. Cut stems just before it flowers and dry them in bundles."
+  },
+  {
+    "starter_key": "plant.rosemary",
+    "content_version": 1,
+    "name": "Rosemary",
+    "latin_name": "Salvia rosmarinus",
+    "kind": "herb",
+    "family": "Mint",
+    "summary": "A fragrant evergreen shrub for meats, bread and potatoes. Thrives on heat, sun and neglect.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 60,
+    "container_liters": 19,
+    "container_ok": true,
+    "zones": [
+      7,
+      10
+    ],
+    "perennial": true,
+    "transplant": [
+      0,
+      4
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "yield_kg": 0.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.cabbage",
+      "plant.green-bean",
+      "plant.carrot"
+    ],
+    "avoid": [],
+    "problems": "Overwatering kills more rosemary than cold does. Powdery mildew indoors in still air.",
+    "greenhouse_notes": "In cold places a pot spends winter in a cool, bright greenhouse or window.",
+    "notes": "Start with a plant or a cutting; seed is slow and unreliable. Some kinds handle colder winters than others, so ask the nursery."
+  },
+  {
+    "starter_key": "plant.mint",
+    "content_version": 1,
+    "name": "Mint",
+    "latin_name": "Mentha spp.",
+    "kind": "herb",
+    "family": "Mint",
+    "summary": "Fast, fragrant leaves for tea, drinks and salads. It spreads everywhere, so it is happiest in its own pot.",
+    "sun": "part",
+    "water": "high",
+    "spacing_cm": 45,
+    "container_liters": 11,
+    "container_ok": true,
+    "zones": [
+      4,
+      9
+    ],
+    "perennial": true,
+    "transplant": [
+      -2,
+      2
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "days": [
+      60,
+      90
+    ],
+    "yield_kg": 0.4,
+    "yield_per": "plant",
+    "companions": [
+      "plant.cabbage",
+      "plant.tomato"
+    ],
+    "avoid": [
+      "plant.parsley"
+    ],
+    "problems": "Runners take over a bed in a season. Rust spots the leaves in humid weather; cut it back hard and it regrows.",
+    "notes": "Plant a rooted piece or a pot; mint grown from seed is often not true to type. Sink a bottomless pot into the ground to hold it in. Goats love it."
+  },
+  {
+    "starter_key": "plant.sage",
+    "content_version": 1,
+    "name": "Sage",
+    "latin_name": "Salvia officinalis",
+    "kind": "herb",
+    "family": "Mint",
+    "summary": "Soft gray leaves for stuffing, beans and sausage. A sturdy perennial that likes it dry.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 45,
+    "container_liters": 11,
+    "container_ok": true,
+    "zones": [
+      5,
+      9
+    ],
+    "perennial": true,
+    "start_indoors": [
+      6,
+      8
+    ],
+    "transplant": [
+      0,
+      2
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1,
+      2
+    ],
+    "days": [
+      75,
+      90
+    ],
+    "yield_kg": 0.3,
+    "yield_per": "plant",
+    "companions": [
+      "plant.cabbage",
+      "plant.carrot",
+      "plant.tomato"
+    ],
+    "avoid": [],
+    "problems": "Rots in wet soil and humid summers. Woody after four or five years.",
+    "notes": "Pick lightly the first year. Cut the plant back by a third in spring to keep it bushy, and dry leaves flat on a screen."
+  },
+  {
+    "starter_key": "plant.epazote",
+    "content_version": 1,
+    "name": "Epazote",
+    "latin_name": "Dysphania ambrosioides",
+    "kind": "herb",
+    "family": "Amaranth",
+    "summary": "A strong, resinous herb cooked with black beans in Mexican kitchens. Grows easily, even in poor soil.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 30,
+    "container_liters": 8,
+    "container_ok": true,
+    "sow": [
+      0,
+      4
+    ],
+    "frost_free_months": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "days": [
+      45,
+      60
+    ],
+    "yield_kg": 0.3,
+    "yield_per": "plant",
+    "companions": [
+      "plant.dry-beans",
+      "plant.sweet-corn"
+    ],
+    "avoid": [],
+    "problems": "Reseeds heavily and can become weedy. Cut the seed heads off before they ripen.",
+    "notes": "Use only a sprig or a few leaves per pot of beans. It is a strong herb, and eating large amounts is not safe, so keep it a seasoning and keep the plants away from grazing animals. Avoid it during pregnancy."
+  },
+  {
+    "starter_key": "plant.lemongrass",
+    "content_version": 1,
+    "name": "Lemongrass",
+    "latin_name": "Cymbopogon citratus",
+    "kind": "herb",
+    "family": "Grass",
+    "summary": "A tall tropical grass with a lemony base for soups, curries and tea. Grows fast in heat.",
+    "sun": "full",
+    "water": "high",
+    "spacing_cm": 60,
+    "container_liters": 19,
+    "container_ok": true,
+    "zones": [
+      9,
+      11
+    ],
+    "perennial": true,
+    "transplant": [
+      2,
+      4
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "days": [
+      90,
+      120
+    ],
+    "yield_kg": 1,
+    "yield_per": "plant",
+    "companions": [
+      "plant.basil",
+      "plant.cilantro"
+    ],
+    "avoid": [],
+    "problems": "Any frost damages it. Leaf edges are sharp; wear gloves when you cut.",
+    "greenhouse_notes": "In cold places, pot it up before frost and keep it in a bright, frost-free spot over winter.",
+    "notes": "Fresh stalks from the grocery store root in a glass of water in two or three weeks, then go in a pot."
+  }
+]

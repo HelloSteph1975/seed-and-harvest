@@ -27,6 +27,13 @@ const TOMATO = {
   varieties: [{ id: 11, plant_id: 1, name: 'Roma', days: 75, notes: 'Paste', version: 1 }],
   guides: [{ id: 22, title: 'Harvesting tomatoes', stage: 'harvest', starter_key: null, is_starter: 0 }, { id: 21, title: 'Starting tomatoes', stage: 'start_indoors', starter_key: null, is_starter: 0 }],
 };
+const BASE = { companions: [], avoid: [], preserves: [], varieties: [], guides: [], frost_free_months: [], version: 1 };
+const PEA_SHOOTS = { ...BASE, id: 4, name: 'Pea shoots', kind: 'microgreen', summary: 'Sweet shoots.', days_min: 10, days_max: 14,
+  soak_hours: 8, seed_g_per_tray: 250, safety_goats: 'safe', safety_chickens: 'safe', starter_key: 'plant.micro-pea', is_starter: 1 };
+const FIG = { ...BASE, ...LIST[2], spacing_cm: 300, transplant_min: -4, transplant_max: 2, years_min: 1, years_max: 3 };
+const EDITED = { ...TOMATO, id: 5, is_starter: 0 };
+const NO_FROST = { ...BASE, id: 6, name: 'Bean', kind: 'vegetable', sow_min: 1, sow_max: 4, starter_key: null, is_starter: 0 };
+const DETAILS = { '/api/plants/1': TOMATO, '/api/plants/3': FIG, '/api/plants/4': PEA_SHOOTS, '/api/plants/5': EDITED, '/api/plants/6': NO_FROST };
 let calls;
 let pack;
 function stub() {
@@ -41,7 +48,7 @@ function stub() {
     if (url === '/api/places') return json(PLACES);
     if (url.startsWith('/api/plants?') || url === '/api/plants') return json(LIST);
     if (url === '/api/guides') return json([{ id: 30, title: 'Starting seeds indoors', summary: 'Head start.', stage: 'start_indoors', starter_key: 'guide.basics.start', is_starter: 1 }]);
-    if (url === '/api/plants/1') return json(TOMATO);
+    if (DETAILS[url]) return json(DETAILS[url]);
     if (url.startsWith('/api/photos?')) return json([]);
     if (url === '/api/plants/1/varieties' && m === 'POST') return json({ id: 12, plant_id: 1, version: 1, ...body }, 201);
     return json({}, 404);
@@ -66,7 +73,7 @@ describe('library list', () => {
     stub();
     mount('/library');
     await screen.findByRole('heading', { name: 'Tomato', level: 3 });
-    expect(names()).toEqual(['Tomato', 'Basil', 'Fig']);
+    expect(names()).toEqual(['Basil', 'Fig', 'Tomato']);
     await userEvent.click(screen.getByRole('button', { name: 'Herb' }));
     expect(names()).toEqual(['Basil']);
   });
@@ -76,7 +83,7 @@ describe('library list', () => {
     mount('/library');
     await screen.findByRole('heading', { name: 'Fig', level: 3 });
     await userEvent.click(screen.getByLabelText('Good in a pot'));
-    expect(names()).toEqual(['Tomato', 'Basil']);
+    expect(names()).toEqual(['Basil', 'Tomato']);
   });
 
   it('Fits the place hides perennials outside its zone', async () => {
@@ -84,7 +91,7 @@ describe('library list', () => {
     mount('/library');
     await screen.findByRole('heading', { name: 'Fig', level: 3 });
     await userEvent.click(screen.getByLabelText(/Survives the winters at/));
-    expect(names()).toEqual(['Tomato', 'Basil']);
+    expect(names()).toEqual(['Basil', 'Tomato']);
   });
 
   it('shows Spanish names for starter plants when the pack has them, and the owner text for edited ones', async () => {
@@ -93,6 +100,14 @@ describe('library list', () => {
     mount('/library');
     expect(await screen.findByRole('heading', { name: 'Jitomate', level: 3 })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Basil', level: 3 })).toBeInTheDocument();
+  });
+
+  it('sorts by the name shown on screen', async () => {
+    stub();
+    pack = { 'plant.tomato.name': 'Calabaza' };
+    mount('/library');
+    await screen.findByRole('heading', { name: 'Calabaza', level: 3 });
+    expect(names()).toEqual(['Basil', 'Calabaza', 'Fig']);
   });
 
   it('lists basics guides on the Guides tab', async () => {
@@ -170,5 +185,46 @@ describe('plant page', () => {
     await userEvent.click(within(dialog).getByRole('button', { name: 'Save' }));
     await vi.waitFor(() => expect(calls.find(c => c.url === '/api/plants/1/varieties' && c.m === 'POST')).toBeDefined());
     expect(calls.find(c => c.m === 'POST').body).toMatchObject({ name: 'San Marzano' });
+  });
+
+  it('a microgreen says it grows indoors any time and shows its days', async () => {
+    stub();
+    mount('/library/plants/4');
+    const box = await screen.findByRole('region', { name: /When to plant/ });
+    expect(await within(box).findByText('Grow indoors any time of year. Ready in 10 to 14 days.')).toBeInTheDocument();
+    expect(within(box).queryByText(/No planting dates/)).toBeNull();
+  });
+
+  it('a fruit plant planting window reads Plant, not Move outside', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2027-01-10T12:00:00Z'));
+    stub();
+    mount('/library/plants/3');
+    const box = await screen.findByRole('region', { name: /When to plant/ });
+    expect(await within(box).findByText('Plant')).toBeInTheDocument();
+    expect(within(box).queryByText('Move outside')).toBeNull();
+  });
+
+  it('wide spacing shows in feet, not a pile of inches', async () => {
+    stub();
+    mount('/library/plants/3');
+    expect(await screen.findByText('9.8 ft')).toBeInTheDocument();
+  });
+
+  it('the rule-of-thumb note leaves once the owner edits the plant', async () => {
+    stub();
+    mount('/library/plants/5');
+    await screen.findByText('24 in');
+    expect(screen.queryByText(/rules of thumb/i)).toBeNull();
+  });
+
+  it('with no dates worked out, asks for the last frost without saying "the rest"', async () => {
+    stub();
+    PLACES[0].last_frost = null;
+    try {
+      mount('/library/plants/6');
+      const box = await screen.findByRole('region', { name: /When to plant/ });
+      expect(await within(box).findByText(/Add the last spring frost date to see the planting dates/)).toBeInTheDocument();
+    } finally { PLACES[0].last_frost = '03-20'; }
   });
 });

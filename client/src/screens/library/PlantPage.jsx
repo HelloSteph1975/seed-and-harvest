@@ -20,6 +20,8 @@ import { plantingWindows, zoneFit } from '../../lib/windows.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 import { VarietyDialog } from './VarietyDialog.jsx';
 
+const FRUIT_KINDS = ['fruit_tree', 'shrub', 'vine'];
+
 export const STAGE_ORDER = ['start_indoors', 'sow_outdoors', 'transplant', 'container', 'greenhouse', 'care', 'harvest', 'preserve', 'microgreens', 'general'];
 
 export function PlantPageRoute() {
@@ -137,6 +139,17 @@ function WhenToPlant({ plant }) {
   const day = iso => new Date(`${iso}T00:00:00Z`).toLocaleDateString(language, { month: 'short', day: 'numeric', timeZone: 'UTC' });
   const range = w => t('plants.range', { from: day(w.from), to: day(w.to) }) + (w.to.slice(0, 4) !== year ? `, ${w.to.slice(0, 4)}` : '');
   const fit = zoneFit(plant, place);
+  // Fruit trees, shrubs and vines are bought as plants and planted, not moved out from a seed tray.
+  const label = kind => (kind === 'transplant' && FRUIT_KINDS.includes(plant.kind) ? 'frost_free' : kind);
+  if (plant.kind === 'microgreen') {
+    return (
+      <section className="card when" aria-labelledby="when-title">
+        <h2 id="when-title">{t('plants.when')}</h2>
+        <p>{plant.days_min != null && plant.days_max != null
+          ? t('plants.microgreenWhen', { from: plant.days_min, to: plant.days_max }) : t('plants.microgreenAnyTime')}</p>
+      </section>
+    );
+  }
   return (
     <section className="card when" aria-labelledby="when-title">
       <h2 id="when-title">{place ? t('plants.whenAt', { place: place.name }) : t('plants.when')}</h2>
@@ -150,13 +163,13 @@ function WhenToPlant({ plant }) {
       {windows.length > 0 && (
         <dl className="entry-facts">
           {windows.map((w, i) => (
-            <div key={`${w.kind}-${i}`} className="fact-row"><dt>{t(`plants.window.${w.kind}`)}</dt><dd>{range(w)}</dd></div>
+            <div key={`${w.kind}-${i}`} className="fact-row"><dt>{t(`plants.window.${label(w.kind)}`)}</dt><dd>{range(w)}</dd></div>
           ))}
         </dl>
       )}
       {place && windows.length === 0 && needs.length === 0 && <p className="muted">{t('plants.noWindows')}</p>}
       {needs.filter(n => n !== 'place').map(n => (
-        <p key={n} className="note">{t(`plants.need.${n}`)} <Link to={`/places/${place.id}/edit`}>{t('plants.editPlace')}</Link></p>
+        <p key={n} className="note">{t(`plants.need.${n === 'last_frost' && windows.length === 0 ? 'last_frost_only' : n}`)} <Link to={`/places/${place.id}/edit`}>{t('plants.editPlace')}</Link></p>
       ))}
       {fit === 'too_cold' && <p className="note">{t('plants.tooCold', { place: place.name })}</p>}
       {fit === 'too_warm' && <p className="note">{t('plants.tooWarm', { place: place.name })}</p>}
@@ -173,7 +186,8 @@ function Facts({ plant: p, text }) {
   const rows = [
     p.sun && [t('spaces.sun'), t(`spaces.sun.${p.sun}`)],
     p.water && [t('plants.water'), t(`plants.water.${p.water}`)],
-    p.spacing_cm != null && [t('plants.spacing'), num('spacing', p.spacing_cm)],
+    // Trees and vines are spaced meters apart: show feet or meters, not a pile of inches.
+    p.spacing_cm != null && [t('plants.spacing'), p.spacing_cm >= 100 ? num('length', p.spacing_cm / 100) : num('spacing', p.spacing_cm)],
     p.container_liters != null && [t('plants.potSize'), num('volume', p.container_liters)],
     range(p.days_min, p.days_max, 'plants.daysRange') && [t('plants.daysToHarvest'), range(p.days_min, p.days_max, 'plants.daysRange')],
     range(p.years_min, p.years_max, 'plants.yearsRange') && [t('plants.yearsToFruit'), range(p.years_min, p.years_max, 'plants.yearsRange')],
@@ -190,7 +204,7 @@ function Facts({ plant: p, text }) {
     <section aria-labelledby="facts-title">
       <h2 id="facts-title">{t('plants.facts')}</h2>
       <dl className="entry-facts">{rows.map(([k, v], i) => <div key={i} className="fact-row"><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
-      {p.starter_key && <p className="muted small">{t('plants.ruleOfThumb')}</p>}
+      {p.is_starter ? <p className="muted small">{t('plants.ruleOfThumb')}</p> : null}
     </section>
   );
 }

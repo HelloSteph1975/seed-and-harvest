@@ -37,7 +37,7 @@ export function Library() {
 }
 
 function PlantList() {
-  const { t, tc } = useT();
+  const { t, tc, language } = useT();
   const list = useResource('/api/plants');
   const places = useResource('/api/places');
   const [kinds, setKinds] = useState([]);
@@ -47,7 +47,9 @@ function PlantList() {
   const placeList = places.data ? byStatus(places.data) : [];
   const place = placeList.find(p => p.id === placeId) ?? placeList.find(p => p.status === 'current') ?? placeList[0];
   const rows = (list.data ?? []).filter(p => (!kinds.length || kinds.includes(p.kind)) && (!pot || p.container_ok)
-    && (!fit || !place || ['fits', 'unknown'].includes(zoneFit(p, place))));
+    && (!fit || !place || ['fits', 'unknown'].includes(zoneFit(p, place))))
+    .map(p => ({ ...p, shown: starterText(tc, p, 'name', p.name) }))
+    .sort((a, b) => a.shown.localeCompare(b.shown, language, { sensitivity: 'base' }));
   return (
     <section className="library-plants">
       <div className="filters">
@@ -70,7 +72,7 @@ function PlantList() {
           {rows.map(p => (
             <li key={p.id} className="card plant-card">
               {p.cover && <img src={`/photos/${p.cover}`} alt="" loading="lazy" />}
-              <h3><Link to={`/library/plants/${p.id}`}>{starterText(tc, p, 'name', p.name)}</Link></h3>
+              <h3><Link to={`/library/plants/${p.id}`}>{p.shown}</Link></h3>
               <p className="muted">{t(`plants.kind.${p.kind}`)}{p.is_starter ? <> · <span className="tag">{t('common.starter')}</span></> : null}</p>
               {p.summary && <p>{starterText(tc, p, 'summary', p.summary)}</p>}
             </li>

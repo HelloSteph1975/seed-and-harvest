@@ -4,7 +4,7 @@ A garden, greenhouse and food forest keeper that runs on your own computer. It's
 
 Everything is kept in one file on your computer. There are no accounts.
 
-> Stages 1 and 2A are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, Today, and the plant library with its first 30 plants. More plants, plantings and tasks, microgreens, the food forest, and harvests come in later stages.
+> Stages 1 and 2 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, Today, and the plant library with 89 starter plants (vegetables, herbs, microgreens, and fruit trees, shrubs and vines) and their guides. Plantings and tasks, greenhouses, the food forest, and harvests come in later stages.
 
 ## Places
 
@@ -20,7 +20,9 @@ Beds, greenhouses (heated or not), containers, food forest areas, microgreen rac
 
 A starter library of food plants, written for this app: what each one needs, how far apart to plant it, how long until harvest, roughly how much it yields and how much you need for a quart of sauce or a pint of pickles. Each plant page works out its planting dates for any of your places from that place's frost dates, or its planting months where there's no frost.
 
-Every plant has short step-by-step guides (starting seeds, planting out, sowing, harvest) with a list of what you'll need, and each one links to a basics guide that explains the job in full. You can edit anything, add your own plants, varieties and guides, and search across the whole garden from the side bar. Figures in the starter library are common rules of thumb; your seed packet and local gardeners know your conditions best.
+Every plant has short step-by-step guides (starting seeds, planting out, sowing, harvest) with a list of what you'll need, and each one links to a basics guide that explains the job in full. You can edit anything, add your own plants, varieties and guides, and search across the whole garden from the side bar.
+
+Microgreens list soak time, seed per tray, days to harvest, and whether they are safe for goats and chickens (always ask your vet before making a new feed regular). Fruit trees, shrubs and vines start with dwarf and pot-friendly kinds, say how many years until fruit, and come with guides for buying a plant that already produces and for growing a fruit tree in a pot. Figures in the starter library are common rules of thumb; your seed packet and local gardeners know your conditions best.
 
 ## Install
 

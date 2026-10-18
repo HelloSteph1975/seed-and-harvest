@@ -61,6 +61,9 @@ describe('units', () => {
     expect(toDisplay('seed', 3, 'us')).toBe('0.1');
     expect(toDisplay('seed', 1, 'us')).toBe('0.1');
     expect(toDisplay('seed', 200, 'us')).toBe('7.1');
+    expect(toDisplay('weight', 0.01, 'us')).toBe('0.1');
+    expect(toDisplay('weight', 0.01, 'metric')).toBe('0.1');
+    expect(toDisplay('weight', 0, 'us')).toBe('0');
     expect(unitLabel('weight', 'us')).toBe('lb');
     expect(unitLabel('seed', 'us')).toBe('oz');
     expect(unitLabel('seed', 'metric')).toBe('g');
