@@ -1,0 +1,46 @@
+[
+  {
+    "starter_key": "guide.basics.test-start",
+    "content_version": 1,
+    "title": "Fixture: starting seeds",
+    "summary": "Fixture basics.",
+    "stage": "start_indoors",
+    "plant": null,
+    "basics": null,
+    "steps": [
+      "Fill trays.",
+      "Sow seeds."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays",
+        "amount": "1"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.test-tomato.start_indoors",
+    "content_version": 1,
+    "title": "Fixture: starting tomatoes",
+    "summary": "Fixture plant guide.",
+    "stage": "start_indoors",
+    "plant": "plant.test-tomato",
+    "basics": "guide.basics.test-start",
+    "steps": [
+      "Sow 6 mm deep."
+    ],
+    "supplies": []
+  },
+  {
+    "starter_key": "guide.test-basil.harvest",
+    "content_version": 1,
+    "title": "Fixture: picking basil",
+    "stage": "harvest",
+    "plant": "plant.test-basil",
+    "basics": null,
+    "steps": [
+      "Pinch the tops."
+    ],
+    "supplies": []
+  }
+]

@@ -1,0 +1,1307 @@
+[
+  {
+    "starter_key": "guide.tomato.start_indoors",
+    "content_version": 1,
+    "title": "Starting tomatoes from seed",
+    "summary": "Six to eight weeks before your last frost.",
+    "stage": "start_indoors",
+    "plant": "plant.tomato",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Sow seeds 6 mm (1/4 in) deep, two per cell.",
+      "Keep the mix at 21 to 27 °C (70 to 80 °F). Seedlings usually show in 5 to 10 days.",
+      "Give them strong light right away; pale, stretched seedlings mean the light is too weak or too far.",
+      "Thin to one per cell, and move up to 10 cm (4 in) pots when the first true leaves are fully open.",
+      "A small fan on low for an hour a day makes stems sturdier."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Grow light or bright window"
+      },
+      {
+        "name": "Heat mat"
+      },
+      {
+        "name": "10 cm (4 in) pots",
+        "amount": "1 per plant"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.tomato.transplant",
+    "content_version": 1,
+    "title": "Planting tomatoes out",
+    "summary": "Once nights stay above about 10 °C (50 °F).",
+    "stage": "transplant",
+    "plant": "plant.tomato",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Harden off for a week first.",
+      "Pinch off the lower leaves and plant deep, burying two-thirds of the stem. Roots grow from the buried stem and the plant gets steadier.",
+      "Space 60 cm (2 ft) apart in a bed, or one plant per 38 L (10 gal) pot.",
+      "Put the stake or cage in now, before roots spread.",
+      "Water deeply and mulch with straw to keep soil from splashing onto leaves."
+    ],
+    "supplies": [
+      {
+        "name": "Stake or tomato cage",
+        "amount": "1 per plant"
+      },
+      {
+        "name": "Soft ties"
+      },
+      {
+        "name": "Straw mulch"
+      },
+      {
+        "name": "Compost",
+        "amount": "a shovelful per hole"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.tomato.care",
+    "content_version": 1,
+    "title": "Caring for tomatoes through summer",
+    "summary": "Even water and support make the biggest difference.",
+    "stage": "care",
+    "plant": "plant.tomato",
+    "basics": "guide.basics.watering",
+    "steps": [
+      "Water deeply two or three times a week rather than a little each day; uneven watering causes cracking and blossom end rot.",
+      "Tie the main stem to its stake every 20 to 30 cm (8 to 12 in) as it grows.",
+      "On indeterminate plants, pinch out some of the side shoots that grow between the main stem and a leaf, to keep the plant manageable.",
+      "Remove lower leaves that touch the soil or show brown spots.",
+      "Check under leaves every few days for hornworms and pick them off."
+    ],
+    "supplies": [
+      {
+        "name": "Soft ties"
+      },
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.tomato.harvest",
+    "content_version": 1,
+    "title": "Picking and storing tomatoes",
+    "summary": "Pick at full color, or a little early to beat pests and heat.",
+    "stage": "harvest",
+    "plant": "plant.tomato",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick when fruit is fully colored and gives slightly when pressed, or at the first blush of color and let it finish on the counter.",
+      "Keep ripe tomatoes at room temperature, out of the sun; the fridge dulls their flavor.",
+      "Before the first frost, pick every green tomato with a hint of pale color and ripen them indoors in a box.",
+      "For canning, use firm, ripe fruit and a tested recipe; add lemon juice or citric acid as the recipe says."
+    ],
+    "supplies": [
+      {
+        "name": "Harvest basket"
+      },
+      {
+        "name": "Canning jars and lids",
+        "amount": "for the extras"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-pepper.start_indoors",
+    "content_version": 1,
+    "title": "Starting peppers from seed",
+    "summary": "Eight to ten weeks before the last frost. They are slow, so start early.",
+    "stage": "start_indoors",
+    "plant": "plant.sweet-pepper",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Sow 6 mm (1/4 in) deep, two seeds per cell.",
+      "Keep the mix warm, 26 to 29 °C (80 to 85 °F), on a heat mat. Seeds can take two weeks to sprout in cooler mix.",
+      "Move seedlings under strong light as soon as they appear.",
+      "Thin to one per cell and pot up into 10 cm (4 in) pots when they have two or three true leaves."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Heat mat"
+      },
+      {
+        "name": "Grow light or bright window"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-pepper.transplant",
+    "content_version": 1,
+    "title": "Planting peppers out",
+    "summary": "Two to three weeks after your last frost, when the soil is warm.",
+    "stage": "transplant",
+    "plant": "plant.sweet-pepper",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Wait until nights stay above about 13 °C (55 °F); cold nights stall peppers for weeks.",
+      "Harden off, then plant 45 cm (18 in) apart at the same depth they grew in the pot.",
+      "Stake taller varieties so heavy fruit doesn't snap branches.",
+      "Water deeply and mulch."
+    ],
+    "supplies": [
+      {
+        "name": "Short stakes"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-pepper.harvest",
+    "content_version": 1,
+    "title": "Picking peppers",
+    "summary": "Green any time, sweeter once colored.",
+    "stage": "harvest",
+    "plant": "plant.sweet-pepper",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut peppers off with scissors or pruners, leaving a short stem; pulling can break branches.",
+      "Pick some green early to keep the plant setting more fruit.",
+      "For the sweetest flavor, leave peppers until fully colored.",
+      "To freeze, wash, seed and slice them; no blanching needed."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors or pruners"
+      },
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.hot-pepper.start_indoors",
+    "content_version": 1,
+    "title": "Starting hot peppers from seed",
+    "summary": "Eight to ten weeks before the last frost.",
+    "stage": "start_indoors",
+    "plant": "plant.hot-pepper",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Sow 6 mm (1/4 in) deep on a heat mat at 26 to 29 °C (80 to 85 °F).",
+      "Super-hot kinds like habanero can take three weeks to sprout; be patient.",
+      "Grow under strong light and pot up once there are true leaves."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Heat mat"
+      },
+      {
+        "name": "Grow light or bright window"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.hot-pepper.container",
+    "content_version": 1,
+    "title": "Hot peppers in a pot",
+    "summary": "One of the best food plants for a container.",
+    "stage": "container",
+    "plant": "plant.hot-pepper",
+    "basics": "guide.basics.containers",
+    "steps": [
+      "Use a pot of at least 11 L (3 gal) with drainage holes and good potting mix.",
+      "Set it in full sun after your last frost and the nights have warmed.",
+      "Water when the top few centimeters are dry, and feed every two to three weeks.",
+      "Before your first fall frost, the pot can come indoors or into the greenhouse to keep producing."
+    ],
+    "supplies": [
+      {
+        "name": "Pot",
+        "amount": "11 L (3 gal) or bigger"
+      },
+      {
+        "name": "Potting mix"
+      },
+      {
+        "name": "Organic fertilizer"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.hot-pepper.harvest",
+    "content_version": 1,
+    "title": "Picking and keeping hot peppers",
+    "summary": "Green or red, fresh, dried or pickled.",
+    "stage": "harvest",
+    "plant": "plant.hot-pepper",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Wear gloves when picking and cutting hot kinds, and don't touch your eyes.",
+      "Cut, don't pull, leaving a short stem.",
+      "Dry thin-walled peppers on a string in a warm, airy spot; store when brittle.",
+      "Pickle thick ones like jalapeños with a tested recipe."
+    ],
+    "supplies": [
+      {
+        "name": "Gloves"
+      },
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Strong thread and a needle",
+        "amount": "for drying"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.eggplant.start_indoors",
+    "content_version": 1,
+    "title": "Starting eggplant from seed",
+    "summary": "Eight to ten weeks before the last frost.",
+    "stage": "start_indoors",
+    "plant": "plant.eggplant",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Sow 6 mm (1/4 in) deep on a heat mat at 24 to 29 °C (75 to 85 °F).",
+      "Seedlings appear in one to two weeks. Give strong light right away.",
+      "Pot up into 10 cm (4 in) pots after the first true leaves."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Heat mat"
+      },
+      {
+        "name": "Grow light or bright window"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.eggplant.transplant",
+    "content_version": 1,
+    "title": "Planting eggplant out",
+    "summary": "Wait for real warmth, two to four weeks after the last frost.",
+    "stage": "transplant",
+    "plant": "plant.eggplant",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Harden off, then plant 60 cm (2 ft) apart.",
+      "Cover with row cover right away to keep flea beetles off; remove it when flowers open.",
+      "Stake plants once fruit starts to form."
+    ],
+    "supplies": [
+      {
+        "name": "Row cover"
+      },
+      {
+        "name": "Stakes"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.eggplant.harvest",
+    "content_version": 1,
+    "title": "Picking eggplant",
+    "summary": "While the skin is still glossy.",
+    "stage": "harvest",
+    "plant": "plant.eggplant",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut with pruners, leaving a short piece of the green cap on the fruit.",
+      "Press the skin: if it springs back, it's ready. Dull skin means it's overripe.",
+      "Eggplant keeps only a few days; cook it soon."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.potato.sow_outdoors",
+    "content_version": 1,
+    "title": "Planting seed potatoes",
+    "summary": "Two to four weeks before your last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.potato",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "A week or two ahead, set seed potatoes in a bright, cool room to sprout short green shoots (\"chitting\").",
+      "Cut big potatoes into pieces with at least two eyes each and let the cut sides dry for a day.",
+      "Plant 10 cm (4 in) deep and 30 cm (12 in) apart, shoots up, in rows 75 cm (30 in) apart.",
+      "In a grow bag, start with 15 cm (6 in) of mix, plant three or four pieces, and cover with 10 cm (4 in)."
+    ],
+    "supplies": [
+      {
+        "name": "Seed potatoes",
+        "amount": "about 1 kg (2 lb) per 3 m (10 ft) of row"
+      },
+      {
+        "name": "Grow bag",
+        "amount": "optional, 38 L (10 gal) or more"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.potato.care",
+    "content_version": 1,
+    "title": "Hilling potatoes",
+    "summary": "Keep new potatoes covered as the plants grow.",
+    "stage": "care",
+    "plant": "plant.potato",
+    "basics": "guide.basics.watering",
+    "steps": [
+      "When plants are 15 to 20 cm (6 to 8 in) tall, pull soil or mulch up around the stems, leaving the top few leaves showing.",
+      "Repeat every couple of weeks until the plants flower.",
+      "Water evenly, especially once flowers appear; that's when tubers swell.",
+      "Pick off potato beetles and their orange eggs under the leaves."
+    ],
+    "supplies": [
+      {
+        "name": "Hoe"
+      },
+      {
+        "name": "Straw or extra soil"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.potato.harvest",
+    "content_version": 2,
+    "title": "Digging and curing potatoes",
+    "summary": "Small \"new\" potatoes in early summer, storage potatoes once the vines die.",
+    "stage": "harvest",
+    "plant": "plant.potato",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "For new potatoes, gently feel around the plant two to three weeks after flowering and take a few.",
+      "For storage, wait until the tops yellow and die back, then wait two more weeks so the skins toughen.",
+      "Dig carefully from the side with a fork to avoid stabbing them.",
+      "Brush off soil (don't wash) and cure in a dark, airy spot at about 13 to 16 °C (55 to 60 °F) for two weeks.",
+      "Store in the dark at 4 to 10 °C (40 to 50 °F). Keep them away from onions.",
+      "Don't eat potatoes with green skin or flesh; the green parts are bitter and can make you sick. Cut away small green spots or compost the potato.",
+      "These are low in acid: can them only in a pressure canner with a tested recipe, never in a water bath. Freezing is simpler."
+    ],
+    "supplies": [
+      {
+        "name": "Garden fork"
+      },
+      {
+        "name": "Crates or paper bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-potato.start_indoors",
+    "content_version": 1,
+    "title": "Growing your own sweet potato slips",
+    "summary": "Six to eight weeks before planting out.",
+    "stage": "start_indoors",
+    "plant": "plant.sweet-potato",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Lay a sweet potato on its side in a shallow tray of damp potting mix, half buried, or stand it half in a jar of water.",
+      "Keep it warm, about 24 to 29 °C (75 to 85 °F). Shoots appear in two to four weeks.",
+      "When shoots are 15 to 20 cm (6 to 8 in) long, twist them off and stand them in water until roots form, about a week."
+    ],
+    "supplies": [
+      {
+        "name": "Sweet potatoes",
+        "amount": "1 or 2, organic so they sprout"
+      },
+      {
+        "name": "Shallow tray or jars"
+      },
+      {
+        "name": "Heat mat"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-potato.transplant",
+    "content_version": 1,
+    "title": "Planting sweet potato slips",
+    "summary": "Two to four weeks after your last frost, in warm soil.",
+    "stage": "transplant",
+    "plant": "plant.sweet-potato",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant slips 30 cm (12 in) apart in loose, raised rows, burying the stem up to the top leaves.",
+      "Water every day for the first week, then only in long dry spells.",
+      "Let the vines run; they cover the ground and shade out weeds."
+    ],
+    "supplies": [
+      {
+        "name": "Slips",
+        "amount": "about 10 per 3 m (10 ft) of row"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-potato.harvest",
+    "content_version": 2,
+    "title": "Digging and curing sweet potatoes",
+    "summary": "Before soil turns cold in fall.",
+    "stage": "harvest",
+    "plant": "plant.sweet-potato",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Dig about 100 days after planting, or before the soil drops to about 13 °C (55 °F).",
+      "Dig wide and carefully; the skins bruise easily.",
+      "Cure for 7 to 10 days somewhere warm and humid, about 27 to 32 °C (80 to 90 °F). This sweetens them and heals scrapes.",
+      "Store at 13 to 16 °C (55 to 60 °F), never in the fridge. They keep for months.",
+      "These are low in acid: can them only in a pressure canner with a tested recipe, never in a water bath. Freezing is simpler."
+    ],
+    "supplies": [
+      {
+        "name": "Garden fork"
+      },
+      {
+        "name": "Crates"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.onion.start_indoors",
+    "content_version": 1,
+    "title": "Starting onions from seed",
+    "summary": "Ten to twelve weeks before you plant them out.",
+    "stage": "start_indoors",
+    "plant": "plant.onion",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Sow seed thickly in a tray, about 6 mm (1/4 in) deep.",
+      "Keep at room temperature until they sprout, then grow under bright light.",
+      "Trim the tops back to about 10 cm (4 in) whenever they flop over; it makes thicker seedlings."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Grow light or bright window"
+      },
+      {
+        "name": "Scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.onion.transplant",
+    "content_version": 1,
+    "title": "Planting onion transplants",
+    "summary": "Two to four weeks before your last frost.",
+    "stage": "transplant",
+    "plant": "plant.onion",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Choose the right day-length type for your latitude (see the plant notes).",
+      "Plant 2.5 cm (1 in) deep and 10 cm (4 in) apart in rows 30 cm (12 in) apart.",
+      "Water well and keep weeds out; onions can't compete.",
+      "Water steadily until the tops start to fall over, then stop."
+    ],
+    "supplies": [
+      {
+        "name": "Onion transplants or sets",
+        "amount": "about 30 per 3 m (10 ft) of row"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.onion.harvest",
+    "content_version": 1,
+    "title": "Harvesting and curing onions",
+    "summary": "When most of the tops have fallen over.",
+    "stage": "harvest",
+    "plant": "plant.onion",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pull onions on a dry day once most tops have flopped and started to brown.",
+      "Lay them in a shady, airy spot for two to three weeks until the necks are dry and papery.",
+      "Trim roots and cut tops to 2.5 cm (1 in), or braid the dry tops.",
+      "Store in mesh bags somewhere cool, dark and dry. Use thick-necked onions first."
+    ],
+    "supplies": [
+      {
+        "name": "Mesh bags or crates"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.garlic.sow_outdoors",
+    "content_version": 1,
+    "title": "Planting garlic in fall",
+    "summary": "Four to eight weeks before your first fall frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.garlic",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Break bulbs into cloves the day you plant, keeping the papery skins on. Plant the biggest cloves.",
+      "Push each clove in pointed end up, 5 cm (2 in) deep and 15 cm (6 in) apart.",
+      "Water once, then mulch with 10 cm (4 in) of straw or leaves for the winter."
+    ],
+    "supplies": [
+      {
+        "name": "Seed garlic",
+        "amount": "about 0.5 kg (1 lb) per 3 m (10 ft) of row"
+      },
+      {
+        "name": "Straw or leaf mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.garlic.harvest",
+    "content_version": 1,
+    "title": "Harvesting and curing garlic",
+    "summary": "In early summer, when the lower leaves brown.",
+    "stage": "harvest",
+    "plant": "plant.garlic",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut off hardneck scapes (curly flower stalks) in spring; they're good to eat.",
+      "Stop watering about two weeks before harvest.",
+      "Dig when the bottom three or four leaves are brown and the top ones still green.",
+      "Hang in bunches or lay out somewhere shady and airy for three to four weeks.",
+      "Trim roots and stems and store somewhere cool and dry. Set aside the biggest bulbs to plant in fall."
+    ],
+    "supplies": [
+      {
+        "name": "Garden fork"
+      },
+      {
+        "name": "Twine"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.carrot.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing carrots",
+    "summary": "From a few weeks before the last frost, and again in late summer for fall.",
+    "stage": "sow_outdoors",
+    "plant": "plant.carrot",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Loosen soil 30 cm (12 in) deep and remove stones.",
+      "Sow 6 mm (1/4 in) deep, about 2 cm (1 in) apart, in rows 20 to 30 cm (8 to 12 in) apart.",
+      "Keep the surface moist every day for up to three weeks. A board over the row holds moisture; lift it as soon as seedlings show.",
+      "Thin to 5 cm (2 in) apart when seedlings are 5 cm tall."
+    ],
+    "supplies": [
+      {
+        "name": "Carrot seed"
+      },
+      {
+        "name": "A board or row cover"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.carrot.harvest",
+    "content_version": 2,
+    "title": "Pulling and storing carrots",
+    "summary": "When the tops of the roots are the width you like.",
+    "stage": "harvest",
+    "plant": "plant.carrot",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Brush back soil to check the shoulder width, then pull or loosen with a fork.",
+      "Twist off the tops right away so the roots don't go limp.",
+      "Store unwashed in damp sand or in bags in the fridge.",
+      "Where winters are mild, leave them in the ground under mulch and dig as needed.",
+      "These are low in acid: can them only in a pressure canner with a tested recipe, never in a water bath. Freezing is simpler."
+    ],
+    "supplies": [
+      {
+        "name": "Garden fork"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.beet.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing beets",
+    "summary": "From four weeks before the last frost, and again for fall.",
+    "stage": "sow_outdoors",
+    "plant": "plant.beet",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Soak seeds for a few hours to speed sprouting.",
+      "Sow 1 to 2 cm (1/2 in) deep, 5 cm (2 in) apart.",
+      "Each seed is a cluster, so thin to 10 cm (4 in) apart once seedlings are up. Eat the thinnings."
+    ],
+    "supplies": [
+      {
+        "name": "Beet seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.beet.harvest",
+    "content_version": 1,
+    "title": "Harvesting beets",
+    "summary": "Golf-ball to tennis-ball size.",
+    "stage": "harvest",
+    "plant": "plant.beet",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pull when roots are 4 to 8 cm (1.5 to 3 in) across.",
+      "Twist off greens, leaving 2.5 cm (1 in) of stem so the roots don't bleed.",
+      "Store roots in the fridge or in damp sand; cook greens like chard."
+    ],
+    "supplies": [
+      {
+        "name": "Harvest basket"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.radish.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing radishes",
+    "summary": "Every week or two in spring and fall.",
+    "stage": "sow_outdoors",
+    "plant": "plant.radish",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 1 cm (1/2 in) deep, 2.5 cm (1 in) apart.",
+      "Keep them evenly watered; dry soil makes them hot and woody.",
+      "Thin to 5 cm (2 in) apart."
+    ],
+    "supplies": [
+      {
+        "name": "Radish seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.radish.harvest",
+    "content_version": 1,
+    "title": "Picking radishes",
+    "summary": "About a month after sowing.",
+    "stage": "harvest",
+    "plant": "plant.radish",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pull as soon as roots reach full size; they turn pithy if left.",
+      "Trim tops and keep the roots in the fridge."
+    ],
+    "supplies": []
+  },
+  {
+    "starter_key": "guide.lettuce.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing lettuce",
+    "summary": "In cool weather, a little every two weeks.",
+    "stage": "sow_outdoors",
+    "plant": "plant.lettuce",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Scatter seed thinly and cover with just a sprinkle of soil; lettuce needs light to sprout.",
+      "Keep the surface moist until seedlings appear.",
+      "Thin leaf lettuce to 15 cm (6 in) and heading types to 25 cm (10 in).",
+      "In warm weather, sow where there's afternoon shade."
+    ],
+    "supplies": [
+      {
+        "name": "Lettuce seed"
+      },
+      {
+        "name": "Shade cloth",
+        "amount": "for warm spells"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.lettuce.harvest",
+    "content_version": 1,
+    "title": "Picking lettuce",
+    "summary": "Leaf by leaf, or whole heads.",
+    "stage": "harvest",
+    "plant": "plant.lettuce",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "For leaf lettuce, pick outer leaves and leave the center growing.",
+      "Cut heads at the base when firm.",
+      "Pick in the morning, rinse in cold water and refrigerate.",
+      "Pull plants once they start to bolt; the leaves turn bitter."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.spinach.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing spinach",
+    "summary": "Early spring and fall, in cool soil.",
+    "stage": "sow_outdoors",
+    "plant": "plant.spinach",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 1 cm (1/2 in) deep, 5 cm (2 in) apart.",
+      "Thin to 10 cm (4 in).",
+      "For winter harvests, cover fall plantings with row cover."
+    ],
+    "supplies": [
+      {
+        "name": "Spinach seed"
+      },
+      {
+        "name": "Row cover",
+        "amount": "for winter"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.spinach.harvest",
+    "content_version": 1,
+    "title": "Harvesting and freezing spinach",
+    "summary": "Before the plants bolt.",
+    "stage": "harvest",
+    "plant": "plant.spinach",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick outer leaves as soon as they're big enough, or cut the whole plant 2.5 cm (1 in) above the soil to let it regrow.",
+      "To freeze, blanch leaves for 2 minutes in boiling water, cool in ice water, squeeze dry and bag."
+    ],
+    "supplies": [
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.kale.transplant",
+    "content_version": 1,
+    "title": "Planting kale",
+    "summary": "A few weeks before the last frost, and again in late summer.",
+    "stage": "transplant",
+    "plant": "plant.kale",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Set transplants 45 cm (18 in) apart, slightly deeper than they grew.",
+      "Cover with row cover to keep cabbage moths off.",
+      "Water steadily and feed with compost midseason."
+    ],
+    "supplies": [
+      {
+        "name": "Row cover"
+      },
+      {
+        "name": "Compost"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.kale.harvest",
+    "content_version": 1,
+    "title": "Picking kale",
+    "summary": "Leaf by leaf for months.",
+    "stage": "harvest",
+    "plant": "plant.kale",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick the lowest leaves when they're about hand-sized, leaving at least the top five or six.",
+      "Kale tastes sweeter after a few frosts.",
+      "Strip leaves from stems and refrigerate, or blanch and freeze."
+    ],
+    "supplies": []
+  },
+  {
+    "starter_key": "guide.cabbage.transplant",
+    "content_version": 1,
+    "title": "Planting cabbage",
+    "summary": "A few weeks before the last frost, or in late summer for fall.",
+    "stage": "transplant",
+    "plant": "plant.cabbage",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant 45 cm (18 in) apart, burying the stem up to the first leaves.",
+      "Use row cover against cabbage moths.",
+      "Water evenly; uneven water splits heads."
+    ],
+    "supplies": [
+      {
+        "name": "Row cover"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cabbage.preserve",
+    "content_version": 1,
+    "title": "Making sauerkraut from your cabbage",
+    "summary": "Salt and time turn cabbage into a long-keeping ferment.",
+    "stage": "preserve",
+    "plant": "plant.cabbage",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Shred cabbage finely and weigh it. Mix in 2 teaspoons of salt per 0.5 kg (1 lb) of cabbage.",
+      "Squeeze and pound it until it gives off plenty of juice, about 10 minutes.",
+      "Pack tightly into a clean jar, pressing until the juice covers the cabbage. Weigh it down.",
+      "Cover loosely and leave at cool room temperature for 1 to 4 weeks, tasting along the way.",
+      "When it tastes right, close the jar and keep it in the fridge."
+    ],
+    "supplies": [
+      {
+        "name": "Large jar or crock"
+      },
+      {
+        "name": "Salt (no iodine)"
+      },
+      {
+        "name": "A weight to hold the cabbage under the brine"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.broccoli.transplant",
+    "content_version": 1,
+    "title": "Planting broccoli",
+    "summary": "A few weeks before the last frost, or in late summer for fall.",
+    "stage": "transplant",
+    "plant": "plant.broccoli",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant 45 cm (18 in) apart and water in well.",
+      "Cover with row cover against cabbage moths.",
+      "Side-dress with compost once heads start to form."
+    ],
+    "supplies": [
+      {
+        "name": "Row cover"
+      },
+      {
+        "name": "Compost"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.broccoli.harvest",
+    "content_version": 1,
+    "title": "Cutting broccoli",
+    "summary": "When heads are tight and dark green.",
+    "stage": "harvest",
+    "plant": "plant.broccoli",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut the main head with 10 to 15 cm (4 to 6 in) of stem before any yellow flowers open.",
+      "Leave the plant: side shoots will keep coming for weeks.",
+      "To freeze, cut into florets, blanch 3 minutes, cool in ice water and bag."
+    ],
+    "supplies": [
+      {
+        "name": "Sharp knife"
+      },
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.green-bean.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing beans",
+    "summary": "After the last frost, once the soil is warm.",
+    "stage": "sow_outdoors",
+    "plant": "plant.green-bean",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Wait until the soil is at least 16 °C (60 °F).",
+      "Sow 2.5 cm (1 in) deep, 5 to 10 cm (2 to 4 in) apart, in rows 45 cm (18 in) apart.",
+      "For pole beans, put up a trellis or teepee first and sow around each pole.",
+      "Sow again every three weeks until midsummer for a steady harvest."
+    ],
+    "supplies": [
+      {
+        "name": "Bean seed",
+        "amount": "about 30 g (1 oz) per 3 m (10 ft) of row"
+      },
+      {
+        "name": "Trellis or poles",
+        "amount": "for pole beans"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.green-bean.harvest",
+    "content_version": 2,
+    "title": "Picking and canning beans",
+    "summary": "Every few days while pods are slim.",
+    "stage": "harvest",
+    "plant": "plant.green-bean",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick when pods snap cleanly and seeds inside are still small.",
+      "Hold the stem with one hand and pull the pod with the other so you don't uproot the plant.",
+      "Green beans are low in acid: can them only in a pressure canner with a tested recipe, never in a water bath. Freezing (blanch 3 minutes) is simpler."
+    ],
+    "supplies": [
+      {
+        "name": "Harvest basket"
+      },
+      {
+        "name": "Pressure canner",
+        "amount": "for canning"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pea.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing peas",
+    "summary": "Four to eight weeks before the last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.pea",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Put up the trellis or netting first.",
+      "Soak seeds for a few hours, then sow 2.5 cm (1 in) deep and 5 cm (2 in) apart along the trellis.",
+      "Guide the first tendrils onto the support."
+    ],
+    "supplies": [
+      {
+        "name": "Pea seed"
+      },
+      {
+        "name": "Trellis or netting",
+        "amount": "1 to 1.5 m (3 to 5 ft) tall"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pea.harvest",
+    "content_version": 1,
+    "title": "Picking peas",
+    "summary": "Daily once they start.",
+    "stage": "harvest",
+    "plant": "plant.pea",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick shelling peas when the pods are plump but still bright green.",
+      "Pick snap peas when plump and crisp, snow peas while flat.",
+      "Peas lose sweetness fast; shell and freeze the same day (blanch 2 minutes)."
+    ],
+    "supplies": [
+      {
+        "name": "Freezer bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cucumber.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing cucumbers",
+    "summary": "One to three weeks after the last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.cucumber",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 2.5 cm (1 in) deep, in groups of three, 30 cm (12 in) apart along a trellis.",
+      "Thin each group to the strongest plant.",
+      "Cover young plants with row cover against cucumber beetles; remove it when flowers appear so bees can reach them."
+    ],
+    "supplies": [
+      {
+        "name": "Cucumber seed"
+      },
+      {
+        "name": "Trellis"
+      },
+      {
+        "name": "Row cover"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cucumber.harvest",
+    "content_version": 1,
+    "title": "Picking cucumbers and making pickles",
+    "summary": "Pick small and often.",
+    "stage": "harvest",
+    "plant": "plant.cucumber",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pick pickling cucumbers at 5 to 10 cm (2 to 4 in), slicers at 15 to 20 cm (6 to 8 in).",
+      "Check every day or two at peak season.",
+      "Pickle within a day of picking for the crispest pickles, using a tested recipe."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Canning jars"
+      },
+      {
+        "name": "Fresh dill heads"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.zucchini.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing zucchini",
+    "summary": "One to three weeks after the last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.zucchini",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 2.5 cm (1 in) deep, two seeds per spot, 90 cm (3 ft) apart.",
+      "Thin to the stronger seedling.",
+      "Mulch well; the big leaves will soon shade the soil."
+    ],
+    "supplies": [
+      {
+        "name": "Zucchini seed"
+      },
+      {
+        "name": "Mulch"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.zucchini.care",
+    "content_version": 1,
+    "title": "Keeping squash pests in check",
+    "summary": "A few minutes a week saves the plants.",
+    "stage": "care",
+    "plant": "plant.zucchini",
+    "basics": "guide.basics.watering",
+    "steps": [
+      "Look under leaves for clusters of bronze squash bug eggs and scrape them off.",
+      "Watch the base of the stem for holes and sawdust-like frass from vine borers.",
+      "Water the soil, not the leaves, to slow powdery mildew.",
+      "Pick every day or two at peak season."
+    ],
+    "supplies": []
+  },
+  {
+    "starter_key": "guide.winter-squash.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing winter squash",
+    "summary": "One to three weeks after the last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.winter-squash",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 2.5 cm (1 in) deep, three seeds per hill, hills 1.2 m (4 ft) apart.",
+      "Thin to the two strongest plants per hill.",
+      "Give vines room to run, or train them along a fence."
+    ],
+    "supplies": [
+      {
+        "name": "Squash seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.winter-squash.harvest",
+    "content_version": 2,
+    "title": "Harvesting and curing winter squash",
+    "summary": "When the rind is hard and the stem has dried.",
+    "stage": "harvest",
+    "plant": "plant.winter-squash",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Harvest when you can't dent the skin with a fingernail, and before a hard frost.",
+      "Cut with 5 cm (2 in) of stem; never carry squash by the stem.",
+      "Cure in a warm, dry place, about 27 °C (80 °F), for one to two weeks (acorn types skip this).",
+      "Store at 10 to 16 °C (50 to 60 °F). Butternut can keep six months or more.",
+      "Can only cubes, never mashed squash, and only in a pressure canner with a tested recipe. Freezing cooked purée is simpler."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pumpkin.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing pumpkins",
+    "summary": "One to three weeks after the last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.pumpkin",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 2.5 cm (1 in) deep, three seeds per hill, hills 1.5 m (5 ft) apart.",
+      "Thin to two plants per hill.",
+      "Slip a board under each pumpkin as it grows to keep it off wet soil."
+    ],
+    "supplies": [
+      {
+        "name": "Pumpkin seed"
+      },
+      {
+        "name": "Boards or straw"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.pumpkin.harvest",
+    "content_version": 1,
+    "title": "Harvesting and curing pumpkins",
+    "summary": "When fully colored and the rind is hard.",
+    "stage": "harvest",
+    "plant": "plant.pumpkin",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut with a long stem once the color is deep and the rind resists a fingernail.",
+      "Cure in a warm, dry spot for about 10 days.",
+      "Store cool and dry, and check every few weeks.",
+      "Can cubes (not purée) in a pressure canner with a tested recipe, or freeze the purée."
+    ],
+    "supplies": [
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-corn.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing sweet corn in a block",
+    "summary": "One to three weeks after the last frost, in warm soil.",
+    "stage": "sow_outdoors",
+    "plant": "plant.sweet-corn",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Wait for soil of at least 16 °C (60 °F).",
+      "Sow 2.5 to 5 cm (1 to 2 in) deep, 25 cm (10 in) apart, in at least four short side-by-side rows 75 cm (30 in) apart.",
+      "Water deeply, especially when tassels and silks appear."
+    ],
+    "supplies": [
+      {
+        "name": "Sweet corn seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.sweet-corn.harvest",
+    "content_version": 2,
+    "title": "Picking sweet corn",
+    "summary": "About three weeks after the silks appear.",
+    "stage": "harvest",
+    "plant": "plant.sweet-corn",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Ears are ready when the silks are brown and dry and a kernel squirts milky juice when pressed.",
+      "Pull down and twist the ear off.",
+      "Eat, freeze or can the same day; sugar turns to starch within hours. Corn is low in acid: can it only in a pressure canner with a tested recipe."
+    ],
+    "supplies": [
+      {
+        "name": "Cooler",
+        "amount": "to carry ears in"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.okra.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing okra",
+    "summary": "Two to four weeks after the last frost, in warm soil.",
+    "stage": "sow_outdoors",
+    "plant": "plant.okra",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Soak seeds overnight.",
+      "Sow 2.5 cm (1 in) deep, 15 cm (6 in) apart, in soil at least 18 °C (65 °F).",
+      "Thin to 40 cm (16 in) apart."
+    ],
+    "supplies": [
+      {
+        "name": "Okra seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.okra.harvest",
+    "content_version": 1,
+    "title": "Picking okra",
+    "summary": "Every other day in summer.",
+    "stage": "harvest",
+    "plant": "plant.okra",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut pods at 5 to 10 cm (2 to 4 in), before they turn woody.",
+      "Wear gloves and long sleeves.",
+      "Pickle, freeze (blanch 3 minutes) or fry."
+    ],
+    "supplies": [
+      {
+        "name": "Gloves"
+      },
+      {
+        "name": "Pruners"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cowpea.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing cowpeas",
+    "summary": "Two to five weeks after the last frost.",
+    "stage": "sow_outdoors",
+    "plant": "plant.cowpea",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 2.5 cm (1 in) deep, 5 to 10 cm (2 to 4 in) apart, in warm soil.",
+      "Water until established; after that they handle dry spells.",
+      "Vining types like a fence to climb."
+    ],
+    "supplies": [
+      {
+        "name": "Cowpea seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cowpea.harvest",
+    "content_version": 1,
+    "title": "Harvesting cowpeas fresh or dry",
+    "summary": "Green for fresh shelling, brown for dry storage.",
+    "stage": "harvest",
+    "plant": "plant.cowpea",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "For fresh peas, pick when pods have filled out but are still green.",
+      "For dry peas, leave pods until they turn brown and rattle, then pick.",
+      "Shell, spread out to finish drying, and store in jars somewhere dry."
+    ],
+    "supplies": [
+      {
+        "name": "Jars"
+      }
+    ]
+  }
+]

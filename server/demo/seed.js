@@ -2,6 +2,7 @@ import { transaction } from '../db/connection.js';
 import { seedStarter } from '../services/starter.js';
 import { createPlace } from '../services/places.js';
 import { createSpace } from '../services/spaces.js';
+import { createPlant, createVariety } from '../services/plants.js';
 
 // Generic sample places for the demo folder only (never the owner's real places).
 const PLACES = [
@@ -26,7 +27,11 @@ const PLACES = [
 export function seedDemo(ctx, { reset = false } = {}) {
   const db = ctx.db;
   transaction(db, () => {
-    if (reset) db.exec('DELETE FROM photos; DELETE FROM spaces; DELETE FROM places; DELETE FROM starter_removed; DELETE FROM settings;');
+    if (reset) {
+      db.exec(`DELETE FROM photos; DELETE FROM spaces; DELETE FROM places; DELETE FROM guide_steps; DELETE FROM guide_supplies;
+        DELETE FROM plant_varieties; DELETE FROM plant_preserves; UPDATE guides SET basics_id = NULL; DELETE FROM guides; DELETE FROM plants;
+        DELETE FROM starter_removed; DELETE FROM settings;`);
+    }
     const have = new Set(db.prepare('SELECT name FROM places').all().map(r => r.name));
     for (const { spaces, ...place } of PLACES) {
       if (have.has(place.name)) continue;
@@ -35,4 +40,20 @@ export function seedDemo(ctx, { reset = false } = {}) {
     }
   });
   seedStarter(db, ctx.config?.contentDir ? { content: ctx.config.contentDir } : undefined);
+  transaction(db, () => seedLibrarySamples(db));
+}
+
+// One plant of the gardener's own and a variety on a starter plant, so the demo shows both kinds.
+function seedLibrarySamples(db) {
+  if (!db.prepare("SELECT 1 FROM plants WHERE name = 'Heirloom chile'").get()) {
+    createPlant(db, {
+      name: 'Heirloom chile', kind: 'vegetable', family: 'Nightshade', summary: 'A family chile saved from seed for years.',
+      sun: 'full', start_indoors_min: 8, start_indoors_max: 10, transplant_min: 2, transplant_max: 3, days_min: 75, days_max: 90,
+      notes: 'Save seed from the best fruit each fall.',
+    });
+  }
+  const tomato = db.prepare("SELECT id FROM plants WHERE starter_key = 'plant.tomato' AND deleted_at IS NULL").get();
+  if (tomato && !db.prepare('SELECT 1 FROM plant_varieties WHERE plant_id = ?').get(tomato.id)) {
+    createVariety(db, tomato.id, { name: 'Roma', days: 75, notes: 'A paste tomato for sauce.' });
+  }
 }

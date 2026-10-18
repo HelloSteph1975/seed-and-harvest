@@ -14,20 +14,28 @@ function readJson(file, fallback) {
 // Every value must be text with something in it (content keywords are one comma-separated string).
 const badValues = obj => Object.entries(obj).filter(([k, v]) => k !== '_name' && (typeof v !== 'string' || !v.trim())).map(([k]) => k);
 
-// The content keys a starter row needs in content.json.
+// The content keys starter rows need in content.json: <starter_key>.<field> for each text field
+// the row has, guide steps as .step.<n>, supplies as .supply.<n>.name/.amount, preserving forms as
+// .preserve.<n> (n from 1).
 function expectedContentKeys(root) {
   const dir = path.join(root, 'server', 'content');
-  const keys = [];
-  const add = (rows, fields) => {
-    for (const r of rows) if (r.starter_key) for (const f of fields) keys.push(`${r.starter_key}.${f}`);
+  const folder = sub => {
+    const d = path.join(dir, sub);
+    return fs.existsSync(d) ? fs.readdirSync(d).filter(f => f.endsWith('.json')).sort().flatMap(f => readJson(path.join(d, f), [])) : [];
   };
-  add(readJson(path.join(dir, 'traditions.json'), []), ['name', 'description']);
-  add(readJson(path.join(dir, 'categories.json'), []), ['name']);
-  add(readJson(path.join(dir, 'spell-kinds.json'), []), ['name']);
-  add(readJson(path.join(dir, 'journal-kinds.json'), []), ['name']);
-  const folder = path.join(dir, 'correspondences');
-  const files = fs.existsSync(folder) ? fs.readdirSync(folder).filter(f => f.endsWith('.json')).sort() : [];
-  for (const f of files) add(readJson(path.join(folder, f), []), ['name', 'summary', 'body', 'keywords']);
+  const keys = [];
+  for (const p of folder('plants')) {
+    for (const f of ['name', 'summary', 'problems', 'notes', 'greenhouse_notes']) if (p[f]) keys.push(`${p.starter_key}.${f}`);
+    (p.preserves ?? []).forEach((_, i) => keys.push(`${p.starter_key}.preserve.${i + 1}`));
+  }
+  for (const g of folder('guides')) {
+    for (const f of ['title', 'summary']) if (g[f]) keys.push(`${g.starter_key}.${f}`);
+    (g.steps ?? []).forEach((_, i) => keys.push(`${g.starter_key}.step.${i + 1}`));
+    (g.supplies ?? []).forEach((s, i) => {
+      keys.push(`${g.starter_key}.supply.${i + 1}.name`);
+      if (s.amount) keys.push(`${g.starter_key}.supply.${i + 1}.amount`);
+    });
+  }
   return keys;
 }
 

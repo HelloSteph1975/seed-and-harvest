@@ -3,7 +3,7 @@ import { NOW } from '../db/migrations.js';
 import { repos } from '../db/repos.js';
 import { notFound, notInTrash } from '../http.js';
 import { validate } from '../validate.js';
-import { addErrors, collector, invalid } from './fields.js';
+import { addErrors, collector, invalid, monthList } from './fields.js';
 import { validZone } from './settings.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
 
@@ -30,17 +30,6 @@ function demoteCurrent(db, exceptId) {
     WHERE status = 'current' AND deleted_at IS NULL AND id IS NOT ?`).run(exceptId ?? null);
 }
 
-// Month numbers 1 to 12, without repeats, in calendar order.
-function wetMonths(v, c) {
-  if (v === undefined) return undefined;
-  if (v === null) return [];
-  if (!Array.isArray(v) || !v.every(m => Number.isInteger(m) && m >= 1 && m <= 12)) {
-    c.fail('wet_months', 'Pick months from 1 to 12', 'bad_format');
-    return undefined;
-  }
-  return [...new Set(v)].sort((a, b) => a - b);
-}
-
 // In the north the last spring frost comes before the first fall frost in the calendar year;
 // in the south it comes after (frost in May, last frost in September).
 function frostOrderOk({ hemisphere = 'north', last_frost: last, first_frost: first, frost_free: free }) {
@@ -54,7 +43,7 @@ function parse(db, body, existing) {
   const r = validate(PLACE_SCHEMA, src, { partial: Boolean(existing) });
   addErrors(c, r);
   const data = { ...(r.data ?? {}) };
-  const months = wetMonths(src.wet_months, c);
+  const months = monthList(src.wet_months, 'wet_months', c);
   if (months !== undefined) data.wet_months = months;
   if (Object.hasOwn(src, 'time_zone')) {
     const tz = typeof src.time_zone === 'string' ? src.time_zone.trim() : src.time_zone;

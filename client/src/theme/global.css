@@ -226,3 +226,40 @@ section + section { margin-top: 36px; }
 .card h2 { margin-top: 0; }
 .frost-line { font-size: 1.15rem; }
 .caption-conflict { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px; border-top: 1px solid var(--page-edge); font-size: .9rem; }
+
+/* Side bar search box: the input shrinks to the side bar, the button sits beside it. */
+.search-box { display: flex; gap: 6px; align-items: stretch; min-width: 0; }
+.search-box .input { flex: 1 1 0; min-width: 0; box-sizing: border-box; }
+.search-go { display: inline-flex; align-items: center; flex: none; padding: 0 10px; border: 1px solid var(--rule); border-radius: var(--radius);
+  background: transparent; color: var(--text-on-frame); cursor: pointer; }
+.search-go:hover { background: rgba(185, 217, 140, .15); }
+/* Search page: each group is a list of links with a quiet second line. */
+.search-group { margin-bottom: 20px; }
+.search-count { font-family: var(--font-body); font-size: .95rem; font-weight: 400; }
+.search-row { flex: 1; min-width: 0; display: grid; gap: 2px; text-decoration: none; color: var(--ink); overflow-wrap: anywhere; }
+.search-row:hover strong { color: var(--tomato); text-decoration: underline; }
+
+/* Library: tabs, filters and plant cards. */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--page-edge); margin-bottom: 16px; }
+.tab { font: inherit; background: none; border: 1px solid transparent; border-bottom: 0; padding: 6px 14px; cursor: pointer; color: var(--ink-soft); border-radius: var(--radius) var(--radius) 0 0; }
+.tab.is-active { border-color: var(--page-edge); background: var(--page-deep); color: var(--ink); font-weight: 600; }
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-bottom: 16px; }
+.fit-filter { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.plant-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.plant-card h3 { margin: 4px 0; font-family: var(--font-head); }
+.plant-card p { margin: 4px 0; }
+.lead { font-size: 1.1rem; }
+.entry-facts .fact-row { display: contents; }
+.inline-field { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.small { font-size: .9rem; }
+.plant-form h2 { margin-top: 24px; font-size: 1.25rem; }
+.range > .field { flex: 1 1 200px; }
+
+/* Guides: numbered steps with room to read, supplies as a plain list. */
+.steps { padding-left: 1.4em; }
+.steps li { margin-bottom: 10px; padding-left: 4px; }
+.supplies { padding-left: 1.2em; }
+.supply-name { flex: 2 1 180px; }
+.supply-amount { flex: 1 1 120px; }
+.guide-step { flex: 1 1 100%; }

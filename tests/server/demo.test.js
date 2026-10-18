@@ -2,6 +2,7 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { makeTestContext } from './helpers.js';
 import { seedDemo } from '../../server/demo/seed.js';
 import { SPACE_KINDS } from '../../server/services/spaces.js';
+import { CONTENT_DIR } from '../../server/services/starter.js';
 
 let t;
 afterEach(() => t?.cleanup());
@@ -31,5 +32,16 @@ describe('demo seed', () => {
     expect(names).not.toContain('Extra');
     expect(names).toHaveLength(3);
     expect(t.ctx.db.prepare('SELECT count(*) n FROM settings').get().n).toBe(0);
+  });
+
+  it('adds a sample variety to a starter plant and one plant of its own, once', async () => {
+    t = makeTestContext({ contentDir: CONTENT_DIR });
+    seedDemo(t.ctx);
+    seedDemo(t.ctx);
+    const own = t.ctx.db.prepare("SELECT * FROM plants WHERE name = 'Heirloom chile' AND deleted_at IS NULL").all();
+    expect(own).toHaveLength(1);
+    expect(own[0].is_starter).toBe(0);
+    const tomato = t.ctx.db.prepare("SELECT id FROM plants WHERE starter_key = 'plant.tomato'").get();
+    expect(t.ctx.db.prepare('SELECT name FROM plant_varieties WHERE plant_id = ?').all(tomato.id).map(v => v.name)).toEqual(['Roma']);
   });
 });

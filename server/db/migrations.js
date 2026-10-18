@@ -39,6 +39,44 @@ export const migrations = [
     filename TEXT NOT NULL, caption TEXT, is_cover INTEGER NOT NULL DEFAULT 0, sort_order INTEGER NOT NULL DEFAULT 0, ${TS});
   CREATE INDEX idx_photos_owner ON photos(owner_type, owner_id);
   `,
+  // 6: the plant library. Timing is in weeks around the frost dates; sizes are metric.
+  `
+  CREATE TABLE plants (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, latin_name TEXT,
+    kind TEXT NOT NULL CHECK (kind IN ('vegetable', 'herb', 'microgreen', 'fruit_tree', 'shrub', 'vine')),
+    family TEXT, summary TEXT,
+    sun TEXT CHECK (sun IS NULL OR sun IN ('full', 'part', 'shade')),
+    water TEXT CHECK (water IS NULL OR water IN ('low', 'medium', 'high')),
+    spacing_cm REAL, container_liters REAL, container_ok INTEGER NOT NULL DEFAULT 0, greenhouse_notes TEXT,
+    zone_min INTEGER, zone_max INTEGER, perennial INTEGER NOT NULL DEFAULT 0,
+    start_indoors_min INTEGER, start_indoors_max INTEGER, transplant_min INTEGER, transplant_max INTEGER,
+    sow_min INTEGER, sow_max INTEGER, fall_sow_min INTEGER, fall_sow_max INTEGER,
+    frost_free_months TEXT NOT NULL DEFAULT '[]',
+    days_min INTEGER, days_max INTEGER, years_min INTEGER, years_max INTEGER,
+    yield_kg REAL, yield_per TEXT CHECK (yield_per IS NULL OR yield_per IN ('plant', 'meter')),
+    companions TEXT NOT NULL DEFAULT '[]', avoid TEXT NOT NULL DEFAULT '[]',
+    problems TEXT, notes TEXT, soak_hours REAL, seed_g_per_tray REAL,
+    safety_goats TEXT CHECK (safety_goats IS NULL OR safety_goats IN ('safe', 'small', 'avoid')),
+    safety_chickens TEXT CHECK (safety_chickens IS NULL OR safety_chickens IN ('safe', 'small', 'avoid')),
+    starter_key TEXT UNIQUE, is_starter INTEGER NOT NULL DEFAULT 0, content_version INTEGER NOT NULL DEFAULT 1, ${TS});
+  CREATE TABLE plant_varieties (id INTEGER PRIMARY KEY AUTOINCREMENT, plant_id INTEGER NOT NULL REFERENCES plants(id),
+    name TEXT NOT NULL, days INTEGER, notes TEXT, sort_order INTEGER NOT NULL DEFAULT 0, ${TS});
+  CREATE INDEX idx_varieties_plant ON plant_varieties(plant_id);
+  CREATE TABLE plant_preserves (plant_id INTEGER NOT NULL REFERENCES plants(id) ON DELETE CASCADE, position INTEGER NOT NULL,
+    form TEXT NOT NULL, unit TEXT NOT NULL, raw_kg REAL NOT NULL, PRIMARY KEY (plant_id, position));
+  `,
+  // 7: guides. A basics guide has no plant; a plant guide may link to the basics guide it builds on.
+  `
+  CREATE TABLE guides (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, summary TEXT,
+    plant_id INTEGER REFERENCES plants(id), basics_id INTEGER REFERENCES guides(id) ON DELETE SET NULL,
+    stage TEXT NOT NULL CHECK (stage IN ('start_indoors', 'transplant', 'sow_outdoors', 'container', 'greenhouse', 'care', 'harvest', 'preserve', 'microgreens', 'general')),
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    starter_key TEXT UNIQUE, is_starter INTEGER NOT NULL DEFAULT 0, content_version INTEGER NOT NULL DEFAULT 1, ${TS});
+  CREATE INDEX idx_guides_plant ON guides(plant_id);
+  CREATE TABLE guide_steps (guide_id INTEGER NOT NULL REFERENCES guides(id) ON DELETE CASCADE, position INTEGER NOT NULL,
+    text TEXT NOT NULL, PRIMARY KEY (guide_id, position));
+  CREATE TABLE guide_supplies (guide_id INTEGER NOT NULL REFERENCES guides(id) ON DELETE CASCADE, position INTEGER NOT NULL,
+    name TEXT NOT NULL, amount TEXT, PRIMARY KEY (guide_id, position));
+  `,
 ];
 
 export function migrate(db) {

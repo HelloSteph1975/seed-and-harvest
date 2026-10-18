@@ -1,0 +1,217 @@
+[
+  {
+    "starter_key": "guide.basil.start_indoors",
+    "content_version": 1,
+    "title": "Starting basil from seed",
+    "summary": "Six to eight weeks before the last frost.",
+    "stage": "start_indoors",
+    "plant": "plant.basil",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Sow seeds just 3 mm (1/8 in) deep in warm mix.",
+      "They sprout in about a week at 21 °C (70 °F) or warmer.",
+      "Pinch the top when plants have three pairs of leaves to make them bushy."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Grow light or bright window"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.basil.harvest",
+    "content_version": 1,
+    "title": "Picking basil and making pesto",
+    "summary": "Often, from the top down.",
+    "stage": "harvest",
+    "plant": "plant.basil",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Pinch or cut stems just above a pair of leaves; two new stems grow there.",
+      "Pinch off flower buds as soon as you see them.",
+      "Blend extra leaves with olive oil and freeze in ice cube trays, adding cheese and nuts when you thaw it."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Ice cube trays"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cilantro.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing cilantro",
+    "summary": "In cool weather, every two to three weeks.",
+    "stage": "sow_outdoors",
+    "plant": "plant.cilantro",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Crush the round seed husks lightly to split them, then sow 1 cm (1/2 in) deep.",
+      "Thin to 15 cm (6 in) apart.",
+      "In warmer weather, sow in afternoon shade."
+    ],
+    "supplies": [
+      {
+        "name": "Cilantro seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.cilantro.harvest",
+    "content_version": 1,
+    "title": "Picking cilantro and saving coriander",
+    "summary": "Leaves first, seeds later.",
+    "stage": "harvest",
+    "plant": "plant.cilantro",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut outer stems once plants are 15 cm (6 in) tall.",
+      "When plants bolt, let them flower and set seed.",
+      "Cut the heads when seeds turn brown and dry them in a paper bag. That's coriander."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Paper bags"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.dill.sow_outdoors",
+    "content_version": 1,
+    "title": "Sowing dill",
+    "summary": "Around the last frost, and a few weeks later for pickling time.",
+    "stage": "sow_outdoors",
+    "plant": "plant.dill",
+    "basics": "guide.basics.sow-outdoors",
+    "steps": [
+      "Sow 6 mm (1/4 in) deep where it will grow; dill doesn't like being moved.",
+      "Thin to 25 cm (10 in).",
+      "Plant away from carrots, which can cross with it."
+    ],
+    "supplies": [
+      {
+        "name": "Dill seed"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.dill.harvest",
+    "content_version": 1,
+    "title": "Picking dill",
+    "summary": "Leaves any time, heads for pickles.",
+    "stage": "harvest",
+    "plant": "plant.dill",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Snip feathery leaves as needed.",
+      "For pickles, cut flower heads when they open, or when seeds start to form.",
+      "Dry leaves on a screen or freeze them chopped."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.parsley.start_indoors",
+    "content_version": 1,
+    "title": "Starting parsley from seed",
+    "summary": "Eight to ten weeks before the last frost.",
+    "stage": "start_indoors",
+    "plant": "plant.parsley",
+    "basics": "guide.basics.start-indoors",
+    "steps": [
+      "Soak seeds overnight in warm water.",
+      "Sow 6 mm (1/4 in) deep. Germination takes two to four weeks.",
+      "Transplant a couple of weeks before the last frost; parsley handles light frost."
+    ],
+    "supplies": [
+      {
+        "name": "Seed trays or small pots"
+      },
+      {
+        "name": "Seed-starting mix"
+      },
+      {
+        "name": "Grow light or bright window"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.parsley.harvest",
+    "content_version": 1,
+    "title": "Picking parsley",
+    "summary": "Outer stems first.",
+    "stage": "harvest",
+    "plant": "plant.parsley",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut outer stems at the base once the plant has a dozen or so.",
+      "Leave the center to keep growing.",
+      "Freeze chopped parsley in a little water in ice cube trays."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.oregano.transplant",
+    "content_version": 1,
+    "title": "Planting oregano",
+    "summary": "Around the last frost, in lean, well-drained soil.",
+    "stage": "transplant",
+    "plant": "plant.oregano",
+    "basics": "guide.basics.transplant",
+    "steps": [
+      "Plant small plants 30 cm (12 in) apart in a sunny, dry spot or a pot.",
+      "Water until established, then only in long dry spells.",
+      "Don't add much compost or fertilizer; rich soil weakens the flavor."
+    ],
+    "supplies": [
+      {
+        "name": "Oregano plants or divisions"
+      }
+    ]
+  },
+  {
+    "starter_key": "guide.oregano.harvest",
+    "content_version": 1,
+    "title": "Harvesting and drying oregano",
+    "summary": "Just before it flowers.",
+    "stage": "harvest",
+    "plant": "plant.oregano",
+    "basics": "guide.basics.harvest-store",
+    "steps": [
+      "Cut stems 10 cm (4 in) long, leaving plenty to regrow.",
+      "Tie in small bundles and hang upside down somewhere dark and airy.",
+      "When crisp, strip the leaves and store them in a jar.",
+      "Cut plants back by half in midsummer to keep them tidy."
+    ],
+    "supplies": [
+      {
+        "name": "Scissors"
+      },
+      {
+        "name": "Twine"
+      },
+      {
+        "name": "Jars"
+      }
+    ]
+  }
+]

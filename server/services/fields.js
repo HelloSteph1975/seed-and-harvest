@@ -15,6 +15,28 @@ export function addErrors(c, r) {
   if (r.errors) for (const k of Object.keys(r.errors)) c.fail(k, r.errors[k], r.codes[k].code, r.codes[k]);
 }
 
+// Month numbers 1 to 12, without repeats, in calendar order. Undefined when absent or failed.
+export function monthList(v, key, c) {
+  if (v === undefined) return undefined;
+  if (v === null) return [];
+  if (!Array.isArray(v) || !v.every(m => Number.isInteger(m) && m >= 1 && m <= 12)) {
+    c.fail(key, 'Pick months from 1 to 12', 'bad_format');
+    return undefined;
+  }
+  return [...new Set(v)].sort((a, b) => a - b);
+}
+
+// A list of short text, trimmed, without blanks or repeats, in the order given.
+export function textList(v, key, c, { max = 30, maxLength = 80 } = {}) {
+  if (v === undefined) return undefined;
+  if (v === null) return [];
+  if (!Array.isArray(v) || !v.every(x => typeof x === 'string')) { c.fail(key, 'Must be a list of text', 'not_text'); return undefined; }
+  const list = [...new Set(v.map(x => x.trim()).filter(Boolean))];
+  if (list.length > max) { c.fail(key, `No more than ${max}`, 'too_many', { max }); return undefined; }
+  if (list.some(x => x.length > maxLength)) { c.fail(key, `Keep each one to ${maxLength} characters or fewer`, 'too_long', { max: maxLength }); return undefined; }
+  return list;
+}
+
 // Optional text, trimmed; blank means null. Returns undefined when it failed.
 export function text(v, key, max, required, fail) {
   if (v === undefined || v === null) v = '';

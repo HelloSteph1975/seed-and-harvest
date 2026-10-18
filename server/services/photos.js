@@ -13,7 +13,7 @@ export const ALLOWED_TYPES = Object.keys(EXT);
 export const PHOTO_NAME = /^\d+-[0-9a-f]{8}\.(jpg|png|webp|gif)$/i;
 
 // Kinds of record a photo can belong to, and their tables. Later stages add more.
-export const PHOTO_OWNERS = { space: 'spaces' };
+export const PHOTO_OWNERS = { space: 'spaces', plant: 'plants' };
 
 // Live photos sit in photos\. Photos in the Trash sit in photos\_trash\. Photos removed for good
 // wait in photos\_removed\ until no kept backup could still bring their rows back.

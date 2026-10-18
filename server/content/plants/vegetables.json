@@ -1,0 +1,1210 @@
+[
+  {
+    "starter_key": "plant.tomato",
+    "content_version": 1,
+    "name": "Tomato",
+    "latin_name": "Solanum lycopersicum",
+    "kind": "vegetable",
+    "family": "Nightshade",
+    "summary": "The pantry workhorse: sauce, salsa, canned tomatoes and fresh eating. Needs heat, sun and support.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 60,
+    "container_liters": 38,
+    "container_ok": true,
+    "start_indoors": [
+      6,
+      8
+    ],
+    "transplant": [
+      1,
+      3
+    ],
+    "frost_free_months": [
+      2,
+      3,
+      4,
+      7,
+      8
+    ],
+    "days": [
+      60,
+      85
+    ],
+    "yield_kg": 4.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.basil",
+      "plant.parsley",
+      "plant.carrot"
+    ],
+    "avoid": [
+      "plant.potato",
+      "Fennel"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned tomatoes",
+        "unit": "quart",
+        "raw_kg": 1.4
+      },
+      {
+        "form": "Quart of sauce",
+        "unit": "quart",
+        "raw_kg": 2.3
+      }
+    ],
+    "problems": "Early blight shows as brown rings on lower leaves; pick them off and mulch to stop soil splashing up. Blossom end rot (a dark, sunken bottom) comes from uneven watering. Hornworms are big green caterpillars; pick them off by hand.\n\nFruit stops setting when nights stay above about 24 °C (75 °F) or days pass 32 °C (90 °F), so in hot places plant early or again for fall.",
+    "greenhouse_notes": "Grows well in a greenhouse in spring and fall. Open vents on hot days, since flowers drop when it's too hot, and gently shake the flowering stems to help pollination.",
+    "notes": "Paste types (like Roma) have less water and make thicker sauce with less cooking. Determinate varieties ripen in a few weeks, handy for canning; indeterminate ones keep producing until frost."
+  },
+  {
+    "starter_key": "plant.sweet-pepper",
+    "content_version": 1,
+    "name": "Sweet pepper",
+    "latin_name": "Capsicum annuum",
+    "kind": "vegetable",
+    "family": "Nightshade",
+    "summary": "Bell and other sweet peppers for fresh eating, roasting, freezing and pickling. Slow to start, so begin early.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 45,
+    "container_liters": 19,
+    "container_ok": true,
+    "start_indoors": [
+      8,
+      10
+    ],
+    "transplant": [
+      2,
+      3
+    ],
+    "frost_free_months": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "days": [
+      60,
+      90
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.basil",
+      "plant.onion"
+    ],
+    "avoid": [],
+    "preserves": [
+      {
+        "form": "Pint of pickled peppers",
+        "unit": "pint",
+        "raw_kg": 0.5
+      }
+    ],
+    "problems": "Seeds sprout slowly in cool soil; use a heat mat. Flowers drop in very hot or cold spells. Sunscald makes pale, papery patches on fruit; leafy plants shade their own fruit.",
+    "greenhouse_notes": "Peppers love greenhouse warmth and can keep producing into winter in a heated one.",
+    "notes": "Green peppers are simply unripe; leave them on the plant to turn red, yellow or orange for sweeter flavor and more vitamins."
+  },
+  {
+    "starter_key": "plant.hot-pepper",
+    "content_version": 1,
+    "name": "Hot pepper",
+    "latin_name": "Capsicum annuum",
+    "kind": "vegetable",
+    "family": "Nightshade",
+    "summary": "Jalapeños, serranos, poblanos, cayenne and more. Easy in heat and very productive in a pot.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 45,
+    "container_liters": 11,
+    "container_ok": true,
+    "start_indoors": [
+      8,
+      10
+    ],
+    "transplant": [
+      2,
+      3
+    ],
+    "frost_free_months": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "days": [
+      60,
+      100
+    ],
+    "yield_kg": 0.7,
+    "yield_per": "plant",
+    "companions": [
+      "plant.basil",
+      "plant.tomato"
+    ],
+    "avoid": [],
+    "preserves": [
+      {
+        "form": "Pint of pickled peppers",
+        "unit": "pint",
+        "raw_kg": 0.5
+      }
+    ],
+    "problems": "Same as sweet peppers: slow cool-soil germination, flower drop in extreme heat. Wear gloves when picking and cutting the hottest kinds.",
+    "greenhouse_notes": "Thrives in a greenhouse; plants can be kept over winter in a warm one and will produce earlier the next year.",
+    "notes": "Dry thin-walled peppers like cayenne by stringing them up in a warm, airy place. Ripe red jalapeños smoked dry become chipotles."
+  },
+  {
+    "starter_key": "plant.eggplant",
+    "content_version": 1,
+    "name": "Eggplant",
+    "latin_name": "Solanum melongena",
+    "kind": "vegetable",
+    "family": "Nightshade",
+    "summary": "Loves real heat. Glossy fruit for roasting, grilling and stews.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 60,
+    "container_liters": 19,
+    "container_ok": true,
+    "start_indoors": [
+      8,
+      10
+    ],
+    "transplant": [
+      2,
+      4
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5
+    ],
+    "days": [
+      70,
+      90
+    ],
+    "yield_kg": 2.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.green-bean",
+      "plant.sweet-pepper"
+    ],
+    "avoid": [],
+    "problems": "Flea beetles chew tiny holes in young leaves; cover plants with row cover until they flower. Cold nights stall growth, so don't rush planting out.",
+    "greenhouse_notes": "A greenhouse gives eggplant the steady warmth it wants, especially where summers are short.",
+    "notes": "Pick while the skin is shiny. Dull skin means seeds are getting hard and the flesh bitter."
+  },
+  {
+    "starter_key": "plant.potato",
+    "content_version": 1,
+    "name": "Potato",
+    "latin_name": "Solanum tuberosum",
+    "kind": "vegetable",
+    "family": "Nightshade",
+    "summary": "A storage staple grown from seed potatoes, not seeds. Easy, and fun to dig.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 30,
+    "container_liters": 38,
+    "container_ok": true,
+    "sow": [
+      -4,
+      -2
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      1,
+      2
+    ],
+    "days": [
+      70,
+      120
+    ],
+    "yield_kg": 1,
+    "yield_per": "plant",
+    "companions": [
+      "plant.green-bean",
+      "plant.cabbage"
+    ],
+    "avoid": [
+      "plant.tomato",
+      "plant.winter-squash"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned potatoes",
+        "unit": "quart",
+        "raw_kg": 1.1
+      }
+    ],
+    "problems": "Potatoes turn green and bitter in light; keep them covered with soil or mulch. Colorado potato beetles and their orange larvae eat leaves; pick them off. Don't plant where tomatoes or potatoes grew last year.",
+    "notes": "Buy certified seed potatoes; grocery potatoes may carry disease or be treated to stop sprouting. Grow bags work well and make harvest easy."
+  },
+  {
+    "starter_key": "plant.sweet-potato",
+    "content_version": 1,
+    "name": "Sweet potato",
+    "latin_name": "Ipomoea batatas",
+    "kind": "vegetable",
+    "family": "Morning glory",
+    "summary": "Grown from slips (sprouted shoots). Loves heat, shrugs off drought once settled, and stores for months.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 30,
+    "container_liters": 38,
+    "container_ok": true,
+    "start_indoors": [
+      6,
+      8
+    ],
+    "transplant": [
+      2,
+      4
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "days": [
+      90,
+      120
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "plant",
+    "companions": [],
+    "avoid": [],
+    "preserves": [
+      {
+        "form": "Quart of canned sweet potatoes",
+        "unit": "quart",
+        "raw_kg": 1.1
+      }
+    ],
+    "problems": "Cold soil stunts slips; wait until it's truly warm. Voles and deer like them. Harvest before soil drops below about 13 °C (55 °F).",
+    "notes": "The 'start indoors' dates here are for growing your own slips from a sweet potato set half in water or damp soil. Bought slips go straight out at transplant time. The leaves are edible too."
+  },
+  {
+    "starter_key": "plant.onion",
+    "content_version": 1,
+    "name": "Onion",
+    "latin_name": "Allium cepa",
+    "kind": "vegetable",
+    "family": "Onion",
+    "summary": "A kitchen staple that stores for months. Picking the right day-length type for where you live matters most.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 10,
+    "container_ok": false,
+    "start_indoors": [
+      10,
+      12
+    ],
+    "transplant": [
+      -4,
+      -2
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12
+    ],
+    "days": [
+      90,
+      120
+    ],
+    "yield_kg": 3,
+    "yield_per": "meter",
+    "companions": [
+      "plant.carrot",
+      "plant.lettuce",
+      "plant.beet"
+    ],
+    "avoid": [
+      "plant.pea",
+      "plant.green-bean"
+    ],
+    "problems": "Onions hate weeds; keep them clear. Bulbs split or bolt after cold snaps or uneven watering. Stop watering when tops start to fall over.",
+    "notes": "Onions bulb when days reach a certain length. In the south (roughly below 35° latitude, like Texas and much of Mexico) grow short-day onions, planted in late winter. Farther north grow intermediate or long-day types. Buying transplants or sets is easier than seed for beginners."
+  },
+  {
+    "starter_key": "plant.garlic",
+    "content_version": 2,
+    "name": "Garlic",
+    "latin_name": "Allium sativum",
+    "kind": "vegetable",
+    "family": "Onion",
+    "summary": "Planted in fall, harvested in early summer. Almost no work, and a year's supply fits in a small bed.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 15,
+    "container_ok": false,
+    "fall_sow": [
+      -2,
+      2
+    ],
+    "frost_free_months": [
+      10,
+      11
+    ],
+    "days": [
+      210,
+      270
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "meter",
+    "companions": [
+      "plant.tomato",
+      "plant.beet"
+    ],
+    "avoid": [
+      "plant.pea",
+      "plant.green-bean"
+    ],
+    "problems": "Waterlogged soil rots cloves; plant in well-drained beds. Keep weeds down in spring.",
+    "notes": "Softneck garlic suits mild winters and stores longest; hardneck suits cold winters and makes edible scapes in spring. Plant cloves from a garden supplier, not the grocery store. Save your biggest bulbs to plant next fall."
+  },
+  {
+    "starter_key": "plant.carrot",
+    "content_version": 1,
+    "name": "Carrot",
+    "latin_name": "Daucus carota",
+    "kind": "vegetable",
+    "family": "Carrot",
+    "summary": "Sweetest from cool weather. Sown straight in the bed in loose, stone-free soil.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 5,
+    "container_liters": 19,
+    "container_ok": true,
+    "sow": [
+      -3,
+      2
+    ],
+    "fall_sow": [
+      10,
+      12
+    ],
+    "frost_free_months": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2
+    ],
+    "days": [
+      60,
+      80
+    ],
+    "yield_kg": 2.5,
+    "yield_per": "meter",
+    "companions": [
+      "plant.onion",
+      "plant.lettuce",
+      "plant.tomato"
+    ],
+    "avoid": [
+      "plant.dill"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned carrots",
+        "unit": "quart",
+        "raw_kg": 1.1
+      }
+    ],
+    "problems": "Seeds are slow and must stay moist for up to three weeks; a board laid over the row helps. Forked roots come from rocky or compacted soil. Green shoulders come from light; cover the tops with soil.",
+    "notes": "Short or round varieties suit heavy soil and pots. A light frost makes carrots sweeter, and they keep in the ground into winter where it doesn't freeze hard."
+  },
+  {
+    "starter_key": "plant.beet",
+    "content_version": 1,
+    "name": "Beet",
+    "latin_name": "Beta vulgaris",
+    "kind": "vegetable",
+    "family": "Amaranth",
+    "summary": "Two crops in one: roots and tender greens. Quick, easy and good pickled.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 10,
+    "container_liters": 19,
+    "container_ok": true,
+    "sow": [
+      -4,
+      2
+    ],
+    "fall_sow": [
+      8,
+      10
+    ],
+    "frost_free_months": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2
+    ],
+    "days": [
+      50,
+      70
+    ],
+    "yield_kg": 2.5,
+    "yield_per": "meter",
+    "companions": [
+      "plant.onion",
+      "plant.lettuce",
+      "plant.cabbage"
+    ],
+    "avoid": [],
+    "preserves": [
+      {
+        "form": "Quart of pickled beets",
+        "unit": "quart",
+        "raw_kg": 1.4
+      }
+    ],
+    "problems": "Each beet 'seed' is a cluster that grows several plants, so thinning matters. Woody roots come from heat or dry soil.",
+    "notes": "Eat the thinnings as baby greens. Roots are tender at golf-ball to tennis-ball size."
+  },
+  {
+    "starter_key": "plant.radish",
+    "content_version": 1,
+    "name": "Radish",
+    "latin_name": "Raphanus sativus",
+    "kind": "vegetable",
+    "family": "Cabbage",
+    "summary": "The fastest crop in the garden, ready in about a month. Great for beginners and for filling gaps.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 5,
+    "container_liters": 4,
+    "container_ok": true,
+    "sow": [
+      -6,
+      -1
+    ],
+    "fall_sow": [
+      4,
+      6
+    ],
+    "frost_free_months": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "days": [
+      25,
+      35
+    ],
+    "yield_kg": 1,
+    "yield_per": "meter",
+    "companions": [
+      "plant.carrot",
+      "plant.lettuce",
+      "plant.pea"
+    ],
+    "avoid": [],
+    "problems": "Heat makes radishes hot, pithy and quick to flower; grow them in spring and fall. Flea beetles nibble leaves.",
+    "notes": "Sow a short row every week or two for a steady supply. Winter radishes like daikon are sown in late summer and store well."
+  },
+  {
+    "starter_key": "plant.lettuce",
+    "content_version": 1,
+    "name": "Lettuce",
+    "latin_name": "Lactuca sativa",
+    "kind": "vegetable",
+    "family": "Daisy",
+    "summary": "Salad all spring and fall. Loose-leaf types can be picked again and again.",
+    "sun": "part",
+    "water": "medium",
+    "spacing_cm": 25,
+    "container_liters": 8,
+    "container_ok": true,
+    "start_indoors": [
+      4,
+      6
+    ],
+    "transplant": [
+      -2,
+      1
+    ],
+    "sow": [
+      -4,
+      0
+    ],
+    "fall_sow": [
+      6,
+      8
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1,
+      2
+    ],
+    "days": [
+      45,
+      60
+    ],
+    "yield_kg": 0.4,
+    "yield_per": "plant",
+    "companions": [
+      "plant.radish",
+      "plant.carrot",
+      "plant.onion"
+    ],
+    "avoid": [],
+    "problems": "Heat makes lettuce bolt (send up a flower stalk) and turn bitter; give it afternoon shade in warm weather. Slugs love it; trap them under boards.",
+    "greenhouse_notes": "An unheated greenhouse grows lettuce through most of the winter.",
+    "notes": "Seeds need light to sprout, so barely cover them. Sow a little every two weeks instead of all at once."
+  },
+  {
+    "starter_key": "plant.spinach",
+    "content_version": 1,
+    "name": "Spinach",
+    "latin_name": "Spinacia oleracea",
+    "kind": "vegetable",
+    "family": "Amaranth",
+    "summary": "A true cool-season green, sweetest in cold weather. Freezes well for winter cooking.",
+    "sun": "part",
+    "water": "medium",
+    "spacing_cm": 10,
+    "container_liters": 8,
+    "container_ok": true,
+    "sow": [
+      -6,
+      -3
+    ],
+    "fall_sow": [
+      6,
+      8
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1
+    ],
+    "days": [
+      40,
+      50
+    ],
+    "yield_kg": 1,
+    "yield_per": "meter",
+    "companions": [
+      "plant.radish",
+      "plant.pea"
+    ],
+    "avoid": [],
+    "preserves": [
+      {
+        "form": "Pint, frozen",
+        "unit": "pint",
+        "raw_kg": 0.7
+      }
+    ],
+    "problems": "Bolts quickly once days get long and warm. Seeds sprout poorly in warm soil, so sow in cool weather.",
+    "greenhouse_notes": "Survives winter in an unheated greenhouse or under row cover in most places.",
+    "notes": "Pick outer leaves to keep plants going, or cut the whole plant at once."
+  },
+  {
+    "starter_key": "plant.kale",
+    "content_version": 1,
+    "name": "Kale",
+    "latin_name": "Brassica oleracea",
+    "kind": "vegetable",
+    "family": "Cabbage",
+    "summary": "Tough, productive greens you pick leaf by leaf for months. Frost makes it sweeter.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 45,
+    "container_liters": 19,
+    "container_ok": true,
+    "start_indoors": [
+      6,
+      8
+    ],
+    "transplant": [
+      -4,
+      -2
+    ],
+    "fall_sow": [
+      10,
+      12
+    ],
+    "frost_free_months": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2
+    ],
+    "days": [
+      55,
+      75
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.onion",
+      "plant.beet",
+      "plant.dill"
+    ],
+    "avoid": [
+      "plant.tomato"
+    ],
+    "problems": "Cabbage worms (green caterpillars) and aphids are the usual pests; row cover keeps the white moths off. Summer heat makes leaves tough.",
+    "greenhouse_notes": "Keeps producing through winter in an unheated greenhouse.",
+    "notes": "Harvest the lowest leaves first and leave the top growing. Goats and chickens enjoy the extras."
+  },
+  {
+    "starter_key": "plant.cabbage",
+    "content_version": 1,
+    "name": "Cabbage",
+    "latin_name": "Brassica oleracea",
+    "kind": "vegetable",
+    "family": "Cabbage",
+    "summary": "Firm heads for slaw, cooking and sauerkraut. Grow it in the cool ends of the year.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 45,
+    "container_liters": 19,
+    "container_ok": true,
+    "start_indoors": [
+      6,
+      8
+    ],
+    "transplant": [
+      -4,
+      -2
+    ],
+    "fall_sow": [
+      12,
+      14
+    ],
+    "frost_free_months": [
+      9,
+      10,
+      11,
+      1
+    ],
+    "days": [
+      70,
+      100
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.onion",
+      "plant.dill",
+      "plant.beet"
+    ],
+    "avoid": [
+      "plant.tomato"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of sauerkraut",
+        "unit": "quart",
+        "raw_kg": 1.1
+      }
+    ],
+    "problems": "Same pests as kale. Heads split after heavy rain or watering when they're mature; harvest promptly.",
+    "notes": "Fall-grown cabbage is usually the best. Store whole heads in a cool, damp place for weeks."
+  },
+  {
+    "starter_key": "plant.broccoli",
+    "content_version": 1,
+    "name": "Broccoli",
+    "latin_name": "Brassica oleracea",
+    "kind": "vegetable",
+    "family": "Cabbage",
+    "summary": "Big central heads, then side shoots for weeks after. Freezes well.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 45,
+    "container_liters": 19,
+    "container_ok": true,
+    "start_indoors": [
+      6,
+      8
+    ],
+    "transplant": [
+      -4,
+      -2
+    ],
+    "fall_sow": [
+      12,
+      14
+    ],
+    "frost_free_months": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "days": [
+      60,
+      90
+    ],
+    "yield_kg": 0.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.onion",
+      "plant.dill",
+      "plant.lettuce"
+    ],
+    "avoid": [
+      "plant.tomato"
+    ],
+    "preserves": [
+      {
+        "form": "Pint, frozen",
+        "unit": "pint",
+        "raw_kg": 0.5
+      }
+    ],
+    "problems": "Heat makes heads loose and flowery; cut before the yellow flowers open. Same pests as kale.",
+    "notes": "After cutting the main head, leave the plant: smaller side shoots keep coming."
+  },
+  {
+    "starter_key": "plant.green-bean",
+    "content_version": 1,
+    "name": "Green bean",
+    "latin_name": "Phaseolus vulgaris",
+    "kind": "vegetable",
+    "family": "Pea",
+    "summary": "Easy, fast and generous. Bush beans need no support; pole beans climb and keep producing longer.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 10,
+    "container_liters": 19,
+    "container_ok": true,
+    "sow": [
+      1,
+      4
+    ],
+    "fall_sow": [
+      10,
+      12
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "days": [
+      50,
+      60
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "meter",
+    "companions": [
+      "plant.carrot",
+      "plant.cucumber",
+      "plant.potato"
+    ],
+    "avoid": [
+      "plant.onion",
+      "plant.garlic"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned beans",
+        "unit": "quart",
+        "raw_kg": 0.9
+      }
+    ],
+    "problems": "Seeds rot in cold, wet soil; wait until it's warm. Mexican bean beetles eat leaves from underneath. Don't handle wet plants, which spreads disease.",
+    "notes": "Pick every few days while pods are slim and the seeds inside are small. Let some pods dry on the plant to save seed or to cook as dry beans."
+  },
+  {
+    "starter_key": "plant.pea",
+    "content_version": 1,
+    "name": "Pea",
+    "latin_name": "Pisum sativum",
+    "kind": "vegetable",
+    "family": "Pea",
+    "summary": "One of the first crops of spring. Shelling, snap and snow peas all like it cool.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 5,
+    "container_liters": 19,
+    "container_ok": true,
+    "sow": [
+      -8,
+      -4
+    ],
+    "fall_sow": [
+      10,
+      12
+    ],
+    "frost_free_months": [
+      10,
+      11,
+      12,
+      1
+    ],
+    "days": [
+      55,
+      70
+    ],
+    "yield_kg": 1,
+    "yield_per": "meter",
+    "companions": [
+      "plant.carrot",
+      "plant.radish",
+      "plant.spinach"
+    ],
+    "avoid": [
+      "plant.onion",
+      "plant.garlic"
+    ],
+    "preserves": [
+      {
+        "form": "Pint, frozen",
+        "unit": "pint",
+        "raw_kg": 0.9
+      }
+    ],
+    "problems": "Heat ends the harvest; plant as early as the soil can be worked. Powdery mildew whitens leaves late in the season.",
+    "notes": "Most varieties need a trellis or netting about 1 to 1.5 m (3 to 5 ft) tall. Pea shoots make good microgreens too."
+  },
+  {
+    "starter_key": "plant.cucumber",
+    "content_version": 1,
+    "name": "Cucumber",
+    "latin_name": "Cucumis sativus",
+    "kind": "vegetable",
+    "family": "Squash",
+    "summary": "Fast summer vines for salads and pickles. Grow them up a trellis to save space.",
+    "sun": "full",
+    "water": "high",
+    "spacing_cm": 30,
+    "container_liters": 19,
+    "container_ok": true,
+    "start_indoors": [
+      2,
+      4
+    ],
+    "transplant": [
+      1,
+      3
+    ],
+    "sow": [
+      1,
+      3
+    ],
+    "fall_sow": [
+      10,
+      12
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "days": [
+      50,
+      70
+    ],
+    "yield_kg": 2.5,
+    "yield_per": "plant",
+    "companions": [
+      "plant.green-bean",
+      "plant.dill",
+      "plant.radish"
+    ],
+    "avoid": [
+      "plant.potato"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of pickles",
+        "unit": "quart",
+        "raw_kg": 0.9
+      }
+    ],
+    "problems": "Cucumber beetles (yellow with black stripes or spots) spread wilt; cover young plants until they flower. Bitter fruit comes from heat or dry soil. Powdery mildew is common late in summer.",
+    "greenhouse_notes": "Choose greenhouse or 'parthenocarpic' varieties, which set fruit without bees.",
+    "notes": "Pick pickling cucumbers small and often; one missed cucumber left to yellow slows the whole vine."
+  },
+  {
+    "starter_key": "plant.zucchini",
+    "content_version": 1,
+    "name": "Zucchini",
+    "latin_name": "Cucurbita pepo",
+    "kind": "vegetable",
+    "family": "Squash",
+    "summary": "Summer squash that grows almost too well. Two plants feed a family.",
+    "sun": "full",
+    "water": "high",
+    "spacing_cm": 90,
+    "container_liters": 38,
+    "container_ok": true,
+    "sow": [
+      1,
+      3
+    ],
+    "fall_sow": [
+      10,
+      12
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "days": [
+      45,
+      60
+    ],
+    "yield_kg": 4,
+    "yield_per": "plant",
+    "companions": [
+      "plant.green-bean",
+      "plant.sweet-corn"
+    ],
+    "avoid": [
+      "plant.potato"
+    ],
+    "problems": "Squash vine borers make plants suddenly wilt; look for sawdust-like frass at the stem base. Squash bugs gather under leaves; scrape off the bronze egg clusters. Powdery mildew is common and mostly cosmetic late in the season.",
+    "notes": "Pick at 15 to 20 cm (6 to 8 in); they get big fast. The flowers are edible."
+  },
+  {
+    "starter_key": "plant.winter-squash",
+    "content_version": 1,
+    "name": "Winter squash",
+    "latin_name": "Cucurbita moschata, C. maxima",
+    "kind": "vegetable",
+    "family": "Squash",
+    "summary": "Butternut, acorn, kabocha and more. Grows all summer and stores into spring.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 120,
+    "container_ok": false,
+    "sow": [
+      1,
+      3
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "days": [
+      80,
+      110
+    ],
+    "yield_kg": 4,
+    "yield_per": "plant",
+    "companions": [
+      "plant.sweet-corn",
+      "plant.green-bean"
+    ],
+    "avoid": [
+      "plant.potato"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned cubes",
+        "unit": "quart",
+        "raw_kg": 1
+      }
+    ],
+    "problems": "Same pests as zucchini. Butternut types resist vine borers better than most.",
+    "notes": "Vines need lots of room; let them run along a fence or into a path. Cure and store as on the harvest guide; whole squash keep for months."
+  },
+  {
+    "starter_key": "plant.pumpkin",
+    "content_version": 1,
+    "name": "Pumpkin",
+    "latin_name": "Cucurbita pepo, C. maxima",
+    "kind": "vegetable",
+    "family": "Squash",
+    "summary": "For pies, soups and storage. Big vines, big harvest.",
+    "sun": "full",
+    "water": "medium",
+    "spacing_cm": 150,
+    "container_ok": false,
+    "sow": [
+      1,
+      3
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "days": [
+      90,
+      120
+    ],
+    "yield_kg": 6,
+    "yield_per": "plant",
+    "companions": [
+      "plant.sweet-corn",
+      "plant.green-bean"
+    ],
+    "avoid": [
+      "plant.potato"
+    ],
+    "preserves": [
+      {
+        "form": "Quart of canned cubes",
+        "unit": "quart",
+        "raw_kg": 1
+      }
+    ],
+    "problems": "Same pests as zucchini. Fruit sitting on wet soil can rot; set it on a board or straw.",
+    "notes": "Small 'pie' or 'sugar' pumpkins taste better than carving types. Pumpkin purée shouldn't be home-canned; can cubes or freeze the purée."
+  },
+  {
+    "starter_key": "plant.sweet-corn",
+    "content_version": 1,
+    "name": "Sweet corn",
+    "latin_name": "Zea mays",
+    "kind": "vegetable",
+    "family": "Grass",
+    "summary": "Plant in blocks, not single rows, so the wind can pollinate it. Best eaten within hours of picking.",
+    "sun": "full",
+    "water": "high",
+    "spacing_cm": 25,
+    "container_ok": false,
+    "sow": [
+      1,
+      3
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "days": [
+      65,
+      90
+    ],
+    "yield_kg": 1.5,
+    "yield_per": "meter",
+    "companions": [
+      "plant.green-bean",
+      "plant.winter-squash",
+      "plant.cucumber"
+    ],
+    "avoid": [],
+    "preserves": [
+      {
+        "form": "Quart of canned corn",
+        "unit": "quart",
+        "raw_kg": 2
+      }
+    ],
+    "problems": "Poor pollination leaves gappy ears; plant at least four short rows side by side. Corn earworms enter the tip of the ear; just cut off the damaged end. Raccoons know when it's ripe.",
+    "notes": "Keep different sweet corn types (or popcorn) apart or planted at different times, since cross-pollination spoils the sweetness."
+  },
+  {
+    "starter_key": "plant.okra",
+    "content_version": 1,
+    "name": "Okra",
+    "latin_name": "Abelmoschus esculentus",
+    "kind": "vegetable",
+    "family": "Mallow",
+    "summary": "A Southern favorite that thrives in the heat other crops can't stand. Pretty hibiscus-like flowers.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 40,
+    "container_liters": 19,
+    "container_ok": true,
+    "sow": [
+      2,
+      4
+    ],
+    "frost_free_months": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "days": [
+      50,
+      65
+    ],
+    "yield_kg": 0.8,
+    "yield_per": "plant",
+    "companions": [
+      "plant.sweet-pepper",
+      "plant.cowpea"
+    ],
+    "avoid": [],
+    "preserves": [
+      {
+        "form": "Pint of pickled okra",
+        "unit": "pint",
+        "raw_kg": 0.45
+      }
+    ],
+    "problems": "Seeds sprout poorly in cool soil; soak them overnight and sow in warm soil. Pods turn woody in just a day or two.",
+    "notes": "Pick pods at 5 to 10 cm (2 to 4 in) every other day. Wear gloves and long sleeves; many plants have prickly leaves."
+  },
+  {
+    "starter_key": "plant.cowpea",
+    "content_version": 1,
+    "name": "Cowpea (black-eyed pea)",
+    "latin_name": "Vigna unguiculata",
+    "kind": "vegetable",
+    "family": "Pea",
+    "summary": "A heat-loving bean eaten fresh or dried. Feeds the soil and needs little care.",
+    "sun": "full",
+    "water": "low",
+    "spacing_cm": 10,
+    "container_ok": false,
+    "sow": [
+      2,
+      5
+    ],
+    "frost_free_months": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "days": [
+      60,
+      90
+    ],
+    "yield_kg": 0.4,
+    "yield_per": "meter",
+    "companions": [
+      "plant.sweet-corn",
+      "plant.okra"
+    ],
+    "avoid": [],
+    "problems": "Aphids cluster on new growth; a strong spray of water knocks them off. Stinkbugs can mark the seeds.",
+    "notes": "Pick pods green to shell fresh, or leave them to dry on the plant for storage. The vines make good goat feed after harvest."
+  }
+]
