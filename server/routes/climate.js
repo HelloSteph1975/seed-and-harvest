@@ -6,6 +6,7 @@ const SEARCH = { q: { type: 'string!', maxLength: 100 } };
 const POINT = {
   latitude: { type: 'number!', min: -90, max: 90 },
   longitude: { type: 'number!', min: -180, max: 180 },
+  elevation_m: { type: 'number', min: -500, max: 9000 },
 };
 
 export function climateRouter(ctx) {
@@ -15,7 +16,7 @@ export function climateRouter(ctx) {
     res.json(await searchPlaces(ctx, q));
   });
   r.get('/estimate', async (req, res) => {
-    const point = check(POINT, { latitude: req.query.latitude, longitude: req.query.longitude });
+    const point = check(POINT, { latitude: req.query.latitude, longitude: req.query.longitude, elevation_m: req.query.elevation_m });
     res.json(await estimateClimate(ctx, point));
   });
   return r;
