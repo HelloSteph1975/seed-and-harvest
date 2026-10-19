@@ -5,6 +5,7 @@ import { suppliesFor } from './guides.js';
 export const TASK_STAGE = {
   start_seeds: 'start_indoors', pot_up: 'start_indoors', harden_off: 'transplant', transplant: 'transplant', plant: 'transplant',
   sow: 'sow_outdoors', thin: 'sow_outdoors', feed: 'care', pests: 'care', harvest: 'harvest', other: null,
+  prune: 'care', mulch: 'care', protect: 'container', check_pot: 'container',
 };
 
 // Planted as cloves, tubers, slips or sets at their final spacing, so never thinned; cloves and

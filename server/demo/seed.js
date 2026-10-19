@@ -108,7 +108,15 @@ function seedPlantings(ctx) {
   }
   const fig = plant('plant.fig');
   if (fig && space('Dwarf fig')) {
-    const p = createPlanting(db, { space_id: space('Dwarf fig'), plant_id: fig.id, how_started: 'mature', start_on: addDays(today, -100), count: 1 });
+    const p = createPlanting(db, { space_id: space('Dwarf fig'), plant_id: fig.id, how_started: 'mature', start_on: addDays(today, -100), count: 1,
+      bought_from: 'Valley Nursery', bought_on: addDays(today, -102), price: 45, size_when_bought: '3 years old, 15 gallon pot', bears_on: addDays(today, 200) });
+    finish(p, ['plant']);
+  }
+  const apple = plant('plant.apple');
+  if (apple && space('Orchard corner')) {
+    const p = createPlanting(db, { space_id: space('Orchard corner'), plant_id: apple.id, how_started: 'mature', start_on: addDays(today, -200), count: 2,
+      bought_from: 'Valley Nursery', bought_on: addDays(today, -205), price: 60, size_when_bought: 'Dwarf, 4 years old', bears_on: addDays(today, 150),
+      notes: 'Two kinds that bloom together, for pollination.' });
     finish(p, ['plant']);
   }
 }

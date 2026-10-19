@@ -17,8 +17,9 @@ export const PLANT_COLUMNS = ['name', 'latin_name', 'kind', 'family', 'summary',
 export const VARIETY_COLUMNS = ['plant_id', 'name', 'days', 'notes', 'sort_order'];
 export const GUIDE_COLUMNS = ['title', 'summary', 'plant_id', 'basics_id', 'stage', 'sort_order', 'starter_key', 'is_starter', 'content_version'];
 
-export const PLANTING_COLUMNS = ['space_id', 'plant_id', 'variety_id', 'count', 'row_m', 'how_started', 'start_on', 'status', 'notes'];
-export const TASK_COLUMNS = ['planting_id', 'kind', 'title', 'due_on', 'end_on', 'done_on', 'guide_id', 'notes', 'auto', 'edited'];
+export const PLANTING_COLUMNS = ['space_id', 'plant_id', 'variety_id', 'count', 'row_m', 'how_started', 'start_on', 'status', 'notes',
+  'in_container', 'bought_from', 'bought_on', 'price', 'size_when_bought', 'bears_on'];
+export const TASK_COLUMNS = ['planting_id', 'kind', 'title', 'due_on', 'end_on', 'done_on', 'guide_id', 'notes', 'auto', 'edited', 'season_key'];
 export const ANIMAL_COLUMNS = ['name', 'kind', 'notes', 'sort_order'];
 export const TRAY_COLUMNS = ['plant_id', 'space_id', 'animal_id', 'tray_count', 'seed_g', 'sown_on', 'harvest_on', 'status', 'harvested_on', 'series_id', 'repeat_days', 'notes'];
 export const LOG_COLUMNS = ['planting_id', 'on_date', 'kind', 'note', 'task_id'];

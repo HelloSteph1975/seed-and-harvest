@@ -8,7 +8,7 @@ import { livePlanting } from './plantings.js';
 import { cascadeDeletePhotos } from './photos.js';
 import { fold } from './plants.js';
 
-export const TASK_KINDS = ['start_seeds', 'pot_up', 'harden_off', 'transplant', 'plant', 'sow', 'thin', 'feed', 'pests', 'harvest', 'other'];
+export const TASK_KINDS = ['start_seeds', 'pot_up', 'harden_off', 'transplant', 'plant', 'sow', 'thin', 'feed', 'pests', 'harvest', 'other', 'prune', 'mulch', 'protect', 'check_pot'];
 
 export const TASK_SCHEMA = {
   kind: TASK_KINDS,
@@ -23,7 +23,8 @@ export const TASK_SCHEMA = {
 const OWNER_FIELDS = ['due_on', 'end_on', 'title', 'notes', 'guide_id', 'kind'];
 
 // What a finished task writes in the planting's log, and how far it moves the planting along.
-const LOG_KIND = { start_seeds: 'sowed', sow: 'sowed', transplant: 'transplanted', plant: 'planted', thin: 'thinned', feed: 'fed', harvest: 'harvested' };
+const LOG_KIND = { start_seeds: 'sowed', sow: 'sowed', transplant: 'transplanted', plant: 'planted', thin: 'thinned', feed: 'fed', harvest: 'harvested',
+  prune: 'pruned', mulch: 'mulched', protect: 'protected' };
 const STATUS_AFTER = { sowed: 'started', transplanted: 'growing', planted: 'growing', harvested: 'harvesting' };
 const ORDER = ['planned', 'started', 'growing', 'harvesting', 'done'];
 
@@ -104,6 +105,8 @@ export function restoreTask(ctx, id) {
 // A log entry that came from this task keeps its date and note, without the link.
 export function purgeTask(ctx, row) {
   ctx.db.prepare('UPDATE planting_log SET task_id = NULL WHERE task_id = ?').run(row.id);
+  // A care task deleted forever stays deleted: its season is remembered so it isn't made again.
+  if (row.season_key) ctx.db.prepare('INSERT OR IGNORE INTO care_skipped (planting_id, season_key) VALUES (?, ?)').run(row.planting_id, row.season_key);
   repos(ctx.db).tasks.purge(row.id);
 }
 

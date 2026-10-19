@@ -7,6 +7,7 @@ import { validate } from '../validate.js';
 import { addErrors, collector, invalid } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
 import { describeTasks, linkGuides, planTasks } from './taskRules.js';
+import { placeToday, redoCare, topUpCare } from './care.js';
 
 export const HOW_STARTED = ['seed_indoors', 'seed_outdoors', 'start', 'mature'];
 export const STATUSES = ['planned', 'started', 'growing', 'harvesting', 'done'];
@@ -21,6 +22,12 @@ export const PLANTING_SCHEMA = {
   start_on: { type: 'date', required: true },
   status: STATUSES,
   notes: { type: 'string', maxLength: 2000 },
+  in_container: 'bool',
+  bought_from: { type: 'string', maxLength: 120 },
+  bought_on: { type: 'date' },
+  price: { type: 'number', min: 0, max: 1000000 },
+  size_when_bought: { type: 'string', maxLength: 120 },
+  bears_on: { type: 'date' },
 };
 
 const one = (db, sql, ...args) => db.prepare(sql).get(...args);
@@ -60,7 +67,17 @@ function parse(db, body, existing) {
     c.fail('how_started', 'That way of starting doesn\'t fit this plant', 'wrong_start');
   }
   if (c.any()) throw invalid(c.errors, c.codes);
-  return { data: { ...r.data }, plant };
+  const out = { ...r.data };
+  // A new planting in a pot starts as a container planting unless the owner says otherwise.
+  if (!existing && (body ?? {}).in_container === undefined) {
+    out.in_container = one(db, "SELECT 1 FROM spaces WHERE id = ? AND kind = 'container'", out.space_id) ? 1 : 0;
+  }
+  const after = { ...existing, ...out };
+  if (after.bears_on && ((after.bought_on && after.bears_on < after.bought_on) || after.bears_on < after.start_on)) {
+    c.fail('bears_on', 'This must not be before it was bought or planted', 'range_order');
+    throw invalid(c.errors, c.codes);
+  }
+  return { data: out, plant };
 }
 
 const cover = `(SELECT filename FROM photos ph WHERE ph.owner_type = 'planting' AND ph.owner_id = pl.id AND ph.deleted_at IS NULL
@@ -83,12 +100,13 @@ function shape(row) {
   };
 }
 
-export function listPlantings(db, { place_id, space_id, status, plant_id } = {}) {
+export function listPlantings(db, { place_id, space_id, status, plant_id, perennial } = {}) {
   const where = ['pl.deleted_at IS NULL'];
   const args = [];
   if (place_id != null) { where.push('s.place_id = ?'); args.push(place_id); }
   if (space_id != null) { where.push('pl.space_id = ?'); args.push(space_id); }
   if (plant_id != null) { where.push('pl.plant_id = ?'); args.push(plant_id); }
+  if (perennial) where.push('p.perennial = 1');
   if (status != null) {
     if (!STATUSES.includes(status)) throw new HttpError(400, 'Unknown status', undefined, { code: 'not_one_of' });
     where.push('pl.status = ?'); args.push(status);
@@ -120,12 +138,13 @@ function saveTasks(db, planting, plant, skipKinds = new Set()) {
 // removed and a fresh set replaces them. Edited, finished and owner-added tasks stay as they are,
 // and a kept task the rules made stands in for the new one of its kind.
 function redoTasks(db, planting, plant) {
-  const untouched = 'SELECT id FROM tasks WHERE planting_id = ? AND auto = 1 AND edited = 0 AND done_on IS NULL AND deleted_at IS NULL';
+  // Care tasks follow the place and the season, not the start date, so they stay.
+  const untouched = 'SELECT id FROM tasks WHERE planting_id = ? AND auto = 1 AND edited = 0 AND done_on IS NULL AND deleted_at IS NULL AND season_key IS NULL';
   // A log entry in the Trash keeps its date and note but lets go of a task about to be replaced.
   db.prepare(`UPDATE planting_log SET task_id = NULL WHERE deleted_at IS NOT NULL AND task_id IN (${untouched})`).run(planting.id);
-  db.prepare(`DELETE FROM tasks WHERE id IN (${untouched})
+  db.prepare(`DELETE FROM tasks WHERE id IN (${untouched}) AND season_key IS NULL
     AND id NOT IN (SELECT task_id FROM planting_log WHERE task_id IS NOT NULL)`).run(planting.id);
-  const kept = db.prepare('SELECT DISTINCT kind FROM tasks WHERE planting_id = ? AND auto = 1 AND deleted_at IS NULL').all(planting.id).map(r => r.kind);
+  const kept = db.prepare('SELECT DISTINCT kind FROM tasks WHERE planting_id = ? AND auto = 1 AND deleted_at IS NULL AND season_key IS NULL').all(planting.id).map(r => r.kind);
   saveTasks(db, planting, plant, new Set(kept));
 }
 
@@ -140,6 +159,7 @@ export function createPlanting(db, body) {
     const { data, plant } = parse(db, body, null);
     const row = repos(db).plantings.create(data);
     saveTasks(db, row, plant);
+    topUpCare(db, row.id, placeToday(db, row.id));
     return getPlanting(db, row.id);
   });
 }
@@ -156,6 +176,15 @@ export function updatePlanting(db, id, body, version) {
     }
     if (!row) throw notFound();
     if (['start_on', 'how_started', 'plant_id'].some(k => data[k] !== undefined && data[k] !== existing[k])) redoTasks(db, row, plant ?? livePlantRow(db, row.plant_id));
+    // An edit that puts it at another place (a correction, not a move), changes the plant, or takes it in or out of a pot
+    // works its care out again.
+    const placeOf = spaceId => one(db, 'SELECT place_id FROM spaces WHERE id = ?', spaceId)?.place_id;
+    const otherPlace = data.space_id !== undefined && placeOf(data.space_id) !== placeOf(existing.space_id);
+    const otherPlant = data.plant_id !== undefined && data.plant_id !== existing.plant_id;
+    if (otherPlace || otherPlant || (data.in_container !== undefined && data.in_container !== existing.in_container)) {
+      const today = placeToday(db, id);
+      redoCare(db, id, today, today);
+    }
     return getPlanting(db, id);
   });
 }
@@ -232,6 +261,7 @@ export function purgePlanting(ctx, row) {
   }
   db.prepare('DELETE FROM planting_log WHERE planting_id = ?').run(row.id);
   db.prepare('DELETE FROM tasks WHERE planting_id = ?').run(row.id);
+  db.prepare('DELETE FROM care_skipped WHERE planting_id = ?').run(row.id);
   purgeOwnerPhotos(ctx, 'planting', row.id);
   repos(db).plantings.purge(row.id);
 }
@@ -242,3 +272,35 @@ export function purgePlantingsWhere(ctx, column, id) {
 
 export const livePlantingCount = (db, plantId) => one(db, 'SELECT COUNT(*) AS n FROM plantings WHERE plant_id = ? AND deleted_at IS NULL', plantId).n;
 export const livePlanting = (db, id) => Boolean(one(db, 'SELECT 1 FROM plantings WHERE id = ? AND deleted_at IS NULL', id));
+
+// A container plant goes to another space, at this place or another. Its history stays as it was;
+// the move goes in its log, and at a new place its untouched care still to come is worked out again.
+export function movePlanting(db, id, body) {
+  return transaction(db, () => {
+    const r = validate({ space_id: { type: 'int!', min: 1 }, moved_on: { type: 'date', required: true } }, body ?? {});
+    if (r.errors) throw invalid(r.errors, r.codes);
+    const version = body?.version;
+    const existing = repos(db).plantings.get(id);
+    if (!existing) throw notFound();
+    if (!existing.in_container) throw new HttpError(409, 'Only a plant in a container can move.', undefined, { code: 'not_in_container' });
+    const { space_id: to, moved_on: on } = r.data;
+    const from = one(db, 'SELECT s.name, s.place_id, p.name AS place_name FROM spaces s JOIN places p ON p.id = s.place_id WHERE s.id = ?', existing.space_id);
+    const dest = one(db, 'SELECT s.name, s.place_id, p.name AS place_name FROM spaces s JOIN places p ON p.id = s.place_id WHERE s.id = ? AND s.deleted_at IS NULL', to);
+    const c = collector();
+    if (!dest) c.fail('space_id', 'That space is gone', 'space_gone');
+    else if (to === existing.space_id) c.fail('space_id', 'Pick a different space', 'same_space');
+    if (c.any()) throw invalid(c.errors, c.codes);
+    let row;
+    try { row = repos(db).plantings.update(id, { space_id: to }, version); } catch (err) {
+      if (err instanceof VersionConflict) throw new VersionConflict(getPlanting(db, id));
+      throw err;
+    }
+    if (!row) throw notFound();
+    repos(db).log.create({ planting_id: id, on_date: on, kind: 'moved', note: `From ${from.name} (${from.place_name}) to ${dest.name} (${dest.place_name})` });
+    if (dest.place_id !== from.place_id) {
+      const today = placeToday(db, id);
+      redoCare(db, id, on, today > on ? today : on);
+    }
+    return getPlanting(db, id);
+  });
+}

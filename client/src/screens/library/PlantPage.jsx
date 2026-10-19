@@ -18,6 +18,7 @@ import { byStatus } from '../../lib/places.js';
 import { toDisplay, unitLabel } from '../../lib/units.js';
 import { plantingWindows, zoneFit } from '../../lib/windows.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
+import { yearsText } from '../../lib/tasks.js';
 import { VarietyDialog } from './VarietyDialog.jsx';
 import { PlantingsOf } from '../plantings/PlantingsOf.jsx';
 
@@ -194,7 +195,7 @@ function Facts({ plant: p, text }) {
     p.spacing_cm != null && [t('plants.spacing'), p.spacing_cm >= 100 ? num('length', p.spacing_cm / 100) : num('spacing', p.spacing_cm)],
     p.container_liters != null && [t('plants.potSize'), num('volume', p.container_liters)],
     range(p.days_min, p.days_max, 'plants.daysRange') && [t('plants.daysToHarvest'), range(p.days_min, p.days_max, 'plants.daysRange')],
-    range(p.years_min, p.years_max, 'plants.yearsRange') && [t('plants.yearsToFruit'), range(p.years_min, p.years_max, 'plants.yearsRange')],
+    p.years_min != null && p.years_max != null && [t('plants.yearsToFruit'), yearsText(t, p.years_min, p.years_max)],
     p.zone_min != null && p.zone_max != null && [t('plants.zones'), t('plants.zoneRange', { from: p.zone_min, to: p.zone_max })],
     p.yield_kg != null && [t('plants.yield'), t(`plants.yieldPer.${p.yield_per ?? 'plant'}`, { amount: num('weight', p.yield_kg) })],
     ...p.preserves.map((pr, i) => [text(`preserve.${i + 1}`, pr.form), t('plants.preserveNeeds', { amount: num('weight', pr.raw_kg) })]),

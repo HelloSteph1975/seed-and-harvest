@@ -4,7 +4,7 @@ A garden, greenhouse and food forest keeper that runs on your own computer. It's
 
 Everything is kept in one file on your computer. There are no accounts.
 
-> Stages 1 to 4 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, the plant library with 89 starter plants and their guides, plantings with their tasks, Today, the calendar and a supplies list, and microgreen trays with your animals. The food forest and harvests come in later stages.
+> Stages 1 to 5 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, the plant library with 89 starter plants and their guides, plantings with their tasks, Today, the calendar and a supplies list, microgreen trays with your animals, and the food forest with containers and a care calendar. Harvests and winter planning come next.
 
 ## Places
 
@@ -39,6 +39,16 @@ A microgreen tray records the crop, the rack, how many trays and how much seed, 
 Add your animals under Microgreens. Goats and chickens use the library's safety ratings; for any other animal, rate each microgreen on its plant page. When you pick an animal for a tray, the form warns if the crop isn't safe for it, should only be given in small amounts, or hasn't been rated. Always check with your vet before a new feed.
 
 Each greenhouse can keep notes for spring, summer, fall and winter, and its page shows the current season first.
+
+## Food forest and containers
+
+The Food Forest lists your fruit trees, berry bushes, vines and perennial herbs at a place, with how long until each should start bearing and its next care task. A perennial planting can record where you bought it, when, the price paid, its size or age, and when it should start bearing (the form can fill in the library's estimate).
+
+Mark a planting as being in a container and it can move: to another space, or to another place when you move house. Its history and photos come with it, the move goes in its log, and its care dates are worked out again for the new place. A plant too tender for a place's winters gets a gentler note when it's in a pot you can bring inside.
+
+Each perennial gets a care calendar as a rule of thumb: pruning in late winter, feeding in spring (twice for pots), mulching, a pot check, and moving to shelter before the first fall frost when it needs it. Places without frost use their coolest and rainy months instead. The app adds the coming year of care each morning, and never brings back a task you deleted.
+
+To choose what to buy, open What to buy from the Food Forest: the library opens with fruit trees, shrubs and vines that fit the place's winters, sorted fastest to produce first.
 
 ## Install
 
