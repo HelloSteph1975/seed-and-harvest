@@ -61,8 +61,9 @@ describe('units', () => {
     expect(toDisplay('seed', 3, 'us')).toBe('0.1');
     expect(toDisplay('seed', 1, 'us')).toBe('0.1');
     expect(toDisplay('seed', 200, 'us')).toBe('7.1');
-    expect(toDisplay('weight', 0.01, 'us')).toBe('0.1');
-    expect(toDisplay('weight', 0.01, 'metric')).toBe('0.1');
+    expect(toDisplay('weight', 0.01, 'us')).toBe('0.02');
+    expect(toDisplay('weight', 0.01, 'metric')).toBe('0.01');
+    expect(toDisplay('weight', 0.001, 'metric')).toBe('0.01');
     expect(toDisplay('weight', 0, 'us')).toBe('0');
     expect(unitLabel('weight', 'us')).toBe('lb');
     expect(unitLabel('seed', 'us')).toBe('oz');
@@ -71,5 +72,12 @@ describe('units', () => {
   it('an untouched small value saves back exactly', () => {
     expect(keepOrConvert('spacing', '18', '18', 46, 'us')).toBe(46);
     expect(keepOrConvert('seed', '0.1', '0.1', 3, 'us')).toBe(3);
+  });
+
+  it('a light harvest under one pound or kilogram shows two decimals', () => {
+    expect(toDisplay('weight', 0.05, 'metric')).toBe('0.05');
+    expect(toDisplay('weight', 0.05, 'us')).toBe('0.11');
+    expect(toDisplay('weight', 0.2, 'us')).toBe('0.44');
+    expect(toDisplay('weight', 1.25, 'metric')).toBe('1.3');
   });
 });

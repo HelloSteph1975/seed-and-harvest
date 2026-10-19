@@ -63,6 +63,10 @@ function stub() {
       plant: { id: 2, name: 'Mustard microgreens', starter_key: null, is_starter: 0, days_min: 8, seed_g_per_tray: 20 } }));
     if (url === '/api/trays/40/sow-again') return json({ ...trays[0], id: 51, sown_on: body.sown_on }, 201);
     if (url === '/api/trays/51') return json({ ...trays[0], id: 51 });
+    if (url === '/api/harvests?tray_id=40') return json([{ id: 80, planting_id: null, tray_id: 40, harvested_on: '2027-03-11', quantity: 0.05, unit: 'kg', larder_qty: 0,
+      animals_qty: 0.05, animal_id: 11, given_qty: 0, sold_qty: 0, kept_qty: 0, larder_state: 'off', version: 1, crop: { plant_id: 1, name: 'Pea shoots' },
+      variety_name: null, space: { id: 6, name: 'Rack' }, place_id: 1, source: { kind: 'tray', id: 40 } }]);
+    if (url.startsWith('/api/harvests?')) return json([]);
     if (url.startsWith('/api/photos?')) return json([]);
     if (url.startsWith('/api/guides')) return json([]);
     return json({}, 404);
@@ -131,6 +135,15 @@ describe('tray form', () => {
 });
 
 describe('tray page and list', () => {
+  it('the tray page lists its harvests', async () => {
+    stub();
+    mount('/microgreens/trays/40');
+    const box = await screen.findByRole('region', { name: 'Harvests' });
+    expect(await within(box).findByText('0.05 kg')).toBeInTheDocument();
+    expect(within(box).getByText('0.05 kg for animals')).toBeInTheDocument();
+    expect(within(box).getByRole('button', { name: /Edit the harvest/ })).toBeInTheDocument();
+  });
+
   it('sow again from the tray page posts today\'s date and opens the new tray', async () => {
     at('2027-03-06');
     stub();

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { Button } from '../../components/Button.jsx';
 import { PageHeader } from '../../components/PageHeader.jsx';
 import { LoadState } from '../../components/LoadState.jsx';
@@ -18,6 +18,7 @@ import { toDisplay, unitLabel } from '../../lib/units.js';
 import { safetyNote } from '../../lib/safety.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 import { HarvestDialog } from '../harvests/HarvestDialog.jsx';
+import { HarvestLine, useSendAgain } from '../harvests/Harvests.jsx';
 
 export function TrayPageRoute() {
   const { id } = useParams();
@@ -57,7 +58,12 @@ function TrayPage({ id }) {
 
   // One request at a time: a double click must not sow two trays or cut one twice.
   const [busy, setBusy] = useState(false);
-  const [recording, setRecording] = useState(false);
+  const [harvest, setHarvest] = useState(null);
+  const harvests = useResource(`/api/harvests?tray_id=${id}`);
+  const sendAgain = useSendAgain(harvests.reload);
+  const removeHarvest = async h => {
+    try { await harvests.act(() => api.del(`/api/harvests/${h.id}`)); toast.show({ message: t('harvests.deleted') }); } catch (err) { toast.show({ message: errorText(err, t) }); }
+  };
   const inFlight = useRef(false);
   const once = async fn => {
     if (inFlight.current) return;
@@ -117,13 +123,20 @@ function TrayPage({ id }) {
               {x.status === 'planned' && <Button disabled={busy} onClick={() => change({ status: 'growing', sown_on: today, harvest_on: addDays(today, x.plant.days_min ?? 7) })}>{t('trays.sownToday')}</Button>}
               {x.status === 'growing' && <Button disabled={busy} onClick={() => change({ status: 'harvested', harvested_on: today })}>{t('trays.harvestedToday')}</Button>}
               {x.status === 'growing' && <Button variant="ghost" disabled={busy} onClick={() => change({ status: 'discarded' })}>{t('trays.discard')}</Button>}
-              <Button variant="ghost" disabled={busy} onClick={() => setRecording(true)}>{t('harvests.recordTray')}</Button>
               <Button variant="ghost" disabled={busy} onClick={sowAgain}>{t('trays.sowAgain')}</Button>
               {x.next_sow_on && <Button variant="ghost" disabled={busy} onClick={() => change({ repeat_days: null })}>{t('trays.stopRepeat')}</Button>}
             </div>
+            <section aria-labelledby="tray-harvests-title">
+              <h2 id="tray-harvests-title">{t('nav.harvests')}</h2>
+              {harvests.data?.length === 0 && <p className="muted">{t('harvests.noneHere')}</p>}
+              <ul className="list">
+                {harvests.data?.map(h => <HarvestLine key={h.id} h={h} today={today} showCrop={false} onEdit={setHarvest} onDelete={removeHarvest} onSend={sendAgain} />)}
+              </ul>
+              <Button variant="ghost" icon={Plus} onClick={() => setHarvest({})}>{t('harvests.recordTray')}</Button>
+            </section>
             <PhotoGallery ownerType="tray" ownerId={x.id} />
-            {recording && <HarvestDialog source={{ tray_id: x.id }} record={null} today={today} onClose={() => setRecording(false)}
-              onSaved={() => { setRecording(false); tray.reload(); }} />}
+            {harvest && <HarvestDialog source={{ tray_id: x.id }} record={harvest.id ? harvest : null} today={today} onClose={() => setHarvest(null)}
+              onSaved={() => { setHarvest(null); harvests.reload(); tray.reload(); }} />}
           </>
         )}
       </LoadState>
