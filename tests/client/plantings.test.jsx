@@ -33,10 +33,12 @@ const freshPlanting = () => ({
 let calls;
 let pack;
 let taskConflict;
+let plantingConflict;
 function stub() {
   calls = [];
   pack = null;
   taskConflict = false;
+  plantingConflict = false;
   planting = freshPlanting();
   PLACES = [
     { id: 1, name: 'Home', status: 'current', hemisphere: 'north', zone: '7b', last_frost: '03-20', first_frost: '11-10', frost_free: 0, wet_months: [], time_zone: 'UTC', sort_order: 0 },
@@ -56,6 +58,10 @@ function stub() {
     if (url === '/api/plantings/preview') return json({ tasks: [{ kind: 'start_seeds', due_on: body.start_on, end_on: null, guide: { id: 30, title: 'Starting tomatoes' }, supplies: [] }, { kind: 'transplant', due_on: '2027-03-30', end_on: null, guide: null, supplies: [] }] });
     if (url.startsWith('/api/plantings?')) return json([{ ...planting, next_task: { id: 21, kind: 'start_seeds', title: null, due_on: '2027-01-23' }, cover: null }]);
     if (url === '/api/plantings' && m === 'POST') return json({ ...planting, ...body, id: 9 }, 201);
+    if (url === '/api/plantings/9' && m === 'PATCH') {
+      if (plantingConflict && body.version === 1) return json({ error: 'conflict', code: 'conflict', current: { ...planting, row_m: 1.04, version: 2 } }, 409);
+      return json({ ...planting, ...body, version: body.version + 1 });
+    }
     if (url === '/api/plantings/9') return json(planting);
     if (url === '/api/tasks/21' && m === 'PATCH') {
       planting.tasks[0] = { ...planting.tasks[0], done_on: body.done_on, version: 2 };
@@ -134,6 +140,22 @@ describe('plan a planting', () => {
     const preview = await screen.findByRole('region', { name: 'Tasks it will make' });
     expect(await within(preview).findByText('Start seeds')).toBeInTheDocument();
     expect(within(preview).getByText('Move outside')).toBeInTheDocument();
+  });
+});
+
+describe('row length', () => {
+  it('taking the newer saved row length keeps it when saving a note', async () => {
+    stub();
+    planting.row_m = 1;
+    plantingConflict = true;
+    mount('/plantings/9/edit');
+    await userEvent.type(await screen.findByLabelText('Notes'), 'Mulched');
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await userEvent.click(await screen.findByRole('button', { name: 'Reload the latest' }));
+    await userEvent.type(screen.getByLabelText('Notes'), 'Mulched');
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await vi.waitFor(() => expect(calls.filter(c => c.url === '/api/plantings/9' && c.m === 'PATCH')).toHaveLength(2));
+    expect(calls.filter(c => c.url === '/api/plantings/9' && c.m === 'PATCH')[1].body).toMatchObject({ version: 2, row_m: 1.04 });
   });
 });
 

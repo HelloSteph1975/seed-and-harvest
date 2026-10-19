@@ -26,6 +26,7 @@ export function createContext(config) {
     reopen() {
       ctx.db = open(config.dataDir, config.contentDir);
       untrashLivePhotos(ctx.db, config.dataDir);
+      try { retryPending(ctx); } catch (err) { console.error('Could not retry sends to Hearth & Larder:', err.message); }
       return ctx.db;
     },
   };

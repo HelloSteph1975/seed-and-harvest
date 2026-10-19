@@ -102,12 +102,14 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
   const [pick] = useState(() => pickWith({ ...defaults, place: fallbackPlace }, units));
   const [initial] = useState(() => pick(record));
   const [target, setTarget] = useState(record ? { id: record.id, version: record.version } : null);
+  // The row length as shown and as stored, kept together so an untouched field saves back exactly.
+  const [rowStart, setRowStart] = useState(() => ({ text: initial.row_m, metric: record ? record.row_m : defaults.row ?? null }));
 
   const submit = useCallback(async (v, { version: forced }) => {
     const n = v.count.trim();
     if (n && !/^\d+$/.test(n)) throw new ApiError('Please fix the highlighted fields.', 400, { count: '' }, null, { detailCodes: { count: { code: 'not_whole' } } });
     let row;
-    try { row = keepOrConvert('length', v.row_m, initial.row_m, record ? record.row_m : defaults.row ?? null, units); } catch (err) {
+    try { row = keepOrConvert('length', v.row_m, rowStart.text, rowStart.metric, units); } catch (err) {
       if (!(err instanceof UnitError)) throw err;
       throw new ApiError('Please fix the highlighted fields.', 400, { row_m: '' }, null, { detailCodes: { row_m: { code: 'not_number' } } });
     }
@@ -125,8 +127,9 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
       ? await api.patch(`/api/plantings/${target.id}`, { ...body, version: forced ?? target.version })
       : await api.post('/api/plantings', body);
     setTarget({ id: out.id, version: out.version });
+    setRowStart({ text: toDisplay('length', out.row_m, units), metric: out.row_m ?? null });
     return out;
-  }, [target, initial, record, defaults.row, units]);
+  }, [target, rowStart, units]);
   const f = useRecordForm({ initial, submit });
   const v = f.values;
 
@@ -169,7 +172,11 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
   const done = out => { if (out && !f.isDirtyNow()) navigate(`/plantings/${out.id}`); };
   const save = async e => done(await f.onSubmit(e));
   const keep = async () => done(await f.keepMine());
-  const takeTheirs = () => { setTarget(s => ({ ...s, version: f.conflict.version })); f.takeTheirs(pick); };
+  const takeTheirs = () => {
+    setTarget(s => ({ ...s, version: f.conflict.version }));
+    setRowStart({ text: toDisplay('length', f.conflict.row_m, units), metric: f.conflict.row_m ?? null });
+    f.takeTheirs(pick);
+  };
   const cancel = () => navigate(target ? `/plantings/${target.id}` : '/plantings');
   const canSave = spaceShown && Boolean(v.plant_id && v.how_started && v.start_on) && (!record || f.dirty);
   const plantName = p => starterText(tc, p, 'name', p.name);

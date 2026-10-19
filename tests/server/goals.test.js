@@ -67,6 +67,19 @@ describe('pantry goals', () => {
   });
 });
 
+describe('goal preserving forms', () => {
+  it('a goal keeps its preserving form when the forms are reordered or an earlier one is removed', async () => {
+    const p = await plant({ preserves: [{ form: 'Whole', unit: 'quart', raw_kg: 1.5 }, { form: 'Sauce', unit: 'quart', raw_kg: 4.5 }] });
+    await post('/api/goals', { year: 2027, plant_id: p.id, goal_kind: 'preserve', amount: 24, preserve_position: 2 });
+    const get = async () => (await t.http().get('/api/goals?year=2027')).body[0];
+    let v = (await t.http().get(`/api/plants/${p.id}`)).body.version;
+    v = (await t.http().patch(`/api/plants/${p.id}`).send({ version: v, preserves: [{ form: 'Sauce', unit: 'quart', raw_kg: 4.5 }, { form: 'Whole', unit: 'quart', raw_kg: 1.5 }] })).body.version;
+    expect(await get()).toMatchObject({ preserve: { form: 'Sauce' }, preserve_position: 1, suggestion: { amount: 24 } });
+    await t.http().patch(`/api/plants/${p.id}`).send({ version: v, preserves: [{ form: 'Whole', unit: 'quart', raw_kg: 1.5 }] });
+    expect(await get()).toMatchObject({ preserve: null, suggestion: { needs: 'preserve' } });
+  });
+});
+
 describe('to buy', () => {
   async function garden() {
     const place = await post('/api/places', { name: 'Springfield', time_zone: 'UTC', last_frost: '04-01', first_frost: '10-30' });
@@ -105,4 +118,22 @@ describe('to buy', () => {
     const out = (await t.http().get(`/api/plan/to-buy?year=2027&place_id=${g.place.id}`)).body;
     expect(out.supplies.map(s => s.name)).toContain('Row cover');
   });
+
+describe('to buy supplies', () => {
+  it('supplies come only from the planned plantings of that year', async () => {
+    const place = await post('/api/places', { name: 'Springfield', time_zone: 'UTC', last_frost: '04-01', first_frost: '10-30' });
+    const bed = await post('/api/spaces', { place_id: place.id, name: 'Bed', kind: 'bed' });
+    const make = async (name, supply) => {
+      const p = await post('/api/plants', { name, kind: 'vegetable', days_min: 60, days_max: 70 });
+      await post('/api/guides', { plant_id: p.id, stage: 'sow_outdoors', title: `Sowing ${name}`, steps: ['Sow.'], supplies: [{ name: supply }] });
+      return p;
+    };
+    const pea = await make('Pea', 'Trellis netting');
+    const corn = await make('Corn', 'Stakes');
+    await post('/api/plantings', { space_id: bed.id, plant_id: pea.id, how_started: 'seed_outdoors', start_on: '2027-04-10', status: 'planned' });
+    await post('/api/plantings', { space_id: bed.id, plant_id: corn.id, how_started: 'seed_outdoors', start_on: '2027-04-10', status: 'growing' });
+    const out = (await t.http().get(`/api/plan/to-buy?year=2027&place_id=${place.id}`)).body;
+    expect(out.supplies.map(s => s.name)).toEqual(['Trellis netting']);
+  });
+});
 });

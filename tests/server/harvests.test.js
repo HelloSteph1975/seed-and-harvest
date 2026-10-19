@@ -115,4 +115,20 @@ describe('harvests', () => {
     await t.http().post('/api/trash/empty').expect(200);
     expect((await t.http().get(`/api/harvests/${h.id}`)).body).toMatchObject({ animal_id: null, animals_qty: 1 });
   });
+
+  it('a harvest whose animal was emptied from the Trash still saves a note', async () => {
+    const place = (await t.http().post('/api/places').send({ name: 'Springfield', time_zone: 'UTC' })).body;
+    const bed = (await t.http().post('/api/spaces').send({ place_id: place.id, name: 'Bed', kind: 'bed' })).body;
+    const tomato = (await t.http().get('/api/plants')).body.find(p => p.starter_key === 'plant.test-tomato');
+    const p = (await t.http().post('/api/plantings').send({ space_id: bed.id, plant_id: tomato.id, how_started: 'start', start_on: '2027-04-10' })).body;
+    const goats = (await t.http().post('/api/animals').send({ name: 'Goats', kind: 'goat' })).body;
+    const h = (await t.http().post('/api/harvests').send({ planting_id: p.id, harvested_on: '2027-07-01', quantity: 2, unit: 'kg', animals_qty: 1, animal_id: goats.id })).body;
+    await t.http().delete(`/api/animals/${goats.id}`).expect(200);
+    await t.http().post('/api/trash/empty').expect(200);
+    const v = (await t.http().get(`/api/harvests/${h.id}`)).body.version;
+    const res = await t.http().patch(`/api/harvests/${h.id}`).send({ version: v, notes: 'Good year', quantity: 2, animals_qty: 1, animal_id: null });
+    expect(res.status).toBe(200);
+    const raised = await t.http().patch(`/api/harvests/${h.id}`).send({ version: res.body.version, animals_qty: 1.5, animal_id: null });
+    expect(raised.status).toBe(400);
+  });
 });

@@ -43,7 +43,9 @@ function parse(db, body, existing) {
     else if (merged.tray_id != null && data.tray_id !== undefined && !liveTray(db, merged.tray_id)) c.fail('tray_id', 'That tray is gone', 'planting_gone');
   }
   if (!c.errors.quantity && merged.quantity != null && !(merged.quantity > 0)) c.fail('quantity', 'Must be more than 0', 'too_small', { min: 0 });
-  if ((merged.animals_qty ?? 0) > 0 && merged.animal_id == null && !c.errors.animal_id) c.fail('animal_id', 'Required', 'required');
+  // An old harvest whose animal was emptied from the Trash keeps its animal part; only a new or changed part needs an animal.
+  const animalsChanged = !existing || (data.animals_qty !== undefined && data.animals_qty !== existing.animals_qty);
+  if (animalsChanged && (merged.animals_qty ?? 0) > 0 && merged.animal_id == null && !c.errors.animal_id) c.fail('animal_id', 'Required', 'required');
   if (data.animal_id != null && data.animal_id !== existing?.animal_id && !c.errors.animal_id
     && !one(db, 'SELECT 1 FROM animals WHERE id = ? AND deleted_at IS NULL', data.animal_id)) c.fail('animal_id', 'That animal is gone', 'animal_gone');
   const sent = PARTS.reduce((n, k) => n + (merged[k] ?? 0), 0);

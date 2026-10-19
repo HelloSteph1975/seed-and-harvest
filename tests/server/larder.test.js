@@ -8,6 +8,9 @@ function fakeLarder() {
   fake.fetch = async (url, opts = {}) => {
     fake.calls.push({ url, method: opts.method ?? 'GET', body: opts.body ? JSON.parse(opts.body) : null });
     if (fake.down) throw new TypeError('fetch failed');
+    // Hearth & Larder took it, but the reply never came back.
+    if (fake.lost) throw new DOMException('The operation timed out.', 'TimeoutError');
+    if (fake.hold) await fake.hold;
     return new Response(JSON.stringify({ ok: true }), { status: fake.status });
   };
   return fake;
@@ -176,5 +179,53 @@ describe('Hearth & Larder link', () => {
     await idle();
     expect(fake.calls.map(c => [c.method, c.url.split('/').pop()])).toEqual([['PUT', String(a.id)]]);
     expect(harvest(a.id).larder_state).toBe('sent');
+  });
+
+  it('a send whose reply was lost still gets its removal', async () => {
+    const { planting } = await setup();
+    fake.lost = true;
+    const h = await record(planting);
+    await idle();
+    expect(harvest(h.id).larder_state).toBe('failed');
+    fake.lost = false;
+    await t.http().delete(`/api/harvests/${h.id}`);
+    await idle();
+    expect(fake.calls.at(-1)).toMatchObject({ method: 'DELETE' });
+    expect(harvest(h.id).larder_state).toBe('removed');
+  });
+
+  it('a lost first send of a harvest emptied from the Trash is removed later', async () => {
+    const { planting } = await setup();
+    fake.lost = true;
+    const h = await record(planting);
+    await idle();
+    fake.down = true;
+    await t.http().delete(`/api/harvests/${h.id}`);
+    await idle();
+    await t.http().post('/api/trash/empty').expect(200);
+    await idle();
+    fake.down = false;
+    fake.lost = false;
+    fake.calls = [];
+    await retryPending(t.ctx);
+    await idle();
+    expect(fake.calls.map(c => c.method)).toEqual(['DELETE']);
+  });
+
+  it('a send in flight across a restore is sent again to the restored database', async () => {
+    const { planting } = await setup();
+    let release;
+    fake.hold = new Promise(r => { release = r; });
+    const h = await record(planting);
+    await new Promise(r => setTimeout(r, 20));
+    expect(fake.calls).toHaveLength(1);
+    t.ctx.db.close();
+    t.ctx.reopen();
+    fake.hold = null;
+    release();
+    await idle();
+    await idle();
+    expect(fake.calls.length).toBe(2);
+    expect(harvest(h.id).larder_state).toBe('sent');
   });
 });

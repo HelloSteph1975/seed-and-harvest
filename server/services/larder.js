@@ -53,33 +53,40 @@ async function call(ctx, url, opts) {
 // Sends one harvest's current state: its larder part (PUT), or its removal (DELETE) when the part is 0 or the
 // harvest is in the Trash. A removal is only sent for a harvest that reached Hearth & Larder before.
 export async function syncHarvest(ctx, id) {
-  const settings = getSettings(ctx.db);
-  const row = ctx.db.prepare(ROW).get(id);
-  if (!row) { await sendOwedRemoval(ctx, settings, id); return; }
-  if (!settings.larder_link) { setState(ctx.db, id, 'off'); return; }
+  // A restore swaps the database while a send waits; its answer then belongs to data that is gone, so it is
+  // dropped (the restore queues the restored harvests again).
+  const db = ctx.db;
+  const settings = getSettings(db);
+  const row = db.prepare(ROW).get(id);
+  if (!row) { await sendOwedRemoval(ctx, db, settings, id); return; }
+  if (!settings.larder_link) { setState(db, id, 'off'); return; }
   const url = `${settings.larder_url}/api/harvests/external/${SOURCE}/${id}`;
   const remove = row.deleted_at != null || !(row.larder_qty > 0);
-  if (remove && !row.larder_sent_at) { setState(ctx.db, id, row.larder_state === 'removed' ? 'removed' : 'off'); return; }
+  if (remove && !row.larder_touched) { setState(db, id, row.larder_state === 'removed' ? 'removed' : 'off'); return; }
+  if (!remove) db.prepare('UPDATE harvests SET larder_touched = 1 WHERE id = ?').run(id);
   const error = remove
     ? await call(ctx, url, { method: 'DELETE' })
     : await call(ctx, url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload(row, settings.units)) });
-  if (error) setState(ctx.db, id, 'failed', { error });
-  else if (remove) setState(ctx.db, id, 'removed', { sentAt: null });
-  else setState(ctx.db, id, 'sent', { sentAt: new Date(ctx.now()).toISOString() });
+  if (ctx.db !== db) return;
+  if (error) setState(db, id, 'failed', { error });
+  else if (remove) {
+    setState(db, id, 'removed', { sentAt: null });
+    db.prepare('UPDATE harvests SET larder_touched = 0 WHERE id = ?').run(id);
+  } else setState(db, id, 'sent', { sentAt: new Date(ctx.now()).toISOString() });
 }
 
 // A harvest emptied from the Trash while its copy was still in Hearth & Larder (or the removal had not gone
 // through): the removal is kept in the outbox until Hearth & Larder takes it.
 export function owesRemoval(ctx, row) {
-  if (!row.larder_sent_at || row.larder_state === 'removed') return;
+  if (!row.larder_touched) return;
   ctx.db.prepare('INSERT OR IGNORE INTO larder_outbox (harvest_id) VALUES (?)').run(row.id);
   ctx.larder.queue(row.id);
 }
 
-async function sendOwedRemoval(ctx, settings, id) {
-  if (!settings.larder_link || !ctx.db.prepare('SELECT 1 FROM larder_outbox WHERE harvest_id = ?').get(id)) return;
+async function sendOwedRemoval(ctx, db, settings, id) {
+  if (!settings.larder_link || !db.prepare('SELECT 1 FROM larder_outbox WHERE harvest_id = ?').get(id)) return;
   const error = await call(ctx, `${settings.larder_url}/api/harvests/external/${SOURCE}/${id}`, { method: 'DELETE' });
-  if (!error) ctx.db.prepare('DELETE FROM larder_outbox WHERE harvest_id = ?').run(id);
+  if (!error && ctx.db === db) db.prepare('DELETE FROM larder_outbox WHERE harvest_id = ?').run(id);
 }
 
 // One send at a time, in order, each after the save that asked for it has finished.
@@ -115,7 +122,7 @@ export function retryPending(ctx) {
 // Turning the link on: every harvest that should be in Hearth & Larder (or taken out of it) gets sent.
 export function sendAll(ctx) {
   const rows = ctx.db.prepare(`SELECT id FROM harvests WHERE (deleted_at IS NULL AND larder_qty > 0)
-    OR (larder_sent_at IS NOT NULL AND larder_state != 'removed') ORDER BY id`).all();
+    OR larder_touched = 1 ORDER BY id`).all();
   for (const { id } of rows) harvestChanged(ctx, id);
   return retryPending(ctx);
 }

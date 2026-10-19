@@ -33,9 +33,15 @@ function parse(db, body, existing) {
   }
   if (m.goal_kind === 'raw' && m.unit == null && !c.errors.unit) c.fail('unit', 'Required', 'required');
   if (m.goal_kind === 'preserve' && m.preserve_position == null && !c.errors.preserve_position) c.fail('preserve_position', 'Required', 'required');
+  // The goal remembers the form by name, so reordering or removing other forms never changes what it means.
+  if (m.goal_kind === 'preserve' && (data.preserve_position !== undefined || data.plant_id !== undefined) && !c.any()) {
+    const form = preservesFor(db, m.plant_id)[m.preserve_position - 1];
+    if (!form) c.fail('preserve_position', 'That preserving form is gone', 'preserve_gone');
+    else data.preserve_form = form.form;
+  }
   if (c.any()) throw invalid(c.errors, c.codes);
   // A raw goal has no preserving form, and a preserve goal is counted in jars.
-  if (m.goal_kind === 'raw') data.preserve_position = null;
+  if (m.goal_kind === 'raw') { data.preserve_position = null; data.preserve_form = null; }
   if (m.goal_kind === 'preserve') data.unit = null;
   return data;
 }
@@ -57,12 +63,14 @@ function shape(db, g) {
   const preserves = preservesFor(db, g.plant_id);
   const unit = g.goal_kind === 'raw' && g.unit === 'count' ? 'count' : 'kg';
   const history = historyFor(db, g.plant_id, g.year - 1, plant.yield_per ?? 'plant', unit);
-  const preserve = g.goal_kind === 'preserve' ? preserves[g.preserve_position - 1] ?? null : null;
+  const at = g.goal_kind === 'preserve' ? preserves.findIndex(p => p.form === g.preserve_form) : -1;
+  const preserve = at >= 0 ? preserves[at] : null;
+  const goal = { ...g, preserve_position: at >= 0 ? at + 1 : null };
   return {
-    ...g,
+    ...goal,
     plant: { id: plant.id, name: plant.name, starter_key: plant.starter_key, is_starter: plant.is_starter },
     preserve,
-    suggestion: suggestFor(g, { ...plant, preserves }, history),
+    suggestion: suggestFor(goal, { ...plant, preserves }, history),
   };
 }
 
@@ -130,7 +138,7 @@ export function purgeGoal(ctx, row) {
 // variety, with the counts and rows added up), and the supplies their guides list for that year.
 export function toBuy(db, { year, place_id }) {
   yearOk(year);
-  const rows = db.prepare(`SELECT pl.how_started, pl.count, pl.row_m, p.id AS plant_id, p.name, p.starter_key, p.is_starter,
+  const rows = db.prepare(`SELECT pl.id, pl.how_started, pl.count, pl.row_m, p.id AS plant_id, p.name, p.starter_key, p.is_starter,
       v.id AS variety_id, v.name AS variety_name, s.name AS space_name
     FROM plantings pl JOIN plants p ON p.id = pl.plant_id JOIN spaces s ON s.id = pl.space_id AND s.deleted_at IS NULL
     LEFT JOIN plant_varieties v ON v.id = pl.variety_id AND v.deleted_at IS NULL
@@ -156,6 +164,6 @@ export function toBuy(db, { year, place_id }) {
     year,
     seeds: group(rows.filter(r => r.how_started.startsWith('seed_'))),
     plants: group(rows.filter(r => !r.how_started.startsWith('seed_'))),
-    supplies: listSupplies(db, { place_id, from: `${year}-01-01`, to: `${year}-12-31` }),
+    supplies: listSupplies(db, { place_id, from: `${year}-01-01`, to: `${year}-12-31`, plantingIds: rows.map(r => r.id) }),
   };
 }

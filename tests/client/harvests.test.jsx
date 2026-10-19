@@ -18,10 +18,12 @@ const HARVEST = {
   source: { kind: 'planting', id: 9 },
 };
 let calls;
+let harvest;
 let pack;
 let units;
 function stub() {
   calls = [];
+  harvest = HARVEST;
   pack = null;
   units = 'us';
   vi.stubGlobal('fetch', vi.fn(async (url, opts = {}) => {
@@ -42,9 +44,9 @@ function stub() {
         animals: { kg: 0, count: 0, bunch: 0 }, given: { kg: 0, count: 0, bunch: 0 }, sold: { kg: 0.45359237, count: 0, bunch: 0 }, kept: { kg: 1.81436948, count: 0, bunch: 0 }, income: 12 }],
       by_place: [{ place_id: 1, name: 'Home', kg: 4.5359237, count: 0, bunch: 0, income: 12 }],
       totals: { kg: 4.5359237, count: 0, bunch: 0, income: 12 } });
-    if (url.startsWith('/api/harvests?')) return json([HARVEST]);
+    if (url.startsWith('/api/harvests?')) return json([harvest]);
     if (url === '/api/harvests' && m === 'POST') return json({ ...HARVEST, ...body, id: 71 }, 201);
-    if (url === '/api/harvests/70' && m === 'PATCH') return json({ ...HARVEST, ...body, version: 2 });
+    if (url === '/api/harvests/70' && m === 'PATCH') return json({ ...harvest, ...body, version: 2 });
     if (url.startsWith('/api/photos?')) return json([]);
     return json({}, 404);
   }));
@@ -157,6 +159,33 @@ describe('harvest lists', () => {
     stub();
     mount('/harvests?tab=summary&year=2026');
     expect(await screen.findByText('Nothing harvested in 2026 yet.')).toBeInTheDocument();
+  });
+
+  it('a small harvest whose parts show rounded up still saves a note', async () => {
+    stub();
+    units = 'metric';
+    harvest = { ...HARVEST, quantity: 0.14, larder_qty: 0.07, given_qty: 0.07, sold_qty: 0, sold_price: null, sold_to: null, kept_qty: 0 };
+    mount('/plantings/9');
+    const box = await screen.findByRole('region', { name: 'Harvests' });
+    await userEvent.click(await within(box).findByRole('button', { name: /Edit the harvest/ }));
+    const dialog = await screen.findByRole('dialog');
+    expect(within(dialog).queryByText(/add up to more than the harvest/)).not.toBeInTheDocument();
+    await userEvent.type(within(dialog).getByLabelText('Notes'), 'Tiny');
+    expect(within(dialog).getByRole('button', { name: 'Save' })).toBeEnabled();
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Save' }));
+    await vi.waitFor(() => expect(calls.find(c => c.url === '/api/harvests/70')).toBeDefined());
+    expect(calls.find(c => c.url === '/api/harvests/70').body).toMatchObject({ quantity: 0.14, larder_qty: 0.07, given_qty: 0.07 });
+  });
+
+  it('an old harvest whose animal is gone still saves without picking one', async () => {
+    stub();
+    harvest = { ...HARVEST, animals_qty: 0.45359237, animal_id: null, sold_qty: 0, sold_price: null, sold_to: null };
+    mount('/plantings/9');
+    const box = await screen.findByRole('region', { name: 'Harvests' });
+    await userEvent.click(await within(box).findByRole('button', { name: /Edit the harvest/ }));
+    const dialog = await screen.findByRole('dialog');
+    await userEvent.type(within(dialog).getByLabelText('Notes'), 'Old');
+    expect(within(dialog).getByRole('button', { name: 'Save' })).toBeEnabled();
   });
 
   it('sending all of a weight shown rounded is not refused', async () => {

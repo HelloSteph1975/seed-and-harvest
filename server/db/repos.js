@@ -24,7 +24,7 @@ export const ANIMAL_COLUMNS = ['name', 'kind', 'notes', 'sort_order'];
 export const TRAY_COLUMNS = ['plant_id', 'space_id', 'animal_id', 'tray_count', 'seed_g', 'sown_on', 'harvest_on', 'status', 'harvested_on', 'series_id', 'repeat_days', 'notes'];
 export const HARVEST_COLUMNS = ['planting_id', 'tray_id', 'harvested_on', 'quantity', 'unit', 'larder_qty', 'animals_qty', 'animal_id', 'given_qty',
   'given_to', 'sold_qty', 'sold_price', 'sold_to', 'notes', 'larder_state', 'larder_error', 'larder_sent_at'];
-export const GOAL_COLUMNS = ['year', 'plant_id', 'goal_kind', 'amount', 'unit', 'preserve_position', 'notes', 'sort_order'];
+export const GOAL_COLUMNS = ['year', 'plant_id', 'goal_kind', 'amount', 'unit', 'preserve_position', 'preserve_form', 'notes', 'sort_order'];
 export const LOG_COLUMNS = ['planting_id', 'on_date', 'kind', 'note', 'task_id'];
 
 const parseList = text => { try { const v = JSON.parse(text); return Array.isArray(v) ? v : []; } catch { return []; } };

@@ -37,6 +37,10 @@ function amountOf(v, k, units, start) {
   return n;
 }
 
+// Weights show one decimal, so parts typed from the shown total can add up to a hair more than the stored
+// amount. This much (in kg) is let through as rounding.
+const slackFor = (unit, units) => (unit === 'kg' ? (units === 'metric' ? 0.05 : 0.05 * 0.45359237) : 0);
+
 // Record a harvest from a planting or a tray, or edit one.
 export function HarvestDialog({ source, record, today, onClose, onSaved }) {
   const { t } = useT();
@@ -54,10 +58,9 @@ export function HarvestDialog({ source, record, today, onClose, onSaved }) {
     for (const k of AMOUNTS) {
       try { body[k] = amountOf(v, k, units, start); } catch (err) { if (!(err instanceof UnitError)) throw err; bad[k] = { code: 'not_number' }; }
     }
-    // Weights show one decimal, so parts typed from the shown total can add up to a hair more than the
-    // stored amount. Within that rounding, the last part typed gives way.
+    // Within that rounding, the last part typed gives way.
     const over = PARTS.reduce((n, k) => n + (body[k] ?? 0), 0) - (body.quantity ?? 0);
-    const slack = v.unit === 'kg' ? (units === 'metric' ? 0.05 : 0.05 * 0.45359237) : 0;
+    const slack = slackFor(v.unit, units);
     if (over > 1e-9 && over <= slack + 1e-9) {
       const typed = [...PARTS].reverse().find(k => v[k] !== start.text[k] && body[k] >= over);
       if (typed) body[typed] = Math.max(0, Math.round((body[typed] - over) * 1e9) / 1e9);
@@ -75,14 +78,16 @@ export function HarvestDialog({ source, record, today, onClose, onSaved }) {
   const f = useRecordForm({ initial, submit });
   const v = f.values;
 
-  // What was kept fresh, worked out live in the units on screen.
-  const num = s => { const n = Number(String(s).trim().replace(',', '.') || 0); return Number.isFinite(n) ? n : NaN; };
-  const total = num(v.quantity);
-  const parts = PARTS.reduce((n, k) => n + num(v[k]), 0);
-  const kept = Math.round((total - parts) * 100) / 100;
-  const tooMuch = total > 0 && kept < 0;
+  // What was kept fresh, worked out live from the amounts as they will be saved (untouched ones exactly as stored).
+  const exact = k => { try { return amountOf(v, k, units, start); } catch { return NaN; } };
+  const total = exact('quantity');
+  const parts = PARTS.reduce((n, k) => n + exact(k), 0);
+  const tooMuch = total > 0 && parts - total > slackFor(v.unit, units) + 1e-9;
+  const left = Math.max(0, total - parts);
+  const kept = v.unit === 'kg' ? toDisplay('weight', left, units) : String(Math.round(left * 100) / 100);
   const label = v.unit === 'kg' ? unitLabel('weight', units) : t(`harvests.unit.${v.unit}`);
-  const needsAnimal = num(v.animals_qty) > 0 && !v.animal_id;
+  // An old harvest whose animal was emptied from the Trash keeps its part; only a new or changed part needs one.
+  const needsAnimal = exact('animals_qty') > 0 && !v.animal_id && (!record || v.animals_qty !== start.text.animals_qty);
   const save = async e => { if (await f.onSubmit(e)) onSaved(); };
   const keep = async () => { if (await f.keepMine()) onSaved(); };
   const canSave = total > 0 && !tooMuch && !needsAnimal && Boolean(v.harvested_on) && (!record || f.dirty);
