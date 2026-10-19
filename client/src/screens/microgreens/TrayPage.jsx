@@ -128,10 +128,12 @@ function TrayPage({ id }) {
             </div>
             <section aria-labelledby="tray-harvests-title">
               <h2 id="tray-harvests-title">{t('nav.harvests')}</h2>
-              {harvests.data?.length === 0 && <p className="muted">{t('harvests.noneHere')}</p>}
-              <ul className="list">
-                {harvests.data?.map(h => <HarvestLine key={h.id} h={h} today={today} showCrop={false} onEdit={setHarvest} onDelete={removeHarvest} onSend={sendAgain} />)}
-              </ul>
+              <LoadState loading={harvests.loading && !harvests.data} error={harvests.error} keepChildren={Boolean(harvests.data)} onRetry={harvests.reload}>
+                {harvests.data?.length === 0 && <p className="muted">{t('harvests.noneHere')}</p>}
+                <ul className="list">
+                  {harvests.data?.map(h => <HarvestLine key={h.id} h={h} today={today} showCrop={false} onEdit={setHarvest} onDelete={removeHarvest} onSend={sendAgain} />)}
+                </ul>
+              </LoadState>
               <Button variant="ghost" icon={Plus} onClick={() => setHarvest({})}>{t('harvests.recordTray')}</Button>
             </section>
             <PhotoGallery ownerType="tray" ownerId={x.id} />
