@@ -58,7 +58,7 @@ Record a harvest from a planting's page, or from a microgreen tray. Weigh it, co
 
 If you also use Hearth & Larder on the same computer, Seed & Harvest can send it the larder part of each harvest. The link is off until you turn it on in Settings, under Hearth & Larder: tick the box, leave the address as it is unless you moved Hearth & Larder to another port, save, and press Test the link.
 
-Each harvest then shows Sent, Sending or Not sent. A harvest always saves here, even when Hearth & Larder is closed; press Send again later, or let the app try again the next time it starts. Editing a harvest updates the copy in Hearth & Larder, and deleting it (or setting its larder part to zero) removes that copy. Turning the link off stops sending and leaves what was already sent where it is.
+Each harvest then shows Sent, Sending or Not sent. A harvest always saves here, even when Hearth & Larder is closed; press Send again later, or let the app try again the next time it starts. Editing a harvest updates the copy in Hearth & Larder, and deleting it (or setting its larder part to zero) removes that copy. Turning the link off stops sending and leaves what was already sent where it is. Weights go over in pounds or kilograms, whichever Settings uses at the time; a harvest sent before you switch units keeps the old unit in Hearth & Larder until it is sent again, which happens when you edit it or turn the link off and on.
 
 ## Winter planning
 

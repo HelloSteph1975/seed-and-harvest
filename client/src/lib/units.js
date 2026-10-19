@@ -31,13 +31,18 @@ export class UnitError extends Error {}
 
 const sys = units => (units === 'metric' ? 'metric' : 'us');
 
-// One decimal, without a trailing ".0". Spacing of 3 inches or more shows whole inches; a little
+// One decimal, without a trailing ".0". Spacing of 3 inches or more shows whole inches. A weight under
+// one pound or kilogram shows two decimals, so a tray of microgreens reads 0.05 kg, not 0.1; a little
 // seed or a light harvest never shows as 0.
 export function toDisplay(kind, metric, units) {
   if (metric === null || metric === undefined || Number.isNaN(metric)) return '';
   const raw = TO_DISPLAY[kind][sys(units)](metric);
-  let v = kind === 'spacing' && sys(units) === 'us' && raw >= 3 ? Math.round(raw) : Math.round(raw * 10) / 10;
-  if ((kind === 'seed' || kind === 'weight') && metric > 0 && v === 0) v = 0.1;
+  let v;
+  if (kind === 'spacing' && sys(units) === 'us' && raw >= 3) v = Math.round(raw);
+  else if (kind === 'weight' && Math.abs(raw) < 1) v = Math.round(raw * 100) / 100;
+  else v = Math.round(raw * 10) / 10;
+  if (kind === 'seed' && metric > 0 && v === 0) v = 0.1;
+  if (kind === 'weight' && metric > 0 && v === 0) v = 0.01;
   return String(Object.is(v, -0) ? 0 : v);
 }
 
