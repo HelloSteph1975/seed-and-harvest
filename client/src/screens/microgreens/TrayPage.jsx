@@ -17,6 +17,7 @@ import { addDays, dayText } from '../../lib/tasks.js';
 import { toDisplay, unitLabel } from '../../lib/units.js';
 import { safetyNote } from '../../lib/safety.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
+import { HarvestDialog } from '../harvests/HarvestDialog.jsx';
 
 export function TrayPageRoute() {
   const { id } = useParams();
@@ -56,6 +57,7 @@ function TrayPage({ id }) {
 
   // One request at a time: a double click must not sow two trays or cut one twice.
   const [busy, setBusy] = useState(false);
+  const [recording, setRecording] = useState(false);
   const inFlight = useRef(false);
   const once = async fn => {
     if (inFlight.current) return;
@@ -115,10 +117,13 @@ function TrayPage({ id }) {
               {x.status === 'planned' && <Button disabled={busy} onClick={() => change({ status: 'growing', sown_on: today, harvest_on: addDays(today, x.plant.days_min ?? 7) })}>{t('trays.sownToday')}</Button>}
               {x.status === 'growing' && <Button disabled={busy} onClick={() => change({ status: 'harvested', harvested_on: today })}>{t('trays.harvestedToday')}</Button>}
               {x.status === 'growing' && <Button variant="ghost" disabled={busy} onClick={() => change({ status: 'discarded' })}>{t('trays.discard')}</Button>}
+              <Button variant="ghost" disabled={busy} onClick={() => setRecording(true)}>{t('harvests.recordTray')}</Button>
               <Button variant="ghost" disabled={busy} onClick={sowAgain}>{t('trays.sowAgain')}</Button>
               {x.next_sow_on && <Button variant="ghost" disabled={busy} onClick={() => change({ repeat_days: null })}>{t('trays.stopRepeat')}</Button>}
             </div>
             <PhotoGallery ownerType="tray" ownerId={x.id} />
+            {recording && <HarvestDialog source={{ tray_id: x.id }} record={null} today={today} onClose={() => setRecording(false)}
+              onSaved={() => { setRecording(false); tray.reload(); }} />}
           </>
         )}
       </LoadState>

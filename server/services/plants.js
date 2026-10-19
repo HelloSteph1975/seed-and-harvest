@@ -187,6 +187,7 @@ export function deletePlant(ctx, id) {
     if (!repos(db).plants.remove(id, stamp)) throw notFound();
     db.prepare('UPDATE plant_varieties SET deleted_at = ?, version = version + 1 WHERE plant_id = ? AND deleted_at IS NULL').run(stamp, id);
     db.prepare('UPDATE guides SET deleted_at = ?, version = version + 1 WHERE plant_id = ? AND deleted_at IS NULL').run(stamp, id);
+    db.prepare('UPDATE pantry_goals SET deleted_at = ?, version = version + 1 WHERE plant_id = ? AND deleted_at IS NULL').run(stamp, id);
     cascadeDeletePhotos(ctx, 'plant', id, stamp);
   });
 }
@@ -197,7 +198,7 @@ export function restorePlant(ctx, id) {
     const row = repos(db).plants.get(id, { includeDeleted: true });
     if (!row || !row.deleted_at) throw notInTrash();
     repos(db).plants.restore(id);
-    for (const table of ['plant_varieties', 'guides']) {
+    for (const table of ['plant_varieties', 'guides', 'pantry_goals']) {
       db.prepare(`UPDATE ${table} SET deleted_at = NULL, version = version + 1, updated_at = ${NOW} WHERE plant_id = ? AND deleted_at = ?`).run(id, row.deleted_at);
     }
     cascadeRestorePhotos(ctx, 'plant', id, row.deleted_at);
@@ -221,6 +222,7 @@ export function purgePlant(ctx, row) {
   }
   db.prepare('UPDATE plantings SET variety_id = NULL WHERE variety_id IN (SELECT id FROM plant_varieties WHERE plant_id = ? AND deleted_at IS NOT NULL)').run(row.id);
   db.prepare('DELETE FROM plant_varieties WHERE plant_id = ? AND deleted_at IS NOT NULL').run(row.id);
+  db.prepare('DELETE FROM pantry_goals WHERE plant_id = ? AND deleted_at IS NOT NULL').run(row.id);
   purgeOwnerPhotos(ctx, 'plant', row.id);
   forget(db, row.starter_key);
   repos(db).plants.purge(row.id);

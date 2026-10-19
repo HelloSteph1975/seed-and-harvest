@@ -28,6 +28,8 @@ import { TrayFormRoute } from './screens/microgreens/TrayForm.jsx';
 import { TrayPageRoute } from './screens/microgreens/TrayPage.jsx';
 import { Animals } from './screens/microgreens/Animals.jsx';
 import { FoodForest } from './screens/foodforest/FoodForest.jsx';
+import { Harvests } from './screens/harvests/Harvests.jsx';
+import { Plan } from './screens/plan/Plan.jsx';
 import { PlantingFormRoute } from './screens/plantings/PlantingForm.jsx';
 import { PlantingPageRoute } from './screens/plantings/PlantingPage.jsx';
 
@@ -54,6 +56,8 @@ export const routes = [
       { path: 'supplies', element: <Supplies /> },
       { path: 'microgreens', element: <Microgreens /> },
       { path: 'food-forest', element: <FoodForest /> },
+      { path: 'harvests', element: <Harvests /> },
+      { path: 'plan', element: <Plan /> },
       { path: 'microgreens/animals', element: <Animals /> },
       { path: 'microgreens/trays/new', element: <TrayFormRoute /> },
       { path: 'microgreens/trays/:id', element: <TrayPageRoute /> },

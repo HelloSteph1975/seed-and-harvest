@@ -22,6 +22,9 @@ export const PLANTING_COLUMNS = ['space_id', 'plant_id', 'variety_id', 'count', 
 export const TASK_COLUMNS = ['planting_id', 'kind', 'title', 'due_on', 'end_on', 'done_on', 'guide_id', 'notes', 'auto', 'edited', 'season_key'];
 export const ANIMAL_COLUMNS = ['name', 'kind', 'notes', 'sort_order'];
 export const TRAY_COLUMNS = ['plant_id', 'space_id', 'animal_id', 'tray_count', 'seed_g', 'sown_on', 'harvest_on', 'status', 'harvested_on', 'series_id', 'repeat_days', 'notes'];
+export const HARVEST_COLUMNS = ['planting_id', 'tray_id', 'harvested_on', 'quantity', 'unit', 'larder_qty', 'animals_qty', 'animal_id', 'given_qty',
+  'given_to', 'sold_qty', 'sold_price', 'sold_to', 'notes', 'larder_state', 'larder_error', 'larder_sent_at'];
+export const GOAL_COLUMNS = ['year', 'plant_id', 'goal_kind', 'amount', 'unit', 'preserve_position', 'notes', 'sort_order'];
 export const LOG_COLUMNS = ['planting_id', 'on_date', 'kind', 'note', 'task_id'];
 
 const parseList = text => { try { const v = JSON.parse(text); return Array.isArray(v) ? v : []; } catch { return []; } };
@@ -47,6 +50,8 @@ export function repos(db) {
       log: createRepo(db, 'planting_log', LOG_COLUMNS, { orderBy: 'on_date DESC, id DESC' }),
       animals: createRepo(db, 'animals', ANIMAL_COLUMNS, { orderBy: 'sort_order, name COLLATE NOCASE, id' }),
       trays: createRepo(db, 'trays', TRAY_COLUMNS, { orderBy: 'sown_on DESC, id DESC' }),
+      harvests: createRepo(db, 'harvests', HARVEST_COLUMNS, { orderBy: 'harvested_on DESC, id DESC' }),
+      goals: createRepo(db, 'pantry_goals', GOAL_COLUMNS, { orderBy: 'sort_order, id' }),
     };
     cache.set(db, r);
   }

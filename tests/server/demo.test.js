@@ -85,4 +85,21 @@ describe('demo seed', () => {
     const care = t.ctx.db.prepare('SELECT COUNT(*) n FROM tasks WHERE season_key IS NOT NULL AND deleted_at IS NULL').get().n;
     expect(care).toBeGreaterThan(4);
   });
+
+  it('the demo has harvests and goals', async () => {
+    t = makeTestContext({ contentDir: CONTENT_DIR });
+    seedDemo(t.ctx);
+    seedDemo(t.ctx);
+    const year = new Date().getFullYear();
+    const harvests = (await t.http().get('/api/harvests')).body;
+    expect(harvests.length).toBeGreaterThanOrEqual(3);
+    expect(harvests.some(h => h.sold_qty > 0 && h.sold_to)).toBe(true);
+    expect(harvests.some(h => h.larder_qty > 0 && h.larder_state === 'off')).toBe(true);
+    expect(harvests.some(h => h.source.kind === 'tray')).toBe(true);
+    const goals = (await t.http().get(`/api/goals?year=${year + 1}`)).body;
+    expect(goals).toHaveLength(3);
+    expect(goals.every(g => g.suggestion.amount > 0)).toBe(true);
+    seedDemo(t.ctx, { reset: true });
+    expect((await t.http().get(`/api/goals?year=${year + 1}`)).body).toHaveLength(3);
+  });
 });

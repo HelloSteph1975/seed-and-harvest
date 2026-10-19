@@ -4,14 +4,17 @@ import userEvent from '@testing-library/user-event';
 import { App } from '../../client/src/App.jsx';
 
 let saved;
+let tested;
 const json = (b, s = 200) => new Response(JSON.stringify(b), { status: s });
 function stub({ locales = [{ code: 'en', name: 'English' }, { code: 'es', name: 'Español' }] } = {}) {
-  saved = { language: 'en', time_zone: 'UTC', units: 'us' };
+  saved = { language: 'en', time_zone: 'UTC', units: 'us', larder_link: false, larder_url: 'http://127.0.0.1:4193' };
+  tested = 0;
   vi.stubGlobal('fetch', vi.fn(async (url, opts = {}) => {
     if (url === '/api/settings' && opts.method === 'PUT') { saved = { ...saved, ...JSON.parse(opts.body) }; return json(saved); }
     if (url === '/api/settings') return json(saved);
     if (url === '/api/locales') return json(locales);
     if (url.startsWith('/api/locales/')) return json({});
+    if (url === '/api/settings/larder-test') { tested += 1; return json(tested === 1 ? { ok: true } : { ok: false, error: 'Hearth & Larder is not answering' }); }
     if (url === '/api/data-folder/open') return json({ error: 'Could not open the folder.' }, 500);
     if (url === '/api/health') return json({ ok: true, demo: false });
     if (url === '/api/data-folder') return json({ path: 'C:\\Data' });
@@ -96,5 +99,22 @@ describe('Settings', () => {
     await vi.waitFor(() => expect(saved.units).toBe('metric'));
     const put = fetch.mock.calls.find(([, o]) => o?.method === 'PUT');
     expect(JSON.parse(put[1].body)).toEqual({ units: 'metric' });
+  });
+  it('the settings block saves the switch and address and shows the test result', async () => {
+    stub();
+    window.history.pushState({}, '', '/settings');
+    render(<App />);
+    const box = await screen.findByRole('checkbox', { name: 'Send the larder part of each harvest to Hearth & Larder' });
+    expect(box).not.toBeChecked();
+    await userEvent.click(box);
+    const address = screen.getByLabelText('Hearth & Larder address');
+    await userEvent.clear(address);
+    await userEvent.type(address, 'http://localhost:4300');
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await vi.waitFor(() => expect(saved).toMatchObject({ larder_link: true, larder_url: 'http://localhost:4300' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Test the link' }));
+    expect(await screen.findByText('Hearth & Larder answered.')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Test the link' }));
+    expect(await screen.findByText('Hearth & Larder is not answering')).toBeInTheDocument();
   });
 });

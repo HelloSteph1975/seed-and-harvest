@@ -6,7 +6,7 @@ import { starterText } from '../../lib/starter.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
 const MIN = 2;
-const GROUPS = ['plants', 'guides', 'plantings', 'trays', 'log', 'animals', 'places', 'spaces'];
+const GROUPS = ['plants', 'guides', 'plantings', 'trays', 'harvests', 'goals', 'log', 'animals', 'places', 'spaces'];
 
 export function Search() {
   const { t, tc } = useT();
@@ -29,6 +29,9 @@ export function Search() {
     trays: x => [`/microgreens/trays/${x.id}`, tc(x.plant_is_starter ? x.plant_starter_key : null, 'name', x.plant_name),
       `${x.space_name} · ${t(`trays.status.${x.status}`)} · ${x.sown_on}`],
     animals: a => ['/microgreens/animals', a.name, t(`animals.kind.${a.kind}`)],
+    harvests: x => [x.planting_id ? `/plantings/${x.planting_id}` : `/microgreens/trays/${x.tray_id}`,
+      tc(x.plant_is_starter ? x.plant_starter_key : null, 'name', x.plant_name), [x.harvested_on, x.sold_to, x.given_to].filter(Boolean).join(' · ')],
+    goals: x => [`/plan?year=${x.year}`, tc(x.plant_is_starter ? x.plant_starter_key : null, 'name', x.plant_name), t('search.goalFor', { year: x.year })],
     log: x => [`/plantings/${x.planting_id}`, x.note, `${t(`log.kind.${x.kind}`)} · ${tc(x.plant_is_starter ? x.plant_starter_key : null, 'name', x.plant_name)} · ${x.on_date}`],
   };
   const groups = result.data?.groups;

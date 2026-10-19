@@ -1,18 +1,40 @@
-import { useCallback } from 'react';
-import { Field, Select } from '../../components/Field.jsx';
+import { useCallback, useState } from 'react';
+import { Checkbox, Field, Select, TextInput } from '../../components/Field.jsx';
 import { Button } from '../../components/Button.jsx';
 import { LoadState } from '../../components/LoadState.jsx';
 import { useSettings } from '../../components/SettingsProvider.jsx';
 import { useToast } from '../../components/ToastProvider.jsx';
 import { useResource } from '../../lib/useResource.js';
 import { useRecordForm } from '../../lib/useRecordForm.js';
+import { api } from '../../lib/api.js';
+import { errorText } from '../../lib/errors.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
 const ZONES = [...new Set([...Intl.supportedValuesOf('timeZone'), 'UTC'])];
 
 // Always include the current value, so the select shows what is really saved.
 const withCurrent = (options, current) => (options.some(o => o.value === current) || !current ? options : [...options, { value: current, label: current }]);
-const KEYS = ['language', 'time_zone', 'units'];
+const KEYS = ['language', 'time_zone', 'units', 'larder_link', 'larder_url'];
+
+// Asks Hearth & Larder whether it is there, using the saved address.
+function LarderTest() {
+  const { t } = useT();
+  const [result, setResult] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const test = async () => {
+    setBusy(true);
+    try {
+      const out = await api.post('/api/settings/larder-test');
+      setResult(out.ok ? t('settings.larder.answered') : t(`settings.larder.${out.code ?? 'not_answering'}`, { status: out.status ?? '' }));
+    } catch (err) { setResult(errorText(err, t)); } finally { setBusy(false); }
+  };
+  return (
+    <p className="button-row">
+      <Button type="button" variant="ghost" disabled={busy} onClick={test}>{t('settings.larder.test')}</Button>
+      {result && <span role="status">{result}</span>}
+    </p>
+  );
+}
 
 function GeneralForm({ settings, save, languages }) {
   const { t } = useT();
@@ -48,9 +70,17 @@ function GeneralForm({ settings, save, languages }) {
             </label>
           ))}
         </fieldset>
+        <fieldset>
+          <legend>{t('settings.larder')}</legend>
+          <Checkbox label={t('settings.larder.link')} checked={f.values.larder_link} onChange={e => f.set('larder_link', e.target.checked)} />
+          <Field label={t('settings.larder.url')} error={f.errors.larder_url} hint={t('settings.larder.hint')}>
+            <TextInput value={f.values.larder_url} onChange={e => f.set('larder_url', e.target.value)} />
+          </Field>
+        </fieldset>
       </fieldset>
       {f.formError && <p className="form-error" role="alert">{f.formError}</p>}
       <Button type="submit" disabled={f.saving || !f.dirty}>{f.saving ? t('common.saving') : t('common.save')}</Button>
+      <LarderTest />
     </form>
   );
 }

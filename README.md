@@ -4,7 +4,7 @@ A garden, greenhouse and food forest keeper that runs on your own computer. It's
 
 Everything is kept in one file on your computer. There are no accounts.
 
-> Stages 1 to 5 are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, the plant library with 89 starter plants and their guides, plantings with their tasks, Today, the calendar and a supplies list, microgreen trays with your animals, and the food forest with containers and a care calendar. Harvests and winter planning come next.
+> All six stages are done: saving, backups, the Trash, settings, places with their climate, growing spaces with photos, the plant library with 89 starter plants and their guides, plantings with their tasks, Today, the calendar and a supplies list, microgreen trays with your animals, the food forest with containers and a care calendar, harvests with a year summary, an optional link to Hearth & Larder, and winter planning.
 
 ## Places
 
@@ -49,6 +49,22 @@ Mark a planting as being in a container and it can move: to another space, or to
 Each perennial gets a care calendar as a rule of thumb: pruning in late winter, feeding in spring (twice for pots), mulching, a pot check, and moving to shelter before the first fall frost when it needs it. Places without frost use their coolest and rainy months instead. The app adds the coming year of care each morning, and never brings back a task you deleted.
 
 To choose what to buy, open What to buy from the Food Forest: the library opens with fruit trees, shrubs and vines that fit the place's winters, sorted fastest to produce first.
+
+## Harvests
+
+Record a harvest from a planting's page, or from a microgreen tray. Weigh it, count it or count bunches, then split it: how much went to the larder, to your animals, to friends or to a buyer (with the price). Whatever is left is kept fresh. Harvests lists them all by place and year, and its Year summary adds them up by crop and by place, with what each crop went to and what sales brought in.
+
+## Hearth & Larder
+
+If you also use Hearth & Larder on the same computer, Seed & Harvest can send it the larder part of each harvest. The link is off until you turn it on in Settings, under Hearth & Larder: tick the box, leave the address as it is unless you moved Hearth & Larder to another port, save, and press Test the link.
+
+Each harvest then shows Sent, Sending or Not sent. A harvest always saves here, even when Hearth & Larder is closed; press Send again later, or let the app try again the next time it starts. Editing a harvest updates the copy in Hearth & Larder, and deleting it (or setting its larder part to zero) removes that copy. Turning the link off stops sending and leaves what was already sent where it is.
+
+## Winter planning
+
+Plan lists your pantry goals for a year, next year to start with: a fresh amount (say 10 kg of beans) or jars of one of the plant's preserving forms (say 24 quarts of sauce). Each goal shows about how many plants or how much row to grow, worked out from last year's harvests when you recorded them, or from the library's yield. These are rough guides, since weather, soil and pests change every year. Plan plantings opens a new planting filled in for that year.
+
+The To buy tab gathers the seeds, plants and supplies that the year's planned plantings need at a place, ready to print.
 
 ## Install
 

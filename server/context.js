@@ -4,6 +4,7 @@ import { readEpoch } from './services/epoch.js';
 import { untrashLivePhotos } from './services/photos.js';
 import { sendToRecycleBin } from './lib/recycle.js';
 import { topUpAllCare } from './services/care.js';
+import { createLarder, retryPending } from './services/larder.js';
 
 // Opening (and reopening after a restore) always tops up starter content.
 function open(dataDir, contentDir) {
@@ -28,6 +29,9 @@ export function createContext(config) {
       return ctx.db;
     },
   };
+  ctx.larder = createLarder(ctx);
   untrashLivePhotos(ctx.db, config.dataDir);
+  // Harvests that were waiting for Hearth & Larder when the app last stopped get another try.
+  setImmediate(() => { try { retryPending(ctx); } catch (err) { console.error('Could not retry sends to Hearth & Larder:', err.message); } });
   return ctx;
 }

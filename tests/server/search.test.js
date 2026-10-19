@@ -100,4 +100,19 @@ describe('search', () => {
     const p = (await t.http().post('/api/plantings').send({ space_id: pot.id, plant_id: fig.id, how_started: 'mature', start_on: '2027-03-01', bought_from: 'Valley Nursery' })).body;
     expect((await search('valley nursery')).body.groups.plantings.items.map(x => x.id)).toEqual([p.id]);
   });
+
+  it('search finds a harvest by buyer', async () => {
+    const place = (await t.http().post('/api/places').send({ name: 'Springfield' })).body;
+    const bed = (await t.http().post('/api/spaces').send({ place_id: place.id, name: 'Bed', kind: 'bed' })).body;
+    const pea = (await t.http().post('/api/plants').send({ name: 'Snap pea', kind: 'vegetable', yield_kg: 1, yield_per: 'meter' })).body;
+    const p = (await t.http().post('/api/plantings').send({ space_id: bed.id, plant_id: pea.id, how_started: 'seed_outdoors', start_on: '2027-03-01' })).body;
+    const h = (await t.http().post('/api/harvests').send({ planting_id: p.id, harvested_on: '2027-05-01', quantity: 3, unit: 'kg', sold_qty: 1, sold_price: 5, sold_to: 'Corner Market' })).body;
+    await t.http().post('/api/harvests').send({ planting_id: p.id, harvested_on: '2027-05-02', quantity: 1, unit: 'kg', given_qty: 1, given_to: 'Neighbors', notes: 'Sweet' });
+    const g = (await t.http().post('/api/goals').send({ year: 2028, plant_id: pea.id, goal_kind: 'raw', amount: 5, unit: 'kg', notes: 'For the freezer' })).body;
+    const found = (await search('corner market')).body.groups.harvests;
+    expect(found.items).toEqual([expect.objectContaining({ id: h.id, plant_name: 'Snap pea', planting_id: p.id, harvested_on: '2027-05-01' })]);
+    expect((await search('neighbors')).body.groups.harvests.total).toBe(1);
+    expect((await search('snap pea')).body.groups.goals.items).toEqual([expect.objectContaining({ id: g.id, year: 2028, plant_name: 'Snap pea' })]);
+    expect((await search('freezer')).body.groups.goals.total).toBe(1);
+  });
 });
