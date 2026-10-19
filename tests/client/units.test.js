@@ -72,4 +72,12 @@ describe('units', () => {
     expect(keepOrConvert('spacing', '18', '18', 46, 'us')).toBe(46);
     expect(keepOrConvert('seed', '0.1', '0.1', 3, 'us')).toBe(3);
   });
+
+  it('an elevation can be below sea level', () => {
+    expect(toMetric('elevation', '-50', 'us')).toBeCloseTo(-15.24, 6);
+    expect(toMetric('elevation', '-20', 'metric')).toBe(-20);
+    expect(toDisplay('elevation', -15.24, 'us')).toBe('-50');
+    expect(unitLabel('elevation', 'us')).toBe('ft');
+    expect(() => toMetric('length', '-50', 'us')).toThrow();
+  });
 });

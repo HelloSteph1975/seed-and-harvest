@@ -10,6 +10,7 @@ const G_PER_OZ = 28.349523125;
 
 const TO_DISPLAY = {
   length: { us: m => m / M_PER_FT, metric: m => m },
+  elevation: { us: m => m / M_PER_FT, metric: m => m },
   spacing: { us: cm => cm / CM_PER_IN, metric: cm => cm },
   weight: { us: kg => kg / KG_PER_LB, metric: kg => kg },
   seed: { us: g => g / G_PER_OZ, metric: g => g },
@@ -18,13 +19,14 @@ const TO_DISPLAY = {
 };
 const TO_METRIC = {
   length: { us: ft => ft * M_PER_FT, metric: m => m },
+  elevation: { us: ft => ft * M_PER_FT, metric: m => m },
   spacing: { us: inches => inches * CM_PER_IN, metric: cm => cm },
   weight: { us: lb => lb * KG_PER_LB, metric: kg => kg },
   seed: { us: oz => oz * G_PER_OZ, metric: g => g },
   volume: { us: gal => gal * L_PER_GAL, metric: l => l },
   temp: { us: f => (f - 32) * 5 / 9, metric: c => c },
 };
-const LABELS = { length: { us: 'ft', metric: 'm' }, volume: { us: 'gal', metric: 'L' }, temp: { us: '°F', metric: '°C' },
+const LABELS = { length: { us: 'ft', metric: 'm' }, elevation: { us: 'ft', metric: 'm' }, volume: { us: 'gal', metric: 'L' }, temp: { us: '°F', metric: '°C' },
   spacing: { us: 'in', metric: 'cm' }, weight: { us: 'lb', metric: 'kg' }, seed: { us: 'oz', metric: 'g' } };
 
 export class UnitError extends Error {}
@@ -41,12 +43,13 @@ export function toDisplay(kind, metric, units) {
   return String(Object.is(v, -0) ? 0 : v);
 }
 
-// Blank means no value. A comma works as a decimal point. Sizes can't be negative (temperatures can).
+// Blank means no value. A comma works as a decimal point. Sizes can't be negative (temperatures and
+// elevations below sea level can).
 export function toMetric(kind, text, units) {
   const s = String(text ?? '').trim().replace(',', '.');
   if (!s) return null;
   const n = Number(s);
-  if (!Number.isFinite(n) || (kind !== 'temp' && n < 0)) throw new UnitError('Not a number');
+  if (!Number.isFinite(n) || (kind !== 'temp' && kind !== 'elevation' && n < 0)) throw new UnitError('Not a number');
   return TO_METRIC[kind][sys(units)](n);
 }
 

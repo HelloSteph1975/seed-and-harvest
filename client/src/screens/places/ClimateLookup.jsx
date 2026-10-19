@@ -8,7 +8,7 @@ import { toDisplay, toMetric, unitLabel } from '../../lib/units.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
 // An elevation in whole feet or meters, as typed and shown.
-const shownElevation = (m, units) => (typeof m === 'number' ? String(Math.round(Number(toDisplay('length', m, units)))) : '');
+const shownElevation = (m, units) => (typeof m === 'number' ? String(Math.round(Number(toDisplay('elevation', m, units)))) : '');
 
 // Type a town, press Look up, pick one result: `onPick` gets the place's location and climate
 // estimate to fill into the form. The estimate says which elevation it was worked out for; land
@@ -51,7 +51,7 @@ export function ClimateLookup({ onPick, disabled }) {
     });
   };
   let typedM = null;
-  try { typedM = toMetric('length', elevation, units); } catch { typedM = null; }
+  try { typedM = toMetric('elevation', elevation, units); } catch { typedM = null; }
   const again = () => { if (typedM !== null) pick(picked.result, Math.round(typedM * 10) / 10); };
 
   return (
@@ -66,9 +66,9 @@ export function ClimateLookup({ onPick, disabled }) {
       </div>
       {picked && !state.results && typeof picked.used === 'number' && (
         <div className="lookup-elevation">
-          <p className="field-hint">{t('places.lookup.elevationUsed', { n: shownElevation(picked.used, units), unit: unitLabel('length', units) })}</p>
+          <p className="field-hint">{t('places.lookup.elevationUsed', { n: shownElevation(picked.used, units), unit: unitLabel('elevation', units) })}</p>
           <div className="lookup-row">
-            <label htmlFor={elevationId}>{t('places.lookup.elevation', { unit: unitLabel('length', units) })}</label>
+            <label htmlFor={elevationId}>{t('places.lookup.elevation', { unit: unitLabel('elevation', units) })}</label>
             <input id={elevationId} className="input" inputMode="decimal" value={elevation} onChange={e => setElevation(e.target.value)} disabled={disabled} maxLength={6}
               onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); again(); } }} />
             <Button variant="ghost" onClick={again} disabled={disabled || state.busy || typedM === null}>{t('places.lookup.again')}</Button>
