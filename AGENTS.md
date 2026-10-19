@@ -11,6 +11,7 @@ Seed & Harvest is a garden, greenhouse and food forest keeper. It runs on the us
 5. Don't edit or delete `config.json` without telling the user. Setup creates it, and Git ignores it.
 6. Never disable antivirus or Windows security features.
 7. The app goes online for one thing only: when the user presses Look up while adding a place, the server asks Open-Meteo (free, no key) for the town's location and 30 years of daily lows. Nothing else leaves the computer.
+8. The Hearth & Larder link is optional and off by default. Only turn it on (Settings, Hearth & Larder) when the user asks. It talks only to an address on this computer, and a failed send never blocks a save here.
 
 ## Install on Windows
 

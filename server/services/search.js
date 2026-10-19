@@ -24,7 +24,8 @@ const matcher = (needle, pack) => (row, fields, extra = []) => {
   return texts.some(v => v && fold(v).includes(needle));
 };
 
-// One search over plants, guides, places, spaces, plantings, log entries, trays and animals, ignoring case and accents.
+// One search over plants, guides, places, spaces, plantings, log entries, trays, animals, harvests and pantry goals,
+// ignoring case and accents.
 export function searchAll(db, dataDir, q) {
   const text = typeof q === 'string' ? q.trim() : '';
   if (text.length < MIN_QUERY || text.length > MAX_QUERY) {
@@ -73,6 +74,13 @@ export function searchAll(db, dataDir, q) {
     WHERE tr.deleted_at IS NULL ORDER BY tr.sown_on DESC, tr.id DESC`).filter(r => hit(r, ['name'], [r.notes]));
   const animals = live('SELECT id, name, kind, notes FROM animals WHERE deleted_at IS NULL ORDER BY sort_order, name COLLATE NOCASE, id')
     .filter(a => hit(a, ['name', 'notes']));
+  const harvests = live(`SELECT h.id, h.harvested_on, h.planting_id, h.tray_id, h.given_to, h.sold_to, h.notes,
+      COALESCE(pp.name, tp.name) AS name, COALESCE(pp.starter_key, tp.starter_key) AS starter_key, COALESCE(pp.is_starter, tp.is_starter) AS is_starter
+    FROM harvests h LEFT JOIN plantings pl ON pl.id = h.planting_id LEFT JOIN plants pp ON pp.id = pl.plant_id
+    LEFT JOIN trays tr ON tr.id = h.tray_id LEFT JOIN plants tp ON tp.id = tr.plant_id
+    WHERE h.deleted_at IS NULL ORDER BY h.harvested_on DESC, h.id DESC`).filter(r => [r.given_to, r.sold_to, r.notes].some(v => v && fold(v).includes(needle)));
+  const goals = live(`SELECT g.id, g.year, g.notes, p.name, p.starter_key, p.is_starter FROM pantry_goals g JOIN plants p ON p.id = g.plant_id
+    WHERE g.deleted_at IS NULL ORDER BY g.year DESC, g.sort_order, g.id`).filter(r => hit(r, ['name'], [r.notes]));
 
   return {
     q: text,
@@ -87,6 +95,9 @@ export function searchAll(db, dataDir, q) {
       trays: group(trays, ({ id, status, sown_on, name, starter_key, is_starter, space_name }) => (
         { id, status, sown_on, plant_name: name, plant_starter_key: starter_key, plant_is_starter: is_starter, space_name })),
       animals: group(animals, ({ id, name, kind }) => ({ id, name, kind })),
+      harvests: group(harvests, ({ id, harvested_on, planting_id, tray_id, given_to, sold_to, name, starter_key, is_starter }) => (
+        { id, harvested_on, planting_id, tray_id, given_to, sold_to, plant_name: name, plant_starter_key: starter_key, plant_is_starter: is_starter })),
+      goals: group(goals, ({ id, year, name, starter_key, is_starter }) => ({ id, year, plant_name: name, plant_starter_key: starter_key, plant_is_starter: is_starter })),
       log: group(log, ({ id, note, kind, on_date, planting_id, name, starter_key, is_starter }) => (
         { id, note, kind, on_date, planting_id, plant_name: name, plant_starter_key: starter_key, plant_is_starter: is_starter })),
     },

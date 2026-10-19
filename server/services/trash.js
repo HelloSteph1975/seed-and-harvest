@@ -12,6 +12,8 @@ import { restoreLogEntry, purgeLogEntry } from './plantingLog.js';
 import { restoreTask, purgeTask } from './tasks.js';
 import { restoreAnimal, purgeAnimal } from './animals.js';
 import { restoreTray, purgeTray } from './trays.js';
+import { restoreHarvest, purgeHarvest } from './harvests.js';
+import { restoreGoal, purgeGoal } from './goals.js';
 
 function recordRemoved(db, row) {
   if (row.starter_key) db.prepare('INSERT OR IGNORE INTO starter_removed (starter_key) VALUES (?)').run(row.starter_key);
@@ -30,6 +32,12 @@ function purgeRow(db, repo, row) {
 export const TRASH_TYPES = {
   photo: { repo: db => repos(db).photos, title: row => row.caption || row.filename, restore: restorePhoto, purge: purgePhoto,
     parentOf: row => `${row.owner_type}:${row.owner_id}` },
+  harvest: { repo: db => repos(db).harvests, title: (row, db) => plantOf(db, harvestPlant(db, row)).name,
+    meta: (row, db) => { const p = plantOf(db, harvestPlant(db, row)); return { starter_key: p.is_starter ? p.starter_key : null, harvested_on: row.harvested_on }; },
+    restore: restoreHarvest, purge: purgeHarvest, parentOf: row => (row.planting_id ? `planting:${row.planting_id}` : `tray:${row.tray_id}`) },
+  goal: { repo: db => repos(db).goals, title: (row, db) => plantOf(db, row.plant_id).name,
+    meta: (row, db) => { const p = plantOf(db, row.plant_id); return { starter_key: p.is_starter ? p.starter_key : null, year: row.year }; },
+    restore: restoreGoal, purge: purgeGoal, parentOf: row => `plant:${row.plant_id}` },
   log: { repo: db => repos(db).log, title: row => row.note || null, meta: row => ({ log_kind: row.kind }), restore: restoreLogEntry, purge: purgeLogEntry,
     parentOf: row => `planting:${row.planting_id}` },
   task: { repo: db => repos(db).tasks, title: row => row.title || null, meta: row => ({ task_kind: row.kind }), restore: restoreTask, purge: purgeTask,
@@ -49,6 +57,7 @@ export const TRASH_TYPES = {
   animal: { repo: db => repos(db).animals, title: row => row.name, restore: restoreAnimal, purge: purgeAnimal },
 };
 
+const harvestPlant = (db, row) => db.prepare(row.planting_id ? 'SELECT plant_id FROM plantings WHERE id = ?' : 'SELECT plant_id FROM trays WHERE id = ?').get(row.planting_id ?? row.tray_id).plant_id;
 const plantOf = (db, id) => db.prepare('SELECT name, starter_key, is_starter FROM plants WHERE id = ?').get(id);
 
 function typeOf(type) {

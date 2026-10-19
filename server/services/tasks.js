@@ -151,14 +151,17 @@ export function listTasks(db, { place_id, from, to, open = false }) {
 
 // What the unfinished tasks in the range need, one row per supply name (matched without case or
 // accents), each listing the tasks that need it.
-export function listSupplies(db, { place_id, from, to }) {
+// `plantingIds` narrows it to those plantings (the To buy list's planned ones).
+export function listSupplies(db, { place_id, from, to, plantingIds }) {
   range(from, to);
+  if (plantingIds && plantingIds.length === 0) return [];
+  const only = plantingIds ? `AND pl.id IN (${plantingIds.map(Number).join(',')})` : '';
   const rows = db.prepare(`SELECT t.id AS task_id, t.kind AS task_kind, t.title AS task_title, t.due_on, p.name AS plant_name, p.starter_key AS plant_key,
       p.is_starter AS plant_starter, gs.name, gs.amount, gs.position, g.starter_key AS guide_key, g.is_starter AS guide_starter
     FROM tasks t JOIN plantings pl ON pl.id = t.planting_id AND pl.deleted_at IS NULL JOIN plants p ON p.id = pl.plant_id
     JOIN spaces s ON s.id = pl.space_id AND s.deleted_at IS NULL
     JOIN guides g ON g.id = t.guide_id AND g.deleted_at IS NULL JOIN guide_supplies gs ON gs.guide_id = g.id
-    WHERE t.deleted_at IS NULL AND t.done_on IS NULL AND pl.status != 'done' AND s.place_id = ? AND t.due_on <= ? AND COALESCE(t.end_on, t.due_on) >= ?
+    WHERE t.deleted_at IS NULL AND t.done_on IS NULL AND pl.status != 'done' AND s.place_id = ? AND t.due_on <= ? AND COALESCE(t.end_on, t.due_on) >= ? ${only}
     ORDER BY t.due_on, t.id, gs.position`).all(place_id, to, from);
   const groups = new Map();
   for (const r of rows) {

@@ -14,15 +14,17 @@ import { byStatus } from '../../lib/places.js';
 import { starterText } from '../../lib/starter.js';
 import { zoneFit } from '../../lib/windows.js';
 import { addYears, yearsText, allowedStarts, dayText, startFrom, STATUSES, suggestStart } from '../../lib/tasks.js';
+import { keepOrConvert, toDisplay, unitLabel, UnitError } from '../../lib/units.js';
 import { useT } from '../../i18n/I18nProvider.jsx';
 
-const pickWith = defaults => p => ({
+const pickWith = (defaults, units) => p => ({
   place_id: String(p?.space?.place_id ?? defaults.place ?? ''),
   space_id: String(p?.space_id ?? defaults.space ?? ''),
   plant_id: String(p?.plant_id ?? defaults.plant ?? ''),
   variety_id: p?.variety?.id ? String(p.variety.id) : '',
   how_started: p?.how_started ?? '',
-  count: p?.count == null ? '' : String(p.count),
+  count: p ? (p.count == null ? '' : String(p.count)) : defaults.count ?? '',
+  row_m: toDisplay('length', p ? p.row_m : defaults.row, units),
   start_on: p?.start_on ?? '',
   status: p?.status ?? 'planned',
   notes: p?.notes ?? '',
@@ -33,6 +35,17 @@ const pickWith = defaults => p => ({
   size_when_bought: p?.size_when_bought ?? '',
   bears_on: p?.bears_on ?? '',
 });
+
+// What a link can fill in for a new planting. `row` is in meters; `year` plans for that year.
+function plantingDefaults(params) {
+  const whole = v => (/^\d{1,6}$/.test(v ?? '') ? v : null);
+  const row = Number(params.get('row'));
+  const year = params.get('year');
+  return {
+    plant: params.get('plant'), space: params.get('space'), place: params.get('place'), count: whole(params.get('count')),
+    row: row > 0 && row <= 10000 ? row : null, year: /^\d{4}$/.test(year ?? '') ? year : null,
+  };
+}
 
 export function PlantingFormRoute() {
   const { id } = useParams();
@@ -54,7 +67,7 @@ function PlantingFormLoader({ id }) {
       <LoadState loading={!ready} error={ready ? null : error}
         onRetry={() => { if (id) planting.reload(); places.reload(); plants.reload(); if (settingsError) reloadSettings(); }}>
         {ready && <PlantingForm record={id ? planting.data : null} places={byStatus(places.data)} plants={plants.data} settings={settings}
-          defaults={{ plant: params.get('plant'), space: params.get('space'), place: params.get('place') }} perennialOnly={params.get('perennial') === '1'} />}
+          defaults={plantingDefaults(params)} perennialOnly={params.get('perennial') === '1'} />}
       </LoadState>
       {!ready && error && <p><Link to="/plantings">{t('plantings.back')}</Link></p>}
     </>
@@ -85,20 +98,28 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
   const { t, tc, language } = useT();
   const navigate = useNavigate();
   const fallbackPlace = places.find(p => String(p.id) === defaults.place)?.id ?? places.find(p => p.status === 'current')?.id ?? places[0]?.id;
-  const [pick] = useState(() => pickWith({ ...defaults, place: fallbackPlace }));
+  const units = settings.units ?? 'us';
+  const [pick] = useState(() => pickWith({ ...defaults, place: fallbackPlace }, units));
   const [initial] = useState(() => pick(record));
   const [target, setTarget] = useState(record ? { id: record.id, version: record.version } : null);
+  // The row length as shown and as stored, kept together so an untouched field saves back exactly.
+  const [rowStart, setRowStart] = useState(() => ({ text: initial.row_m, metric: record ? record.row_m : defaults.row ?? null }));
 
   const submit = useCallback(async (v, { version: forced }) => {
     const n = v.count.trim();
     if (n && !/^\d+$/.test(n)) throw new ApiError('Please fix the highlighted fields.', 400, { count: '' }, null, { detailCodes: { count: { code: 'not_whole' } } });
+    let row;
+    try { row = keepOrConvert('length', v.row_m, rowStart.text, rowStart.metric, units); } catch (err) {
+      if (!(err instanceof UnitError)) throw err;
+      throw new ApiError('Please fix the highlighted fields.', 400, { row_m: '' }, null, { detailCodes: { row_m: { code: 'not_number' } } });
+    }
     const price = v.price.trim().replace(',', '.');
     if (price && !(Number.isFinite(Number(price)) && Number(price) >= 0)) {
       throw new ApiError('Please fix the highlighted fields.', 400, { price: '' }, null, { detailCodes: { price: { code: 'not_number' } } });
     }
     const body = {
       space_id: Number(v.space_id), plant_id: Number(v.plant_id), variety_id: v.variety_id ? Number(v.variety_id) : null,
-      how_started: v.how_started, count: n ? Number(n) : null, start_on: v.start_on, status: v.status, notes: v.notes,
+      how_started: v.how_started, count: n ? Number(n) : null, row_m: row, start_on: v.start_on, status: v.status, notes: v.notes,
       in_container: v.in_container, bought_from: v.bought_from, bought_on: v.bought_on || null, price: price ? Number(price) : null,
       size_when_bought: v.size_when_bought, bears_on: v.bears_on || null,
     };
@@ -106,8 +127,9 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
       ? await api.patch(`/api/plantings/${target.id}`, { ...body, version: forced ?? target.version })
       : await api.post('/api/plantings', body);
     setTarget({ id: out.id, version: out.version });
+    setRowStart({ text: toDisplay('length', out.row_m, units), metric: out.row_m ?? null });
     return out;
-  }, [target]);
+  }, [target, rowStart, units]);
   const f = useRecordForm({ initial, submit });
   const v = f.values;
 
@@ -133,7 +155,9 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
     if (v.variety_id && !plant.varieties.some(x => String(x.id) === v.variety_id)) f.set('variety_id', '');
   }, [plant]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const suggestion = suggestStart(plant, place, v.how_started, today);
+  // Planning for a later year looks for start dates from its January 1.
+  const from = defaults.year && `${defaults.year}-01-01` > today ? `${defaults.year}-01-01` : today;
+  const suggestion = suggestStart(plant, place, v.how_started, from);
   const fit = plant && place ? zoneFit(plant, place) : 'unknown';
   const showPurchase = Boolean(plant?.perennial) || v.how_started === 'start' || v.how_started === 'mature';
   const estimate = () => {
@@ -148,7 +172,11 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
   const done = out => { if (out && !f.isDirtyNow()) navigate(`/plantings/${out.id}`); };
   const save = async e => done(await f.onSubmit(e));
   const keep = async () => done(await f.keepMine());
-  const takeTheirs = () => { setTarget(s => ({ ...s, version: f.conflict.version })); f.takeTheirs(pick); };
+  const takeTheirs = () => {
+    setTarget(s => ({ ...s, version: f.conflict.version }));
+    setRowStart({ text: toDisplay('length', f.conflict.row_m, units), metric: f.conflict.row_m ?? null });
+    f.takeTheirs(pick);
+  };
   const cancel = () => navigate(target ? `/plantings/${target.id}` : '/plantings');
   const canSave = spaceShown && Boolean(v.plant_id && v.how_started && v.start_on) && (!record || f.dirty);
   const plantName = p => starterText(tc, p, 'name', p.name);
@@ -182,13 +210,16 @@ function PlantingForm({ record, places, plants: allPlants, settings, defaults, p
           <Field label={t('plantings.count')} error={f.errors.count}>
             <TextInput inputMode="numeric" value={v.count} onChange={e => f.set('count', e.target.value)} maxLength={6} />
           </Field>
+          <Field label={t('plantings.row', { unit: unitLabel('length', units) })} error={f.errors.row_m}>
+            <TextInput inputMode="decimal" value={v.row_m} onChange={e => f.set('row_m', e.target.value)} maxLength={8} />
+          </Field>
           <Field label={t('plantings.startOn')} error={f.errors.start_on} hint={t(`plantings.startHint.${v.how_started || 'start'}`)}>
             <DateInput value={v.start_on} onChange={e => f.set('start_on', e.target.value)} />
           </Field>
           <div className="suggest" aria-live="polite">
             {suggestion.window && (
               <p>{t(`plants.window.${suggestion.window.kind}`)}: {t('plants.range', { from: day(suggestion.window.from), to: day(suggestion.window.to) })}{' '}
-                <Button size="sm" variant="ghost" onClick={() => f.set('start_on', startFrom(suggestion.window, today))}>{t('plantings.useDate')}</Button></p>
+                <Button size="sm" variant="ghost" onClick={() => f.set('start_on', startFrom(suggestion.window, from))}>{t('plantings.useDate')}</Button></p>
             )}
             {suggestion.anyDay && <p className="muted">{t('plants.microgreenAnyTime')}</p>}
             {suggestion.needs?.map(n => (

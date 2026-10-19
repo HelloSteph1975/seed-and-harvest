@@ -159,6 +159,27 @@ export const migrations = [
   -- Care seasons the owner deleted forever, so the morning top-up never makes them again.
   CREATE TABLE care_skipped (planting_id INTEGER NOT NULL, season_key TEXT NOT NULL, PRIMARY KEY (planting_id, season_key));
   `,
+  // 11: harvests (from a planting or a microgreen tray, with where the food went and its Hearth &
+  // Larder state) and pantry goals for winter planning. `larder_touched` is set before any send, since
+  // Hearth & Larder may keep a copy even when its reply is lost; a goal names its preserving form by name.
+  `
+  CREATE TABLE harvests (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    planting_id INTEGER REFERENCES plantings(id), tray_id INTEGER REFERENCES trays(id),
+    harvested_on TEXT NOT NULL, quantity REAL NOT NULL, unit TEXT NOT NULL CHECK (unit IN ('kg', 'count', 'bunch')),
+    larder_qty REAL NOT NULL DEFAULT 0, animals_qty REAL NOT NULL DEFAULT 0, animal_id INTEGER REFERENCES animals(id),
+    given_qty REAL NOT NULL DEFAULT 0, given_to TEXT, sold_qty REAL NOT NULL DEFAULT 0, sold_price REAL, sold_to TEXT, notes TEXT,
+    larder_state TEXT NOT NULL DEFAULT 'off' CHECK (larder_state IN ('off', 'pending', 'sent', 'failed', 'removed')),
+    larder_error TEXT, larder_sent_at TEXT, larder_touched INTEGER NOT NULL DEFAULT 0, ${TS},
+    CHECK ((planting_id IS NULL) != (tray_id IS NULL)));
+  CREATE INDEX idx_harvests_planting ON harvests(planting_id);
+  CREATE INDEX idx_harvests_tray ON harvests(tray_id);
+  CREATE INDEX idx_harvests_on ON harvests(harvested_on);
+  -- A harvest emptied from the Trash before Hearth & Larder heard it was deleted: its removal is still owed.
+  CREATE TABLE larder_outbox (harvest_id INTEGER PRIMARY KEY);
+  CREATE TABLE pantry_goals (id INTEGER PRIMARY KEY AUTOINCREMENT, year INTEGER NOT NULL, plant_id INTEGER NOT NULL REFERENCES plants(id),
+    goal_kind TEXT NOT NULL CHECK (goal_kind IN ('raw', 'preserve')), amount REAL NOT NULL, unit TEXT,
+    preserve_position INTEGER, preserve_form TEXT, notes TEXT, sort_order INTEGER NOT NULL DEFAULT 0, ${TS});
+  `,
 ];
 
 export function migrate(db) {

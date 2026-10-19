@@ -19,6 +19,8 @@ import { useT } from '../../i18n/I18nProvider.jsx';
 import { TaskDialog } from './TaskDialog.jsx';
 import { LogDialog } from './LogDialog.jsx';
 import { MoveDialog } from './MoveDialog.jsx';
+import { HarvestDialog } from '../harvests/HarvestDialog.jsx';
+import { HarvestLine, useSendAgain } from '../harvests/Harvests.jsx';
 
 export function PlantingPageRoute() {
   const { id } = useParams();
@@ -94,6 +96,12 @@ function PlantingPage({ id }) {
   const [task, setTask] = useState(null);
   const [entry, setEntry] = useState(null);
   const [moving, setMoving] = useState(false);
+  const [harvest, setHarvest] = useState(null);
+  const harvests = useResource(`/api/harvests?planting_id=${id}`);
+  const sendAgain = useSendAgain(harvests.reload);
+  const removeHarvest = async h => {
+    try { await harvests.act(() => api.del(`/api/harvests/${h.id}`)); toast.show({ message: t('harvests.deleted') }); } catch (err) { toast.show({ message: errorText(err, t) }); }
+  };
   const p = planting.data;
   const place = p ? places.data?.find(x => x.id === p.space.place_id) : null;
   const today = useToday(place?.time_zone || settings?.time_zone);
@@ -164,6 +172,14 @@ function PlantingPage({ id }) {
               </ul>
               <Button variant="ghost" icon={Plus} onClick={() => setTask({})}>{t('tasks.add')}</Button>
             </section>
+            <section aria-labelledby="harvests-title">
+              <h2 id="harvests-title">{t('nav.harvests')}</h2>
+              {harvests.data?.length === 0 && <p className="muted">{t('harvests.noneHere')}</p>}
+              <ul className="list">
+                {harvests.data?.map(h => <HarvestLine key={h.id} h={h} today={today} showCrop={false} onEdit={setHarvest} onDelete={removeHarvest} onSend={sendAgain} />)}
+              </ul>
+              <Button variant="ghost" icon={Plus} onClick={() => setHarvest({})}>{t('harvests.add')}</Button>
+            </section>
             <section aria-labelledby="log-title">
               <h2 id="log-title">{t('log.title')}</h2>
               {p.log.length === 0 && <p className="muted">{t('log.none')}</p>}
@@ -185,6 +201,8 @@ function PlantingPage({ id }) {
             {moving && <MoveDialog planting={p} today={today} onClose={() => { setMoving(false); planting.reload(); }}
               onMove={body => planting.save({ version: p.version, ...body }, { method: 'post', to: `/api/plantings/${p.id}/move` })}
               onMoved={out => { setMoving(false); toast.show({ message: t('plantings.moved', { space: out.space.name }) }); }} />}
+            {harvest && <HarvestDialog source={{ planting_id: p.id }} record={harvest.id ? harvest : null} today={today}
+              onClose={() => setHarvest(null)} onSaved={() => { setHarvest(null); harvests.reload(); planting.reload(); }} />}
             {entry && <LogDialog plantingId={p.id} record={entry.id ? entry : null} today={today}
               onClose={() => setEntry(null)} onSaved={() => { setEntry(null); planting.reload(); }} />}
           </>

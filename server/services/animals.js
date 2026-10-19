@@ -55,9 +55,10 @@ export function restoreAnimal(ctx, id) {
   });
 }
 
-// Trays fed to this animal keep their dates and crop, without the link; its ratings go with it.
+// Trays fed to this animal and harvests it got keep their dates and amounts, without the link; its ratings go with it.
 export function purgeAnimal(ctx, row) {
   ctx.db.prepare('UPDATE trays SET animal_id = NULL WHERE animal_id = ?').run(row.id);
+  ctx.db.prepare('UPDATE harvests SET animal_id = NULL WHERE animal_id = ?').run(row.id);
   ctx.db.prepare('DELETE FROM plant_animal_safety WHERE animal_id = ?').run(row.id);
   repos(ctx.db).animals.purge(row.id);
 }

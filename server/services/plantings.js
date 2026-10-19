@@ -8,6 +8,7 @@ import { addErrors, collector, invalid } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
 import { describeTasks, linkGuides, planTasks } from './taskRules.js';
 import { placeToday, redoCare, topUpCare } from './care.js';
+import { purgeHarvestsOf, trashHarvestsOf, untrashHarvestsOf } from './harvests.js';
 
 export const HOW_STARTED = ['seed_indoors', 'seed_outdoors', 'start', 'mature'];
 export const STATUSES = ['planned', 'started', 'growing', 'harvesting', 'done'];
@@ -196,6 +197,7 @@ function trashPlanting(ctx, id, stamp) {
   for (const l of db.prepare('SELECT id FROM planting_log WHERE planting_id = ? AND deleted_at IS NULL').all(id)) cascadeDeletePhotos(ctx, 'log', l.id, stamp);
   db.prepare('UPDATE planting_log SET deleted_at = ?, version = version + 1 WHERE planting_id = ? AND deleted_at IS NULL').run(stamp, id);
   cascadeDeletePhotos(ctx, 'planting', id, stamp);
+  trashHarvestsOf(ctx, 'planting_id', id, stamp);
 }
 
 function untrashPlanting(ctx, id, stamp) {
@@ -205,6 +207,7 @@ function untrashPlanting(ctx, id, stamp) {
   db.prepare(`UPDATE planting_log SET deleted_at = NULL, version = version + 1, updated_at = ${NOW} WHERE planting_id = ? AND deleted_at = ?`).run(id, stamp);
   for (const l of logs) cascadeRestorePhotos(ctx, 'log', l.id, stamp);
   cascadeRestorePhotos(ctx, 'planting', id, stamp);
+  untrashHarvestsOf(ctx, 'planting_id', id, stamp);
 }
 
 export function deletePlanting(ctx, id) {
@@ -259,6 +262,7 @@ export function purgePlanting(ctx, row) {
   for (const l of db.prepare('SELECT id FROM planting_log WHERE planting_id = ?').all(row.id)) {
     purgeOwnerPhotos(ctx, 'log', l.id);
   }
+  purgeHarvestsOf(ctx, 'planting_id', row.id);
   db.prepare('DELETE FROM planting_log WHERE planting_id = ?').run(row.id);
   db.prepare('DELETE FROM tasks WHERE planting_id = ?').run(row.id);
   db.prepare('DELETE FROM care_skipped WHERE planting_id = ?').run(row.id);

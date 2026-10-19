@@ -9,6 +9,8 @@ import { addDays } from '../services/dates.js';
 import { createAnimal } from '../services/animals.js';
 import { createTray, sowAgain } from '../services/trays.js';
 import { updateSpace } from '../services/spaces.js';
+import { createHarvest } from '../services/harvests.js';
+import { createGoal } from '../services/goals.js';
 
 // Generic sample places for the demo folder only (never the owner's real places).
 const PLACES = [
@@ -34,7 +36,7 @@ export function seedDemo(ctx, { reset = false } = {}) {
   const db = ctx.db;
   transaction(db, () => {
     if (reset) {
-      db.exec(`DELETE FROM photos; DELETE FROM trays; DELETE FROM plant_animal_safety; DELETE FROM animals; DELETE FROM planting_log; DELETE FROM tasks; DELETE FROM plantings; DELETE FROM spaces; DELETE FROM places; DELETE FROM guide_steps; DELETE FROM guide_supplies;
+      db.exec(`DELETE FROM photos; DELETE FROM harvests; DELETE FROM pantry_goals; DELETE FROM trays; DELETE FROM plant_animal_safety; DELETE FROM animals; DELETE FROM planting_log; DELETE FROM tasks; DELETE FROM plantings; DELETE FROM spaces; DELETE FROM places; DELETE FROM guide_steps; DELETE FROM guide_supplies;
         DELETE FROM plant_varieties; DELETE FROM plant_preserves; UPDATE guides SET basics_id = NULL; DELETE FROM guides; DELETE FROM plants;
         DELETE FROM starter_removed; DELETE FROM settings;`);
     }
@@ -49,6 +51,7 @@ export function seedDemo(ctx, { reset = false } = {}) {
   transaction(db, () => seedLibrarySamples(db));
   transaction(db, () => seedPlantings(ctx));
   transaction(db, () => seedMicrogreens(db));
+  transaction(db, () => seedHarvests(ctx));
 }
 
 // Two generic animals, a pea shoot series for the goats with a tray ready today, a radish tray for
@@ -79,6 +82,31 @@ function seedMicrogreens(db) {
       notes_winter: 'Greens keep growing slowly. The fig comes in from the patio.',
     }, gh.version);
   }
+}
+
+// A few harvests (one partly sold, one with a larder part while the link is off, one from a tray) and
+// three pantry goals for next year.
+function seedHarvests(ctx) {
+  const { db } = ctx;
+  if (db.prepare('SELECT 1 FROM harvests').get() || db.prepare('SELECT 1 FROM pantry_goals').get()) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const plantingOf = key => db.prepare(`SELECT pl.id FROM plantings pl JOIN plants p ON p.id = pl.plant_id
+    WHERE p.starter_key = ? AND pl.deleted_at IS NULL ORDER BY pl.id LIMIT 1`).get(key);
+  const beans = plantingOf('plant.green-bean');
+  if (beans) {
+    createHarvest(ctx, { planting_id: beans.id, harvested_on: addDays(today, -2), quantity: 2.5, unit: 'kg', larder_qty: 1.5, given_qty: 0.5, given_to: 'The neighbors' });
+    createHarvest(ctx, { planting_id: beans.id, harvested_on: addDays(today, -1), quantity: 1.8, unit: 'kg', sold_qty: 1, sold_price: 8, sold_to: 'Saturday market' });
+  }
+  const tray = db.prepare(`SELECT tr.id FROM trays tr JOIN plants p ON p.id = tr.plant_id WHERE p.starter_key = 'plant.micro-radish' AND tr.deleted_at IS NULL`).get();
+  if (tray) createHarvest(ctx, { tray_id: tray.id, harvested_on: today, quantity: 0.2, unit: 'kg', notes: 'Spicy, good on eggs.' });
+  const plant = key => db.prepare('SELECT id FROM plants WHERE starter_key = ? AND deleted_at IS NULL').get(key);
+  const year = Number(today.slice(0, 4)) + 1;
+  const goals = [
+    ['plant.tomato', { goal_kind: 'preserve', amount: 24, preserve_position: 2, notes: 'A quart of sauce every two weeks.' }],
+    ['plant.green-bean', { goal_kind: 'raw', amount: 10, unit: 'kg' }],
+    ['plant.cucumber', { goal_kind: 'preserve', amount: 12, preserve_position: 1 }],
+  ];
+  for (const [key, goal] of goals) { const p = plant(key); if (p) createGoal(db, { year, plant_id: p.id, ...goal }); }
 }
 
 // A few plantings at the demo's current place, dated around the day the demo was made, so Today

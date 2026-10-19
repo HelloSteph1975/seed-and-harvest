@@ -8,6 +8,7 @@ import { addErrors, collector, invalid } from './fields.js';
 import { cascadeDeletePhotos, cascadeRestorePhotos, purgeOwnerPhotos } from './photos.js';
 import { safetyFor } from './animals.js';
 import { addDays } from './dates.js';
+import { purgeHarvestsOf, trashHarvestsOf, untrashHarvestsOf } from './harvests.js';
 
 export const TRAY_STATUSES = ['planned', 'growing', 'harvested', 'discarded'];
 export const TRAY_SCHEMA = {
@@ -180,6 +181,7 @@ export function deleteTray(ctx, id) {
     const stamp = new Date().toISOString();
     if (!tray || !repos(ctx.db).trays.remove(id, stamp)) throw notFound();
     cascadeDeletePhotos(ctx, 'tray', id, stamp);
+    trashHarvestsOf(ctx, 'tray_id', id, stamp);
     handBack(ctx.db, tray);
   });
 }
@@ -204,6 +206,7 @@ export function restoreTray(ctx, id) {
     if (!liveSpace(db, row.space_id) || !plantRow(db, row.plant_id)) throw new HttpError(409, 'Restore its rack and crop first.', undefined, { code: 'parent_in_trash' });
     repos(db).trays.restore(id);
     cascadeRestorePhotos(ctx, 'tray', id, row.deleted_at);
+    untrashHarvestsOf(ctx, 'tray_id', id, row.deleted_at);
     takeRepeat(db, row);
     settleRepeat(db, row.series_id);
     return getTray(db, id);
@@ -211,6 +214,7 @@ export function restoreTray(ctx, id) {
 }
 
 export function purgeTray(ctx, row) {
+  purgeHarvestsOf(ctx, 'tray_id', row.id);
   purgeOwnerPhotos(ctx, 'tray', row.id);
   repos(ctx.db).trays.purge(row.id);
 }
@@ -221,6 +225,7 @@ export function trashTraysIn(ctx, spaceIds, stamp) {
     for (const t of ctx.db.prepare('SELECT * FROM trays WHERE space_id = ? AND deleted_at IS NULL').all(spaceId)) {
       ctx.db.prepare('UPDATE trays SET deleted_at = ?, version = version + 1 WHERE id = ?').run(stamp, t.id);
       cascadeDeletePhotos(ctx, 'tray', t.id, stamp);
+      trashHarvestsOf(ctx, 'tray_id', t.id, stamp);
       handBack(ctx.db, t);
     }
   }
@@ -233,6 +238,7 @@ export function untrashTraysIn(ctx, spaceIds, stamp) {
       WHERE tr.space_id = ? AND tr.deleted_at = ?`).all(spaceId, stamp)) {
       ctx.db.prepare(`UPDATE trays SET deleted_at = NULL, version = version + 1, updated_at = ${NOW} WHERE id = ?`).run(t.id);
       cascadeRestorePhotos(ctx, 'tray', t.id, stamp);
+      untrashHarvestsOf(ctx, 'tray_id', t.id, stamp);
       takeRepeat(ctx.db, t);
       settleRepeat(ctx.db, t.series_id);
     }

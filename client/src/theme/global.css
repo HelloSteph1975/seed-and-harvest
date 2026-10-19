@@ -331,3 +331,11 @@ section + section { margin-top: 36px; }
 .ready { color: var(--accent-ink); font-weight: 600; }
 .button-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .cal-kind-tray .cal-dot { background: var(--soil); }
+
+/* Harvest summary */
+.table-scroll { overflow-x: auto; margin: 12px 0 20px; }
+table.summary { border-collapse: collapse; width: 100%; min-width: 36rem; }
+table.summary caption { text-align: left; font-family: var(--font-head); font-size: 1.2rem; color: var(--tomato); padding-bottom: 6px; }
+table.summary th, table.summary td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--page-edge); }
+table.summary tfoot th, table.summary tfoot td { font-weight: 600; border-top: 2px solid var(--rule); }
+.harvest-split { border: 1px solid var(--page-edge); border-radius: var(--radius); padding: 8px 12px; margin: 12px 0; }
