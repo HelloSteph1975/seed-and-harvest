@@ -118,6 +118,28 @@ describe('place form', () => {
     expect(rows[20]).toMatchObject({ name: 'Farm', zone: '8a', last_frost: '03-18', time_zone: 'America/New_York', latitude: 39.92, hemisphere: 'north' });
   });
 
+  it('the lookup says which elevation it used, and looking up again for higher land sends that elevation', async () => {
+    stub();
+    override = url => {
+      if (url.startsWith('/api/climate/search')) return json([{ ...OHIO, elevation_m: 299 }]);
+      if (url.includes('elevation_m=')) return json({ ...ESTIMATE, last_frost: '04-20', first_frost: '10-15', elevation_m: 609.6 });
+      if (url.startsWith('/api/climate/estimate')) return json({ ...ESTIMATE, elevation_m: 299 });
+      return null;
+    };
+    mount('/places/new');
+    await lookUp();
+    await userEvent.click(await screen.findByRole('button', { name: 'Springfield, Ohio, United States' }));
+    expect(await screen.findByText(/Estimated for 981 ft/)).toBeInTheDocument();
+    const elevation = screen.getByLabelText('Elevation of your land (ft)');
+    expect(elevation).toHaveValue('981');
+    await userEvent.clear(elevation);
+    await userEvent.type(elevation, '2000');
+    await userEvent.click(screen.getByRole('button', { name: 'Look up again' }));
+    expect(await screen.findByText(/Estimated for 2000 ft/)).toBeInTheDocument();
+    expect(screen.getByLabelText('Last spring frost')).toHaveValue('04-20');
+    expect(calls.some(c => c.url === '/api/climate/estimate?latitude=39.92&longitude=-83.81&elevation_m=609.6')).toBe(true);
+  });
+
   it('several results are listed with region and country', async () => {
     stub();
     mount('/places/new');

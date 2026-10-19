@@ -55,15 +55,15 @@ describe('climate routes', () => {
   it('search lists every match with region and country', async () => {
     t = makeTestContext({
       fetch: async () => json({ results: [
-        { name: 'Springfield', admin1: 'Ohio', country: 'United States', country_code: 'US', latitude: 39.92, longitude: -83.81, timezone: 'America/New_York' },
+        { name: 'Springfield', admin1: 'Ohio', country: 'United States', country_code: 'US', latitude: 39.92, longitude: -83.81, timezone: 'America/New_York', elevation: 299 },
         { name: 'Springfield', admin1: 'Illinois', country: 'United States', country_code: 'US', latitude: 39.80, longitude: -89.64, timezone: 'America/Chicago' },
       ] }),
     });
     const res = await t.http().get('/api/climate/search?q=Springfield');
     expect(res.status).toBe(200);
     expect(res.body).toEqual([
-      { label: 'Springfield, Ohio, United States', latitude: 39.92, longitude: -83.81, time_zone: 'America/New_York', country_code: 'US' },
-      { label: 'Springfield, Illinois, United States', latitude: 39.80, longitude: -89.64, time_zone: 'America/Chicago', country_code: 'US' },
+      { label: 'Springfield, Ohio, United States', latitude: 39.92, longitude: -83.81, time_zone: 'America/New_York', country_code: 'US', elevation_m: 299 },
+      { label: 'Springfield, Illinois, United States', latitude: 39.80, longitude: -89.64, time_zone: 'America/Chicago', country_code: 'US', elevation_m: null },
     ]);
   });
 
@@ -89,6 +89,21 @@ describe('climate routes', () => {
     expect(res.body).toMatchObject({ hemisphere: 'north', zone: '9b', last_frost: '03-20', first_frost: '11-10', frost_free: false, source: 'Open-Meteo' });
     expect(asked).toContain('archive-api.open-meteo.com');
     expect(asked).toContain('latitude=39.92');
+  });
+
+  it('estimate uses the elevation given for the land and says which one it used', async () => {
+    let asked;
+    t = makeTestContext({
+      fetch: async url => { asked = String(url); return json({ elevation: 2450, daily: daily(iso => md(iso) <= '05-20' || md(iso) >= '09-25') }); },
+    });
+    const res = await t.http().get('/api/climate/estimate?latitude=34.15&longitude=-107.85&elevation_m=2450');
+    expect(res.status).toBe(200);
+    expect(res.body).toMatchObject({ last_frost: '05-20', first_frost: '09-25', elevation_m: 2450 });
+    expect(asked).toContain('elevation=2450');
+    const plain = await t.http().get('/api/climate/estimate?latitude=34.15&longitude=-107.85');
+    expect(asked).not.toContain('elevation=');
+    expect(plain.body.elevation_m).toBe(2450);
+    expect((await t.http().get('/api/climate/estimate?latitude=34.15&longitude=-107.85&elevation_m=99999')).status).toBe(400);
   });
 
   it('a southern latitude gives the southern hemisphere', async () => {

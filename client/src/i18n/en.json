@@ -803,5 +803,8 @@
   "search.group.harvests": "Harvests",
   "search.group.goals": "Pantry goals",
   "search.goalFor": "Goal for {year}",
-  "plan.goal.preserveNamed": "{n} × {form}"
+  "plan.goal.preserveNamed": "{n} × {form}",
+  "places.lookup.elevationUsed": "Estimated for {n} {unit}. If your land sits higher or lower than the town, type its elevation and look up again: every 1,000 ft up is a few degrees colder.",
+  "places.lookup.elevation": "Elevation of your land ({unit})",
+  "places.lookup.again": "Look up again"
 }

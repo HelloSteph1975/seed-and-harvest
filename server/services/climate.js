@@ -104,16 +104,22 @@ export async function searchPlaces(ctx, q) {
     longitude: r.longitude,
     time_zone: r.timezone ?? null,
     country_code: r.country_code ?? null,
+    elevation_m: typeof r.elevation === 'number' ? r.elevation : null,
   }));
 }
 
-export async function estimateClimate(ctx, { latitude, longitude }) {
+// The weather service corrects its lows for elevation. Without `elevation_m` it uses the ground at the
+// point (a town's center); land up a mountain from that town can be much colder, so the owner can give
+// their land's own elevation. The reply says which elevation was used.
+export async function estimateClimate(ctx, { latitude, longitude, elevation_m }) {
   const params = new URLSearchParams({
     latitude: String(latitude), longitude: String(longitude), start_date: FROM, end_date: TO,
     daily: 'temperature_2m_min', timezone: 'auto',
   });
+  if (typeof elevation_m === 'number') params.set('elevation', String(elevation_m));
   const body = await getJson(ctx, `${ARCHIVE}?${params}`);
   if (!Array.isArray(body?.daily?.time)) throw failed();
   const hemisphere = latitude < 0 ? 'south' : 'north';
-  return { hemisphere, ...estimateFromDaily(body.daily, hemisphere), source: 'Open-Meteo' };
+  const used = typeof body.elevation === 'number' ? body.elevation : elevation_m ?? null;
+  return { hemisphere, ...estimateFromDaily(body.daily, hemisphere), elevation_m: used, source: 'Open-Meteo' };
 }
